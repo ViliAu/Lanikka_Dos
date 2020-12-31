@@ -50,7 +50,8 @@ public class PlayerInventory : MonoBehaviour {
                 break;
             }
         }
-        items[0].stackCount = 10;
+        if (items[0] != null && items[1] != null)
+            print(items[0].gameObject.GetInstanceID()+"jerejere"+items[1].gameObject.GetInstanceID());
     }
 
     public void RemoveItemByIndex(int index) {
