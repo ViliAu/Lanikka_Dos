@@ -15,7 +15,7 @@ public class PlayerEquipment : MonoBehaviour {
     private Vector3 initialPos = default;
     private PlayerInventory inv;
     private Pickupable equippedItem = null;
-    private int itemIndex = -1;
+    private int itemIndex = 0;
 
     private void Start() {
         initialPos = transform.localPosition;
@@ -48,18 +48,27 @@ public class PlayerEquipment : MonoBehaviour {
         }
     }
 
-    // TODO: SCROLL WHEEL
     private void ChangeEquipment(int num, int scroll) {
-        /*if (num == itemIndex && scroll == 0) {
-            return;
-        }*/
 
         // If we don't have that item
         if (EntityManager.Player.Player_Inventory.items[num] == null) {
             // Iterate slots so we'll equip the first applicable weapon
             if (scroll != 0) {
                 for (int i = 0; i < 10; i++) {
-                    //if ()
+                    if (EntityManager.Player.Player_Inventory.items[num] == null) {
+                        if (scroll == 1) {
+                            num ++;
+                            num = num == 10 ? 0 : num;
+                        }
+                        else {
+                            num --;
+                            num = num == -1 ? 9 : num;
+                        }
+                    }
+                    else {
+                        Equip(EntityManager.Player.Player_Inventory.items[num]);
+                        return;
+                    }
                 }
             }
             else {

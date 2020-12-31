@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     /* User data */
     public float speed = 15;
+    [SerializeField] private float sprintSpeed = 30f;
+    [SerializeField] private float crouchSpeed = 13f;
 
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private float airAcceleration = 1f;
@@ -12,7 +14,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float gravity = 5f;
     [SerializeField] private float maximumGravity = 120f;
     [SerializeField] private float jumpHeight = 15f;
-    [SerializeField] private float crouchSpeed = 0.5f;
 
     [Header("Ground mask")]
     [SerializeField] private LayerMask groundMask = default;
@@ -54,8 +55,22 @@ public class PlayerController : MonoBehaviour {
             AirAcceleration(dir);
             return;
         }
-        velocity.x = Mathf.Lerp(velocity.x, speed * dir.x, acceleration * Time.deltaTime);
-        velocity.z = Mathf.Lerp(velocity.z, speed * dir.z, acceleration * Time.deltaTime);
+        // Check the correct speed (crouch, sprint or normal)
+        // Crouching
+        if (EntityManager.Player.Player_Input.crouched) {
+            velocity.x = Mathf.Lerp(velocity.x, crouchSpeed * dir.x, acceleration * Time.deltaTime);
+            velocity.z = Mathf.Lerp(velocity.z, crouchSpeed * dir.z, acceleration * Time.deltaTime);
+        }
+        // Sprinting
+        else if (EntityManager.Player.Player_Input.sprinting) {
+            velocity.x = Mathf.Lerp(velocity.x, sprintSpeed * dir.x, acceleration * Time.deltaTime);
+            velocity.z = Mathf.Lerp(velocity.z, sprintSpeed * dir.z, acceleration * Time.deltaTime);
+        }
+        // Walking
+        else {
+            velocity.x = Mathf.Lerp(velocity.x, speed * dir.x, acceleration * Time.deltaTime);
+            velocity.z = Mathf.Lerp(velocity.z, speed * dir.z, acceleration * Time.deltaTime);
+        }
     }
 
     private void AirAcceleration(Vector3 dir) {
@@ -105,15 +120,12 @@ public class PlayerController : MonoBehaviour {
         if (EntityManager.Player.Player_Input.crouched) {
             controllerHeight = Mathf.Lerp(controller.height, 1, 5 * Time.deltaTime);
             controller.height = controllerHeight;
-
-            if (IsGrounded)
-                velocity = new Vector3(velocity.x * crouchSpeed, velocity.y, velocity.z * crouchSpeed);
         }
         else {
             controllerHeight = Mathf.Lerp(controller.height, 2, 5 * Time.deltaTime);
             controller.height = controllerHeight;
             
-            if (controllerHeight < 1.9f) {
+            if (controllerHeight < 1.95f) {
                 transform.position = new Vector3(transform.position.x, transform.position.y+1, transform.position.z);
             }
         }

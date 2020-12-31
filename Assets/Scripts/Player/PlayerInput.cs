@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour {
     [HideInInspector] public bool crouched = false;
     [HideInInspector] public bool dropped = false;
     [HideInInspector] public int pressedNum = -1;
+    [HideInInspector] public bool sprinting = false;
 
     public int scroll = 0;
 
@@ -35,9 +36,11 @@ public class PlayerInput : MonoBehaviour {
         altFired = Input.GetKeyDown(KeyCode.Mouse1);
         reloaded = Input.GetKeyDown(KeyCode.R);
         crouched = Input.GetKey(KeyCode.LeftControl);
+        sprinting = Input.GetKey(KeyCode.LeftShift);
         GetPressedNum();
 
-        scroll = (int)Input.GetAxis("Mouse ScrollWheel");
+        scroll = Mathf.Clamp((int)(Input.GetAxisRaw("Mouse ScrollWheel")*10), -1, 1);
+        print(scroll);
     }
 
     public void GetPressedNum() {
