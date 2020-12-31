@@ -6,8 +6,12 @@ public class Pickupable : Item {
 
     public int stackCount = 1;
 
-    public virtual void PlayerPickup() {
+    public virtual void DestroyItem() {
         Destroy(gameObject);
+    }
+
+    public virtual void EnableItem(bool b) {
+        gameObject.SetActive(b);
     }
 
 }
