@@ -14,7 +14,7 @@ public class PlayerInventory : MonoBehaviour {
     /// <summary>
     /// Adds picked up item to Player's inventory if there's space.
     /// </summary>
-    /// <param name="pick">Item to pick up</param>
+    /// <param name="pick">Picked up item</param>
     public void AddItem(Pickupable pick) {
         // Check if we already have that item => Iterate through items
         foreach (Pickupable p in items) {
@@ -22,7 +22,7 @@ public class PlayerInventory : MonoBehaviour {
                 continue;
             }
             if (p.entityName == pick.entityName) {
-                // The inv item's stack count is the same as the items' => continue loop
+                // The inv item's stack count is at max => continue loop
                 if (p.stackCount == maxStackSize) {
                     continue;
                 }
@@ -40,15 +40,17 @@ public class PlayerInventory : MonoBehaviour {
                 }
             }
         }
-        // We didn't have that item... Check if there's an empty slot for it.
+
+        // MIKÄ TÄSSÄ KUSEE
         for (int i = 0; i < items.Length; i++) {
             if (items[i] == null) {
                 items[i] = Database.Singleton.GetEntityPrefab(pick.entityName) as Pickupable;
                 items[i].stackCount = pick.stackCount;
                 pick.PlayerPickup();
-                return;
+                break;
             }
         }
+        items[0].stackCount = 10;
     }
 
     public void RemoveItemByIndex(int index) {

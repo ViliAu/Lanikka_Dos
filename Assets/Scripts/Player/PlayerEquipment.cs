@@ -82,7 +82,7 @@ public class PlayerEquipment : MonoBehaviour {
             return;
         }
         RemoveEquippedItem();
-        Pickupable clone = Instantiate(Database.Singleton.GetEntityPrefab(p.entityName) as Pickupable, transform.position, transform.rotation, transform);
+        Pickupable clone = Instantiate(p as Pickupable, transform.position, transform.rotation, transform);
         Rigidbody rig = null;
         if ((rig = p.GetComponent<Rigidbody>()) != null) {
             rig.isKinematic = true;
