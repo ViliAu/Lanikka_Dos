@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     //Ground check
-    void GroundCheck() {                                                   
+    private void GroundCheck() {                                                   
         RaycastHit hit;
         float cMod = Mathf.Abs((2-controllerHeight)*0.5f);
         Vector3 radius = new Vector3(0,controller.radius,0);

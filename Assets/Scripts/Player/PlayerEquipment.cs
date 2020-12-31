@@ -121,4 +121,7 @@ public class PlayerEquipment : MonoBehaviour {
         EntityManager.Player.Player_Inventory.RemoveItemByIndex(itemIndex);
         ChangeEquipment(itemIndex, 1);
     }
+
+    //private int 
+
 }
