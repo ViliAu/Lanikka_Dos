@@ -35,18 +35,18 @@ public class PlayerInventory : MonoBehaviour {
                 // There's already that item in inv and we have space to pickup => Increment stack size and destroy gobj.
                 else if (p.stackCount + pick.stackCount <= maxStackSize) {
                     p.stackCount += pick.stackCount;
-                    pick.PlayerPickup();
+                    pick.DestroyItem();
                     return;
                 }
             }
         }
 
-        // MIKÄ TÄSSÄ KUSEE
+        // Try to add the item to an empty slot
         for (int i = 0; i < items.Length; i++) {
             if (items[i] == null) {
-                items[i] = Database.Singleton.GetEntityPrefab(pick.entityName) as Pickupable;
+                items[i] = pick;
                 items[i].stackCount = pick.stackCount;
-                pick.PlayerPickup();
+                pick.EnableItem(false);
                 break;
             }
         }

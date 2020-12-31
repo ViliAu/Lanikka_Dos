@@ -58,11 +58,8 @@ public class PlayerEquipment : MonoBehaviour {
         if (EntityManager.Player.Player_Inventory.items[num] == null) {
             // Iterate slots so we'll equip the first applicable weapon
             if (scroll != 0) {
-                for (; num < EntityManager.Player.Player_Inventory.items.Length-1 && num >= 0; num += scroll) {
-                    if (EntityManager.Player.Player_Inventory.items[num] != null) {
-                        Equip(EntityManager.Player.Player_Inventory.items[num]);
-                        return;
-                    }
+                for (int i = 0; i < 10; i++) {
+                    //if ()
                 }
             }
             else {
@@ -82,17 +79,20 @@ public class PlayerEquipment : MonoBehaviour {
             return;
         }
         RemoveEquippedItem();
-        Pickupable clone = Instantiate(p as Pickupable, transform.position, transform.rotation, transform);
+        p.gameObject.SetActive(true);
+        p.transform.position = transform.position;
+        p.transform.rotation = transform.rotation;
+        p.transform.parent = transform;
         Rigidbody rig = null;
         if ((rig = p.GetComponent<Rigidbody>()) != null) {
             rig.isKinematic = true;
         }
-        equippedItem = clone;
+        equippedItem = p;
     }
 
     private void RemoveEquippedItem() {
         if (equippedItem != null) {
-            Destroy(equippedItem.gameObject);
+            equippedItem.EnableItem(false);
             equippedItem = null;
         }
     }
@@ -102,14 +102,13 @@ public class PlayerEquipment : MonoBehaviour {
             return;
         }
         // Spawn item
-        Pickupable p = Instantiate(Database.Singleton.GetEntityPrefab(equippedItem.entityName) as Pickupable, transform.position, transform.rotation) as Pickupable;
-        p.stackCount = EntityManager.Player.Player_Inventory.items[itemIndex].stackCount;
+        equippedItem.transform.parent = null;
         Rigidbody rig = null;
-        if ((rig = p.GetComponent<Rigidbody>()) != null) {
+        if ((rig = equippedItem.GetComponent<Rigidbody>()) != null) {
             rig.isKinematic = false;
             rig.AddForce(transform.forward * dropForce, ForceMode.Impulse);
         }
-        RemoveEquippedItem();
+        equippedItem = null;
         EntityManager.Player.Player_Inventory.RemoveItemByIndex(itemIndex);
         ChangeEquipment(itemIndex, 1);
     }
