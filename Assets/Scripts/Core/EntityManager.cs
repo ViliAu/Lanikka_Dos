@@ -16,4 +16,17 @@ public class EntityManager : MonoBehaviour {
             return p;
         }
     }
+
+    private static DookerPen dp;
+    public static DookerPen DookerPen {
+        get {
+            if (dp == null) {
+                dp = FindObjectOfType<DookerPen>();
+            }
+            if (dp == null) {
+                Debug.LogError("No Dooker Pen found...");
+            }
+            return dp;
+        }
+    }
 }

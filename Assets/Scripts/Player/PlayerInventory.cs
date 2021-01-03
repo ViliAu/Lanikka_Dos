@@ -56,6 +56,19 @@ public class PlayerInventory : MonoBehaviour {
         items[index] = null;
     }
 
+    public void DecrementStackSize(int index) {
+        if (items[index] == null) {
+            return;
+        }
+        items[index].stackCount--;
+        if (items[index].stackCount == 0) {
+            if (EntityManager.Player.Player_Equipment.itemIndex == index) {
+                EntityManager.Player.Player_Equipment.DestroyEquippedItem();
+            }
+            RemoveItemByIndex(index);
+        }
+    }
+
     public void RemoveItemByName(string entityName, int amount) {
 
     }

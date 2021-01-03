@@ -43,4 +43,14 @@ public class Player : MonoBehaviour {
             return pinv;
         }
     }
+
+    private PlayerEquipment peq;
+    public PlayerEquipment Player_Equipment {
+        get {
+            if (peq == null) {
+                peq = transform.GetComponent<PlayerEquipment>();
+            }
+            return peq;
+        }
+    }
 }

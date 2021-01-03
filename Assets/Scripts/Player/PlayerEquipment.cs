@@ -12,14 +12,17 @@ public class PlayerEquipment : MonoBehaviour {
     [Header("Drop")]
     [SerializeField] private float dropForce = 2f;
 
+    public Pickupable equippedItem = null;
+    public int itemIndex = 0;
+
     private Vector3 initialPos = default;
     private PlayerInventory inv;
-    private Pickupable equippedItem = null;
-    private int itemIndex = 0;
+    private Transform hand = null;
 
     private void Start() {
-        initialPos = transform.localPosition;
         inv = EntityManager.Player.Player_Inventory;
+        hand = transform.Find("Head").Find("EquipmentHold").transform;
+        initialPos = hand.localPosition;
     }
 
     private void Update() {
@@ -31,7 +34,7 @@ public class PlayerEquipment : MonoBehaviour {
         Vector2 swayPos = EntityManager.Player.Player_Input.mouseInput * swayAmount;
         swayPos.x = Mathf.Clamp(swayPos.x, -swayBounds.x, swayBounds.x);
         swayPos.y = Mathf.Clamp(swayPos.y, -swayBounds.y, swayBounds.y);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, initialPos - (Vector3)swayPos, swaySpeed * Time.deltaTime);
+        hand.localPosition = Vector3.Lerp(hand.localPosition, initialPos - (Vector3)swayPos, swaySpeed * Time.deltaTime);
     }
 
     private void CheckInput() {
@@ -78,7 +81,6 @@ public class PlayerEquipment : MonoBehaviour {
         }
 
         // We have that item;
-        print(num);
         Equip(EntityManager.Player.Player_Inventory.items[num]);
         itemIndex = num;
     }
@@ -89,19 +91,27 @@ public class PlayerEquipment : MonoBehaviour {
         }
         RemoveEquippedItem();
         p.gameObject.SetActive(true);
-        p.transform.position = transform.position;
-        p.transform.rotation = transform.rotation;
-        p.transform.parent = transform;
+        p.transform.position = hand.position;
+        p.transform.rotation = hand.rotation;
+        p.transform.parent = hand;
         Rigidbody rig = null;
         if ((rig = p.GetComponent<Rigidbody>()) != null) {
             rig.isKinematic = true;
+            rig.detectCollisions = false;
         }
         equippedItem = p;
     }
 
-    private void RemoveEquippedItem() {
+    public void RemoveEquippedItem() {
         if (equippedItem != null) {
             equippedItem.EnableItem(false);
+            equippedItem = null;
+        }
+    }
+
+    public void DestroyEquippedItem() {
+        if (equippedItem != null) {
+            equippedItem.DestroyItem();
             equippedItem = null;
         }
     }
@@ -115,11 +125,12 @@ public class PlayerEquipment : MonoBehaviour {
         Rigidbody rig = null;
         if ((rig = equippedItem.GetComponent<Rigidbody>()) != null) {
             rig.isKinematic = false;
-            rig.AddForce(transform.forward * dropForce, ForceMode.Impulse);
+            rig.detectCollisions = true;
+            rig.AddForce(hand.forward * dropForce, ForceMode.Impulse);
         }
         equippedItem = null;
         EntityManager.Player.Player_Inventory.RemoveItemByIndex(itemIndex);
-        ChangeEquipment(itemIndex, 1);
+        ChangeEquipment(itemIndex, 0);
     }
 
     //private int 

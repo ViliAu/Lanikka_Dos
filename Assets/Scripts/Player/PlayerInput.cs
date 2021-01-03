@@ -40,7 +40,6 @@ public class PlayerInput : MonoBehaviour {
         GetPressedNum();
 
         scroll = Mathf.Clamp((int)(Input.GetAxisRaw("Mouse ScrollWheel")*10), -1, 1);
-        print(scroll);
     }
 
     public void GetPressedNum() {

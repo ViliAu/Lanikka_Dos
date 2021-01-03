@@ -38,11 +38,11 @@ public class PlayerInteraction : MonoBehaviour {
                 return;
             }
             else {
-                print("Löyty juttu muttei kiinnosta");
+                
             }
         }
         else {
-            print("Ei löytynny interaa");
+            
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickupable : Item {
+public class Pickupable : Entity {
 
     public int stackCount = 1;
 
