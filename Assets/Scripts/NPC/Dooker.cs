@@ -73,11 +73,11 @@ public class Dooker : NPC {
         }
 
         // If we're shitting
-        if (currentState == State.DEFECATING && !IsInvoking("Defecate")) {
+        if (currentState == State.DEFECATING && (!IsInvoking("Defecate") || !IsInvoking("BucketDefecate"))) {
             // TODO: KYYKKY ANIMI
 
             // Bucket shit
-            if (EntityManager.DookerPen.shitBucket != null) {
+            if (EntityManager.DookerPen.shitBucket != null && EntityManager.DookerPen.shitBucket.CanAddShit()) {
                 // We're close enough
                 if (Vector3.Distance(transform.position, EntityManager.DookerPen.shitBucket.transform.position) <
                     EntityManager.DookerPen.shitBucket.dookerDistance) {
@@ -139,8 +139,7 @@ public class Dooker : NPC {
 
         // If we're out of power walk to a random spot and start idling
         if (currentShitmass < shitMassPerShit) {
-            agent.destination = EntityManager.DookerPen.GetNewWalkPos(transform.position.y);
-            Invoke("GoIdle", stateUpdateInterval);
+            currentState = State.IDLE;
         }
     }
 
@@ -160,8 +159,7 @@ public class Dooker : NPC {
 
         // If we're out of power walk to a random spot and start idling
         if (currentShitmass < shitMassPerShit) {
-            agent.destination = EntityManager.DookerPen.GetNewWalkPos(transform.position.y);
-            Invoke("GoIdle", stateUpdateInterval);
+            currentState = State.IDLE;
         }
     }
 
@@ -177,10 +175,6 @@ public class Dooker : NPC {
             }
         }
         agent.destination = EntityManager.DookerPen.GetNewWalkPos(transform.position.y);
-        Invoke("GoIdle", stateUpdateInterval);
-    }
-
-    private void GoIdle() {
         currentState = State.IDLE;
     }
 
@@ -206,6 +200,8 @@ public class Dooker : NPC {
             }
             else {
                 // Couldn't do anything!
+                if (currentState != State.CRYING) // TODO: Move this somewhere else?
+                    agent.destination = EntityManager.DookerPen.GetNewWalkPos(transform.position.y);
                 return State.CRYING;
             }
         }

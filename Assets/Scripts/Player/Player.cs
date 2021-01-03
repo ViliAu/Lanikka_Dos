@@ -53,4 +53,14 @@ public class Player : MonoBehaviour {
             return peq;
         }
     }
+
+    private PlayerUI pui;
+    public PlayerUI Player_UI {
+        get {
+            if (pui == null) {
+                pui = transform.GetComponent<PlayerUI>();
+            }
+            return pui;
+        }
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour {
 
-    [SerializeField] private float range = 2f;
+    [SerializeField] private float range = 3f;
     [SerializeField] private LayerMask interactionMask = default;
 
     private Camera cam;
@@ -15,12 +15,7 @@ public class PlayerInteraction : MonoBehaviour {
     }
 
     private void Update() {
-        GetInput();
-    }
-
-    private void GetInput() {
-        if (EntityManager.Player.Player_Input.interacted)
-            CastInteractRay();
+        CastInteractRay();
     }
 
     private void CastInteractRay() {
@@ -30,11 +25,15 @@ public class PlayerInteraction : MonoBehaviour {
             Interactable intera = null;
             Pickupable pick = null;
             if ((intera = hit.transform.GetComponent<Interactable>()) != null) {
-                intera.PlayerInteract();
+                EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
+                if (EntityManager.Player.Player_Input.interacted)
+                    intera.PlayerInteract();
                 return;
             }
             else if ((pick = hit.transform.GetComponent<Pickupable>()) != null) {
-                EntityManager.Player.Player_Inventory.AddItem(pick);
+                EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
+                if (EntityManager.Player.Player_Input.interacted)
+                    EntityManager.Player.Player_Inventory.AddItem(pick);
                 return;
             }
             else {
@@ -42,7 +41,7 @@ public class PlayerInteraction : MonoBehaviour {
             }
         }
         else {
-            
+            EntityManager.Player.Player_UI.ChangeCrosshairDarkness(0.75f);
         }
     }
 }
