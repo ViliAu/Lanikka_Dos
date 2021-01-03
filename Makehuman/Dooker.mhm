@@ -1,0 +1,80 @@
+# Written by MakeHuman 1.1.1
+version v1.1.1
+tags Dooker
+camera 0.5 334.0 0.0908758110059 0.900190617986 -0.141692723748 1.3875
+modifier torso/torso-vshape-decr|incr 1.000000
+modifier stomach/stomach-tone-decr|incr -1.000000
+modifier measure/measure-neck-height-decr|incr 1.000000
+modifier nose/nose-trans-backward|forward 1.000000
+modifier macrodetails-universal/Muscle 0.000000
+modifier mouth/mouth-scale-horiz-decr|incr 1.000000
+modifier macrodetails/African 0.333333
+modifier hip/hip-scale-depth-decr|incr 0.842000
+modifier macrodetails-proportions/BodyProportions 0.000000
+modifier chin/chin-width-decr|incr 0.206000
+modifier torso/torso-scale-horiz-decr|incr 1.000000
+modifier torso/torso-trans-backward|forward -0.126000
+modifier nose/nose-trans-down|up 1.000000
+modifier head/head-scale-depth-decr|incr 0.286000
+modifier hip/hip-trans-in|out -0.032000
+modifier macrodetails/Gender 1.000000
+modifier head/head-angle-in|out -0.334000
+modifier pelvis/bulge-decr|incr -1.000000
+modifier macrodetails-height/Height 0.341000
+modifier breast/BreastSize 0.500000
+modifier mouth/mouth-scale-vert-decr|incr 0.858000
+modifier chin/chin-cleft-decr|incr -1.000000
+modifier torso/torso-muscle-dorsi-decr|incr 1.000000
+modifier torso/torso-trans-down|up -0.238000
+modifier mouth/mouth-trans-down|up -0.206000
+modifier macrodetails/Age 0.500000
+modifier breast/BreastFirmness 0.500000
+modifier stomach/stomach-navel-down|up 1.000000
+modifier macrodetails/Asian 0.333333
+modifier chin/chin-height-decr|incr -0.254000
+modifier armslegs/lowerlegs-height-decr|incr -1.000000
+modifier measure/measure-neck-circ-decr|incr 1.000000
+modifier chin/chin-prominent-decr|incr -1.000000
+modifier nose/nose-scale-depth-decr|incr 1.000000
+modifier head/head-oval 0.532000
+modifier head/head-trans-backward|forward 0.588000
+modifier mouth/mouth-trans-in|out -0.032000
+modifier head/head-fat-decr|incr 0.556000
+modifier armslegs/upperlegs-height-decr|incr -0.350000
+modifier head/head-age-decr|incr 1.000000
+modifier macrodetails/Caucasian 0.333333
+modifier nose/nose-trans-in|out -0.064000
+modifier nose/nose-curve-concave|convex 0.556000
+modifier hip/hip-scale-horiz-decr|incr 1.000000
+modifier head/head-square 0.286000
+modifier head/head-scale-horiz-decr|incr -0.222000
+modifier torso/torso-scale-depth-decr|incr 1.000000
+modifier stomach/stomach-navel-in|out 1.000000
+modifier chin/chin-prognathism-decr|incr -0.016000
+modifier nose/nose-scale-vert-decr|incr 1.000000
+modifier head/head-round 0.405000
+modifier buttocks/buttocks-volume-decr|incr 1.000000
+modifier hip/hip-scale-vert-decr|incr 0.142000
+modifier nose/nose-compression-compress|uncompress 1.000000
+modifier head/head-rectangular 0.222000
+modifier hip/hip-trans-down|up 0.254000
+modifier nose/nose-scale-horiz-decr|incr 1.000000
+modifier torso/torso-trans-in|out -0.158000
+modifier chin/chin-bones-decr|incr -0.508000
+modifier macrodetails-universal/Weight 1.000000
+modifier mouth/mouth-trans-backward|forward 1.000000
+modifier pelvis/pelvis-tone-decr|incr -1.000000
+modifier mouth/mouth-scale-depth-decr|incr 0.334000
+modifier head/head-trans-down|up 1.000000
+modifier stomach/stomach-pregnant-decr|incr -1.000000
+modifier hip/hip-waist-down|up -0.556000
+proxy male1591 d7e4934e-daed-4ad5-a055-18c9cba487dc
+hair ponytail01 44e0340e-c7a6-4d22-814c-0632968d2dde
+eyes HighPolyEyes 2c12f43b-1303-432c-b7ce-d78346baf2e6
+pose tpose.bvh
+clothesHideFaces True
+expression disgust01.mhpose
+skinMaterial skins/old_asian_male/old_asian_male.mhmat
+material ponytail01 44e0340e-c7a6-4d22-814c-0632968d2dde ponytail01.mhmat
+material HighPolyEyes 2c12f43b-1303-432c-b7ce-d78346baf2e6 eyes/materials/brown.mhmat
+subdivide False
