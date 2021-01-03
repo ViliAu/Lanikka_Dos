@@ -638,6 +638,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1453043773871479701, guid: bdeb4f8492f5f294a8c4e2f4600509d4, type: 3}
+--- !u!1 &929286137 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7300120033392130369, guid: bdeb4f8492f5f294a8c4e2f4600509d4, type: 3}
+  m_PrefabInstance: {fileID: 1520897923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &929286138
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929286137}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7352743313293951598, guid: bdeb4f8492f5f294a8c4e2f4600509d4, type: 3}
 --- !u!1 &1070838893 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: bdeb4f8492f5f294a8c4e2f4600509d4, type: 3}
@@ -859,6 +878,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7918335002988649766, guid: bdeb4f8492f5f294a8c4e2f4600509d4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e461b30eee9fc774fa0d8f5faa9c355c, type: 2}
+    - target: {fileID: -5869310946460835815, guid: bdeb4f8492f5f294a8c4e2f4600509d4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e461b30eee9fc774fa0d8f5faa9c355c, type: 2}
@@ -1106,7 +1129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024917099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 2.37}
+  m_LocalPosition: {x: 11.6, y: 1.7, z: -20.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1322324490}
@@ -1138,6 +1161,7 @@ MonoBehaviour:
   crouched: 0
   dropped: 0
   pressedNum: -1
+  sprinting: 0
   scroll: 0
 --- !u!114 &2024917102
 MonoBehaviour:
@@ -1164,14 +1188,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc55cf32f5e51574dac1d22f628ebc94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 6
+  sprintSpeed: 12
+  crouchSpeed: 3
   acceleration: 50
   airAcceleration: 3
   deceleration: 10
   gravity: 32
   maximumGravity: 500
   jumpHeight: 8
-  crouchSpeed: 0.5
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
