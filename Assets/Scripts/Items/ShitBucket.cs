@@ -35,6 +35,8 @@ public class ShitBucket : Interactable {
 
     public override void PlayerInteract() {
         base.PlayerInteract();
+        if (doodies.Count == 0)
+            return;
         if (doodies.Count > 1) {
             for (int i = 0; i < doodies.Count; i++) {
                 EntityManager.Player.Player_Inventory.AddItem(doodies[i]);

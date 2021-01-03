@@ -29,7 +29,6 @@ public class Dooker : NPC {
     [SerializeField] private float shitMassPerShit = 20f;
     [Tooltip("How long it takes to push out a turd")]
     [SerializeField] private float shitTime = 3f;
-    [SerializeField] private Doodie shit = null;
 
     private NavMeshAgent agent;
 
@@ -135,7 +134,7 @@ public class Dooker : NPC {
         SoundSystem.PlaySoundGroup("dooker_efe", transform.position);
         currentShitmass -= shitMassPerShit;
 
-        // TODO: SHIT SPAWNING AND DROPTEIBUL
+        Doodie doodie = Instantiate(Database.Singleton.GetEntityPrefab("normal") as Doodie, transform.position, transform.rotation, null) as Doodie;
         // TODO: Paska paukkumis animi
 
         // If we're out of power walk to a random spot and start idling

@@ -52,44 +52,25 @@ public class PlayerEquipment : MonoBehaviour {
     }
 
     private void ChangeEquipment(int num, int scroll) {
-
-        // If we don't have that item
-        if (EntityManager.Player.Player_Inventory.items[num] == null) {
-            // Iterate slots so we'll equip the first applicable weapon
-            if (scroll != 0) {
-                for (int i = 0; i < 10; i++) {
-                    if (EntityManager.Player.Player_Inventory.items[num] == null) {
-                        if (scroll == 1) {
-                            num ++;
-                            num = num == 10 ? 0 : num;
-                        }
-                        else {
-                            num --;
-                            num = num == -1 ? 9 : num;
-                        }
-                    }
-                    else {
-                        Equip(EntityManager.Player.Player_Inventory.items[num]);
-                        return;
-                    }
-                }
-            }
-            else {
-                RemoveEquippedItem();
-                return;
-            }
+        //Scroll
+        if (scroll != 0) {
+            num += scroll;
+            num = num == 10 ? 0 : num == -1 ? 9 : num;
+        }
+        else {
+            num = num == 0 ? 10 : num;
+            num--;
         }
 
-        // We have that item;
         Equip(EntityManager.Player.Player_Inventory.items[num]);
         itemIndex = num;
     }
 
     private void Equip(Pickupable p) {
+        RemoveEquippedItem();
         if (p == null) {
             return;
         }
-        RemoveEquippedItem();
         p.gameObject.SetActive(true);
         p.transform.position = hand.position;
         p.transform.rotation = hand.rotation;
@@ -130,7 +111,7 @@ public class PlayerEquipment : MonoBehaviour {
         }
         equippedItem = null;
         EntityManager.Player.Player_Inventory.RemoveItemByIndex(itemIndex);
-        ChangeEquipment(itemIndex, 0);
+        //ChangeEquipment(itemIndex, 0);
     }
 
     //private int 
