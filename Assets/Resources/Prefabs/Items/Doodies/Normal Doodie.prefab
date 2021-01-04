@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: normal
   grabbable: 1
-  stackCount: 10
+  stackCount: 1
   price: 2
 --- !u!54 &8230419186488013391
 Rigidbody:

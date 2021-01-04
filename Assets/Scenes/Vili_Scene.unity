@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 1807457914}
   - component: {fileID: 1807457913}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Kauppa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

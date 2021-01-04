@@ -21,8 +21,8 @@ public class ShopItem : Interactable {
         }
     }
 
-    public override void PlayerFocus() {
-        base.PlayerFocus();
+    public override void PlayerFocusEnter() {
+        base.PlayerFocusEnter();
         EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dollar");
         EntityManager.Player.Player_UI.ChangeFocusText("Buy "+ amountToGive + "x " + itemToGive.entityName + " " + price + "$");
     }

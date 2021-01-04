@@ -14,7 +14,14 @@ public class Interactable : Entity {
     /// <summary>
     /// Get's called when the player focuses to an item
     /// </summary>
-    public virtual void PlayerFocus() {
+    public virtual void PlayerFocusEnter() {
+        EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
+    }
+
+    /// <summary>
+    /// Get's called when the player loses focus to an item
+    /// </summary>
+    public virtual void PlayerFocusExit() {
         EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
     }
 }

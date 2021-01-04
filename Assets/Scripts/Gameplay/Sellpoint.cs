@@ -8,38 +8,61 @@ public class Sellpoint : Interactable {
     [SerializeField] private float dropMoneyInterval = 0.2f;
     [SerializeField] private Vector3 moneySpawnOffset = Vector3.up;
 
-    public override void PlayerInteract() {
+    private int totalShits = 0;
+    private float totalInventoryValue = 0;
+
+    public override void PlayerFocusEnter() {
         base.PlayerInteract();
-        float totalInventoryValue = 0;
+        CalculateValues();
+        EntityManager.Player.Player_UI.ChangeFocusText("Sell "+ totalShits + " doodies for " + totalInventoryValue + "$");
+    }
+
+    public override void PlayerFocusExit() {
+        base.PlayerFocusExit();
+        totalShits = 0;
+        totalInventoryValue = 0;
+    }
+
+    private void CalculateValues() {
         for (int i = 0; i < EntityManager.Player.Player_Inventory.items.Length; i++) {
             if (EntityManager.Player.Player_Inventory.items[i] == null)
                 continue;
             Doodie d = null;
             if ((d = EntityManager.Player.Player_Inventory.items[i].GetComponent<Doodie>()) != null) {
                 totalInventoryValue += d.price * EntityManager.Player.Player_Inventory.items[i].stackCount;
+                totalShits += EntityManager.Player.Player_Inventory.items[i].stackCount;
+            }
+        }
+    }
+
+    public override void PlayerInteract() {
+        base.PlayerInteract();
+        for (int i = 0; i < EntityManager.Player.Player_Inventory.items.Length; i++) {
+            if (EntityManager.Player.Player_Inventory.items[i] == null)
+                continue;
+            Doodie d = null;
+            if ((d = EntityManager.Player.Player_Inventory.items[i].GetComponent<Doodie>()) != null) {
+                totalInventoryValue += d.price * EntityManager.Player.Player_Inventory.items[i].stackCount;
+                totalShits += EntityManager.Player.Player_Inventory.items[i].stackCount;
                 EntityManager.Player.Player_Inventory.RemoveItemByIndex(i, true);
             }
         }
         if (totalInventoryValue > 0) {
-            StartCoroutine(DropMoney(totalInventoryValue));
+            Invoke("DropMoney", dropMoneyInterval);
         }
     }
 
-    private IEnumerator DropMoney(float value) {
+    private void DropMoney() {
+        float value = totalInventoryValue;
         if (moneyPrefab == null) {
             Debug.LogError("No money prefab assigned to "+gameObject.name);
-            yield return null;
         }
 
-        while (value > moneyPrefab.amount) {
-            Money clone = Instantiate(moneyPrefab, transform.position + moneySpawnOffset, Quaternion.identity, null) as Money;
-            value -= moneyPrefab.amount;
-            yield return new WaitForSeconds(dropMoneyInterval);
-        }
+        Money clone = Instantiate(moneyPrefab, transform.position + moneySpawnOffset, Quaternion.identity, null) as Money;
+        value -= moneyPrefab.amount;
+
         if (value > 0) {
-            Money clonee = Instantiate(moneyPrefab, transform.position + moneySpawnOffset, Quaternion.identity, null) as Money;
-            clonee.SetAmount(value);
+            Invoke("DropMoney", dropMoneyInterval);
         }
     }  
-
 }
