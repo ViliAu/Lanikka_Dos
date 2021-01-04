@@ -11,8 +11,10 @@ using UnityEngine.AI;
  */
 
 public class Dooker : NPC {
-
+    [Header("AI settings")]
     [SerializeField] private float stateUpdateInterval = 2f;
+    [SerializeField] private float pathFindInterval = 0.5f;
+    [SerializeField] private float eatingInterval = 1.5f;
 
     [Header("Food data")]
     [SerializeField] private List <Edible> foodSlots = new List<Edible>();
@@ -34,7 +36,7 @@ public class Dooker : NPC {
 
     private NavMeshAgent agent;
 
-    private State currentState = State.IDLE;
+    [SerializeField] private State currentState = State.IDLE;
     public enum State {
         IDLE,
         HUNGRY,
@@ -99,20 +101,34 @@ public class Dooker : NPC {
         }
 
         // If we're going to get some food
-        if (currentState == State.HUNGRY) {
+        if (currentState == State.HUNGRY && !IsInvoking("SeekFoodContainer")) {
             if (EntityManager.DookerPen.foodContainer != null) {
-                // We're close enough
-                if (Vector3.Distance(transform.position, EntityManager.DookerPen.foodContainer.transform.position) <
-                    EntityManager.DookerPen.foodContainer.dookerDistance) {
-                    agent.destination = transform.position;
-                    EatFood();
-                }
-                // Go closer
-                else {
-                    agent.destination = EntityManager.DookerPen.foodContainer.transform.position;
-                }
+                Invoke("SeekFoodContainer", pathFindInterval);
             }
         }
+    }
+
+    // Functions for trying to find food or bucket; cannot pass params to invokes
+    private void SeekFoodContainer() {
+        // If food container is lost start idling
+        if (EntityManager.DookerPen.foodContainer == null) {
+            currentState = State.IDLE;
+            return;
+        }
+        // If we're close enough
+        if (Vector3.Distance(transform.position, EntityManager.DookerPen.foodContainer.transform.position) <
+                    EntityManager.DookerPen.foodContainer.dookerDistance) {
+            EatFood();
+        }
+        // if not
+        else {
+            agent.destination = EntityManager.DookerPen.foodContainer.transform.position;
+            Invoke("SeekFoodContainer", pathFindInterval);
+        }
+    }
+
+    private void SeekShitBucket() {
+
     }
 
     private void Digest() {
@@ -169,13 +185,16 @@ public class Dooker : NPC {
         if (EntityManager.DookerPen.foodContainer != null ) {
             if (EntityManager.DookerPen.foodContainer.edibles.Count > 0) {
                 if (foodSlots.Count < maxFoodCount) {
+                    // Eating
                     // TODO: IMUTUS ANIMI TÄHÄ
                     AddFood(EntityManager.DookerPen.foodContainer.edibles[EntityManager.DookerPen.foodContainer.edibles.Count-1]);
                     EntityManager.DookerPen.foodContainer.edibles.RemoveAt(EntityManager.DookerPen.foodContainer.edibles.Count-1);
+                    Invoke("SeekFoodContainer", eatingInterval);
                     return;
                 }
             }
         }
+        // Not eating
         agent.destination = EntityManager.DookerPen.GetNewWalkPos(transform.position.y);
         currentState = State.IDLE;
     }

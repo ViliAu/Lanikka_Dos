@@ -11,6 +11,21 @@ public class FoodContainer : Interactable {
     [Tooltip("How far the dookers can be when eating")]
     public float dookerDistance = 1f;
 
+    private void Update() {
+        CheckPosition();
+    }
+
+    private void CheckPosition() {
+        if (transform.position.x > EntityManager.DookerPen.xBounds.y && transform.position.x < EntityManager.DookerPen.xBounds.x
+            && transform.position.z > EntityManager.DookerPen.zBounds.y && transform.position.z < EntityManager.DookerPen.zBounds.x 
+                && transform.position.y < 2) {
+            EntityManager.DookerPen.foodContainer = this;
+        }
+        else {
+            EntityManager.DookerPen.foodContainer = null;
+        }
+    }
+
     public override void PlayerInteract() {
         base.PlayerInteract();
         if (EntityManager.Player.Player_Equipment.equippedItem != null) {

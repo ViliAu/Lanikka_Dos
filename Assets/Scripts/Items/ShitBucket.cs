@@ -11,6 +11,21 @@ public class ShitBucket : Interactable {
     [Tooltip("How far the dookers can be when shitting")]
     public float dookerDistance = 1f;
 
+    private void Update() {
+        CheckPosition();
+    }
+
+    private void CheckPosition() {
+        if (transform.position.x > EntityManager.DookerPen.xBounds.y && transform.position.x < EntityManager.DookerPen.xBounds.x
+            && transform.position.z > EntityManager.DookerPen.zBounds.y && transform.position.z < EntityManager.DookerPen.zBounds.x 
+                && transform.position.y < 2) {
+            EntityManager.DookerPen.shitBucket = this;
+        }
+        else {
+            EntityManager.DookerPen.shitBucket = null;
+        }
+    }
+
     public bool CanAddShit() {
         int i = 0;
         foreach (Doodie d in doodies) {

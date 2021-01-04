@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private LayerMask groundMask = default;
 
     public bool IsGrounded {get; private set;}
+    public bool CanUncrouch {get; private set;}
 
     private float controllerHeight = 2f;
 
@@ -42,7 +43,6 @@ public class PlayerController : MonoBehaviour {
         Jump();
         Crouch();
         ApplyVelocity();
-
         if (transform.position.y < -100)
             transform.position = Vector3.zero;
     }
@@ -103,6 +103,8 @@ public class PlayerController : MonoBehaviour {
         }
         else {
             velocity.y = Mathf.Clamp(velocity.y - gravity * Time.deltaTime, -maximumGravity, 1000);
+            if (velocity.y > 0 && !CanUncrouch)
+                velocity.y = 0;
         }
     }
 
@@ -117,21 +119,24 @@ public class PlayerController : MonoBehaviour {
             Debug.LogError(" No player head found...");
             return;
         }
+        // Crouching
         if (EntityManager.Player.Player_Input.crouched) {
             controllerHeight = Mathf.Lerp(controller.height, 1, 5 * Time.deltaTime);
             controller.height = controllerHeight;
         }
-        else {
+        // Uncrouching
+        else if (CanUncrouch) {
             controllerHeight = Mathf.Lerp(controller.height, 2, 5 * Time.deltaTime);
             controller.height = controllerHeight;
-            
-            if (controllerHeight < 1.95f) {
-                transform.position = new Vector3(transform.position.x, transform.position.y+1, transform.position.z);
+            // Smoothing.. maybe rework
+            if (controllerHeight < 1.9f) {
+                if (IsGrounded)
+                    velocity.y = 1.1f;
             }
         }
     }
 
-    /* Applies velocity vector to rigidbody (moves the player) */
+    /* Applies velocity vector to char controller (moves the player) */
     private void ApplyVelocity() {
         controller.Move(velocity * Time.deltaTime);
     }
@@ -139,13 +144,16 @@ public class PlayerController : MonoBehaviour {
     //Ground check
     private void GroundCheck() {                                                   
         RaycastHit hit;
-        float cMod = Mathf.Abs((2-controllerHeight)*0.5f);
+        float cMod = Mathf.Abs(2-controllerHeight) * 0.5f;
         Vector3 radius = new Vector3(0,controller.radius,0);
-        Vector3 upperPos = transform.position + controller.center + radius;
+        Vector3 upperPos = transform.position + Vector3.up * (controller.height + cMod) - radius;
         Vector3 lowerPos = transform.position + radius + Vector3.up * cMod;
-        Debug.DrawLine(Vector3.zero, lowerPos);
 
         //Check if we hit something
         IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, 0.085f, groundMask, QueryTriggerInteraction.Ignore);
+        float crouchCeiling = IsGrounded ? 2 * cMod : 0;
+        CanUncrouch = !Physics.CapsuleCast(lowerPos, upperPos, controller.radius, Vector3.up, out hit, crouchCeiling + 0.085f, groundMask, QueryTriggerInteraction.Ignore);
+        Debug.DrawLine(Vector3.zero, upperPos, Color.green);
+        Debug.DrawLine(Vector3.zero, lowerPos, Color.red);
     }
 }
