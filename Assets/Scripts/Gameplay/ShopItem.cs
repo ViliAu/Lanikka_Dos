@@ -11,10 +11,10 @@ public class ShopItem : Interactable {
     public override void PlayerInteract() {
         base.PlayerInteract();
         if (EntityManager.Player.Player_Wallet.RemoveMoney(price)) {
-            gameObject.SetActive(false);
             Invoke("Restock", restockTime);
-            for(int i = 0; i < amountToGive; i++)
-                EntityManager.Player.Player_Inventory.AddItem(itemToGive);
+            Item clone = Instantiate(itemToGive, transform.position, transform.rotation, null);
+            EntityManager.Player.Player_Inventory.AddItem(clone);
+            gameObject.SetActive(false);
         }   
         else {
             SoundSystem.PlaySound2D("ui_negative");

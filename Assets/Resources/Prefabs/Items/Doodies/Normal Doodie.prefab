@@ -56,8 +56,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3274639206984480976}
-  m_LocalRotation: {x: 0.01732219, y: -0.9825101, z: 0.13993685, w: 0.12162076}
-  m_LocalPosition: {x: -8.071778, y: 1.4961472, z: 3.933363}
+  m_LocalRotation: {x: 0.07707925, y: 0.06179969, z: -0.0047879056, w: 0.9950963}
+  m_LocalPosition: {x: 4.954963, y: 1.5858668, z: -7.5944533}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6867720911400261098}
@@ -77,7 +77,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: normal
-  stackCount: 1
+  grabbable: 1
+  stackCount: 10
+  price: 2
 --- !u!54 &8230419186488013391
 Rigidbody:
   m_ObjectHideFlags: 0
