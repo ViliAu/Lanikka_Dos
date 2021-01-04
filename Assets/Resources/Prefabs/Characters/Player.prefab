@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 3828608249878052756}
+  locked: 0
 --- !u!114 &3828608250052126189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +318,7 @@ MonoBehaviour:
   interactionMask:
     serializedVersion: 2
     m_Bits: 55
+  interactRig: {fileID: 0}
 --- !u!114 &4896631473384617892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +331,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a748610e8d39a49949cac3e4baefe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollInterval: 0.1
+  scrollBounds: 1
+  grabSpeed: 5
+  rotationSpeed: 50
 --- !u!114 &3828608250052126188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,14 +365,13 @@ MonoBehaviour:
   input: {x: 0, y: 0, z: 0}
   mouseInput: {x: 0, y: 0}
   jumped: 0
-  fired: 0
-  autoFire: 0
   altFired: 0
-  reloaded: 0
+  rotating: 0
   interacted: 0
   crouched: 0
   dropped: 0
   pressedNum: -1
+  grab: 0
   sprinting: 0
   scroll: 0
 --- !u!114 &5062508489193256519
@@ -387,6 +392,7 @@ MonoBehaviour:
   dropForce: 2
   equippedItem: {fileID: 0}
   itemIndex: 0
+  hand: {fileID: 0}
 --- !u!114 &7087457425023873716
 MonoBehaviour:
   m_ObjectHideFlags: 0

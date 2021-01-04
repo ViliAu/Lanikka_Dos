@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour {
     [HideInInspector] public Vector3 input = Vector3.zero;
     [HideInInspector] public Vector2 mouseInput = Vector2.zero;
     [HideInInspector] public bool jumped = false;
-    [HideInInspector] public bool altFired = false;
+    [HideInInspector] public bool threw = false;
     [HideInInspector] public bool rotating = false;
     [HideInInspector] public bool interacted = false;
     [HideInInspector] public bool crouched = false;
@@ -29,6 +29,7 @@ public class PlayerInput : MonoBehaviour {
         jumped = Input.GetKeyDown(KeyCode.Space);
         interacted = Input.GetKeyDown(KeyCode.E);
         dropped = Input.GetKeyDown(KeyCode.G);
+        threw = Input.GetKeyDown(KeyCode.Mouse1);
 
         rotating = Input.GetKey(KeyCode.R);
         crouched = Input.GetKey(KeyCode.LeftControl);

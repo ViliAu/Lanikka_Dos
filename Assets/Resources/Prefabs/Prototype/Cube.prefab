@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6215021262443383490}
   - component: {fileID: 6215021262443383491}
   - component: {fileID: 6215021262443383493}
-  - component: {fileID: 6215021262443383492}
   - component: {fileID: 1609359935}
   m_Layer: 0
   m_Name: Cube
@@ -97,20 +96,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6215021262443383492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6215021262443383494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27c69546a7a026f42a5dabd6f2af2bd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityName: kiguls
-  stackCount: 8
 --- !u!54 &1609359935
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class PlayerEquipment : MonoBehaviour {
     [SerializeField] private Vector2 swayBounds = new Vector2(0.1f, 0.1f);
 
     [Header("Drop")]
-    [SerializeField] private float dropForce = 2f;
+    public float dropForce = 2f;
 
     public Item equippedItem = null;
     public int itemIndex = 0;
