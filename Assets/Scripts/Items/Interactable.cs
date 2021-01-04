@@ -22,6 +22,7 @@ public class Interactable : Entity {
     /// Get's called when the player loses focus to an item
     /// </summary>
     public virtual void PlayerFocusExit() {
-        EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
+        EntityManager.Player.Player_UI.ChangeCrosshairDarkness(0.75f);
+        EntityManager.Player.Player_UI.ChangeFocusText("");
     }
 }

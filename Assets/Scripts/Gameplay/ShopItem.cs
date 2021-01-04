@@ -13,6 +13,7 @@ public class ShopItem : Interactable {
         if (EntityManager.Player.Player_Wallet.RemoveMoney(price)) {
             Invoke("Restock", restockTime);
             Item clone = Instantiate(itemToGive, transform.position, transform.rotation, null);
+            clone.stackCount = amountToGive;
             EntityManager.Player.Player_Inventory.AddItem(clone);
             gameObject.SetActive(false);
         }   

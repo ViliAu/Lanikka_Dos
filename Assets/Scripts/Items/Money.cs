@@ -7,7 +7,7 @@ public class Money : Interactable {
     [Header("Money settings")]
     public float amount = 100f;
     [Tooltip("Thresholds for the money models (max.)")]
-    [SerializeField]private float[] modelThresholds;
+    public float[] modelThresholds;
 
     // Activate the right money model
     private void Awake() {
