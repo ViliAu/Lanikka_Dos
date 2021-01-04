@@ -33,6 +33,7 @@ public class FoodContainer : Interactable {
                 if (edibles.Count < maxFoodCount) {
                     edibles.Add((Edible)EntityManager.Player.Player_Equipment.equippedItem);
                     EntityManager.Player.Player_Inventory.DecrementStackSize(EntityManager.Player.Player_Equipment.itemIndex);
+                    SoundSystem.PlaySound2D("place_item_generic");
                 }
             }
         }

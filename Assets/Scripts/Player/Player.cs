@@ -73,4 +73,14 @@ public class Player : MonoBehaviour {
             return pint;
         }
     }
+
+    private PlayerWallet pwal;
+    public PlayerWallet Player_Wallet {
+        get {
+            if (pwal == null) {
+                pwal = transform.GetComponent<PlayerWallet>();
+            }
+            return pwal;
+        }
+    }
 }

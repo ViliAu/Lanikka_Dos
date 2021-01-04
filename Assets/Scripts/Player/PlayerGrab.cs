@@ -65,7 +65,6 @@ public class PlayerGrab : MonoBehaviour {
             grabbedRig.freezeRotation = true;
             scrollOffset = Vector3.Distance(grabbedRig.transform.position,
                 EntityManager.Player.Player_Camera.head.position) / EntityManager.Player.Player_Interaction.range;
-            print(scrollOffset);
         }
         else {
             grabbedRig.interpolation = RigidbodyInterpolation.None;
