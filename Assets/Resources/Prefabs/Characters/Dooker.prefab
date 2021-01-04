@@ -56,6 +56,7 @@ MonoBehaviour:
   shitmassThreshold: 75
   shitMassPerShit: 20
   shitTime: 3
+  shitSpawn: {fileID: 2965419544850616495}
 --- !u!195 &8694187540189102931
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -154,6 +155,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -215,5 +228,10 @@ PrefabInstance:
 --- !u!4 &9213810654021186021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
+  m_PrefabInstance: {fileID: 8670764658520036878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2965419544850616495 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3354064785027414367, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
   m_PrefabInstance: {fileID: 8670764658520036878}
   m_PrefabAsset: {fileID: 0}
