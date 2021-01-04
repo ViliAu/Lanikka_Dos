@@ -12,12 +12,12 @@ public class PlayerEquipment : MonoBehaviour {
     [Header("Drop")]
     [SerializeField] private float dropForce = 2f;
 
-    public Pickupable equippedItem = null;
+    public Item equippedItem = null;
     public int itemIndex = 0;
+    public Transform hand = null;
 
     private Vector3 initialPos = default;
     private PlayerInventory inv;
-    private Transform hand = null;
 
     private void Start() {
         inv = EntityManager.Player.Player_Inventory;
@@ -66,7 +66,7 @@ public class PlayerEquipment : MonoBehaviour {
         itemIndex = num;
     }
 
-    private void Equip(Pickupable p) {
+    private void Equip(Item p) {
         RemoveEquippedItem();
         if (p == null) {
             return;

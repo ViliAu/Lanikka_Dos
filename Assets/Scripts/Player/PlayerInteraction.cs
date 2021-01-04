@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour {
 
-    [SerializeField] private float range = 3f;
+    public float range = 3f;
     [SerializeField] private LayerMask interactionMask = default;
+
+    public Rigidbody interactRig;
 
     private Camera cam;
     private Ray ray;
+    private RaycastHit hit;
+    private Interactable intera;
 
     private void Awake() {
         cam = Camera.main;
@@ -20,20 +24,12 @@ public class PlayerInteraction : MonoBehaviour {
 
     private void CastInteractRay() {
         ray = cam.ViewportPointToRay(new Vector2(0.5f, 0.5f));
-        RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range, interactionMask, QueryTriggerInteraction.Ignore)) {
-            Interactable intera = null;
-            Pickupable pick = null;
+            interactRig = hit.transform.GetComponent<Rigidbody>();
             if ((intera = hit.transform.GetComponent<Interactable>()) != null) {
                 EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
                 if (EntityManager.Player.Player_Input.interacted)
                     intera.PlayerInteract();
-                return;
-            }
-            else if ((pick = hit.transform.GetComponent<Pickupable>()) != null) {
-                EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
-                if (EntityManager.Player.Player_Input.interacted)
-                    EntityManager.Player.Player_Inventory.AddItem(pick);
                 return;
             }
             else {
@@ -42,6 +38,8 @@ public class PlayerInteraction : MonoBehaviour {
         }
         else {
             EntityManager.Player.Player_UI.ChangeCrosshairDarkness(0.75f);
+            intera = null;
+            interactRig = null;
         }
     }
 }

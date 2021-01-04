@@ -7,14 +7,13 @@ public class PlayerInput : MonoBehaviour {
     [HideInInspector] public Vector3 input = Vector3.zero;
     [HideInInspector] public Vector2 mouseInput = Vector2.zero;
     [HideInInspector] public bool jumped = false;
-    [HideInInspector] public bool fired = false;
-    [HideInInspector] public bool autoFire = false;
     [HideInInspector] public bool altFired = false;
-    [HideInInspector] public bool reloaded = false;
+    [HideInInspector] public bool rotating = false;
     [HideInInspector] public bool interacted = false;
     [HideInInspector] public bool crouched = false;
     [HideInInspector] public bool dropped = false;
     [HideInInspector] public int pressedNum = -1;
+    [HideInInspector] public int grab = 0;
     [HideInInspector] public bool sprinting = false;
 
     public int scroll = 0;
@@ -31,15 +30,16 @@ public class PlayerInput : MonoBehaviour {
         interacted = Input.GetKeyDown(KeyCode.E);
         dropped = Input.GetKeyDown(KeyCode.G);
 
-        fired = Input.GetKeyDown(KeyCode.Mouse0);
-        autoFire = Input.GetAxisRaw("Fire1") == 1;
-        altFired = Input.GetKeyDown(KeyCode.Mouse1);
-        reloaded = Input.GetKeyDown(KeyCode.R);
+        rotating = Input.GetKey(KeyCode.R);
         crouched = Input.GetKey(KeyCode.LeftControl);
         sprinting = Input.GetKey(KeyCode.LeftShift);
         GetPressedNum();
 
-        scroll = Mathf.Clamp((int)(Input.GetAxisRaw("Mouse ScrollWheel")*10), -1, 1);
+        // Returns just -1 or 1
+        scroll = Input.GetAxisRaw("Mouse ScrollWheel") > 0 ? 1 : Input.GetAxisRaw("Mouse ScrollWheel") < 0 ? -1 : 0;
+
+        // Returns 1 when you press the grab button, -1 when you release it. Otherwise 0
+        grab = Input.GetKeyDown(KeyCode.Mouse0) ? 1 : Input.GetKeyUp(KeyCode.Mouse0) ? -1 : 0;
     }
 
     public void GetPressedNum() {

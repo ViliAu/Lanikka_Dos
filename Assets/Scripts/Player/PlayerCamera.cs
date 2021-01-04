@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour {
     public Transform head = null;
+    public bool locked = false;
     private Vector2 camEuler = default;
 
     private void Start() {
@@ -16,6 +17,9 @@ public class PlayerCamera : MonoBehaviour {
     }
 
     private void UpdateCamera() {
+        if (locked) {
+            return;
+        }
         // Get vars
         camEuler.x -= EntityManager.Player.Player_Input.mouseInput.y * EntityManager.Player.Player_Input.sensitivity * Time.deltaTime;
         camEuler.y += EntityManager.Player.Player_Input.mouseInput.x * EntityManager.Player.Player_Input.sensitivity * Time.deltaTime;

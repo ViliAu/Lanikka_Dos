@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickupable : Entity {
+public class Item : Interactable {
 
     public int stackCount = 1;
 
@@ -12,6 +12,11 @@ public class Pickupable : Entity {
 
     public virtual void EnableItem(bool b) {
         gameObject.SetActive(b);
+    }
+
+    public override void PlayerInteract() {
+        base.PlayerInteract();
+        EntityManager.Player.Player_Inventory.AddItem(this);
     }
 
 }

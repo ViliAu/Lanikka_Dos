@@ -357,6 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: foodcontainer
+  grabbable: 1
   edibles:
   - {fileID: 1418582101}
   maxFoodCount: 100
@@ -527,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: ShitBucket
+  grabbable: 1
   doodies: []
   maxCount: 10
   dookerDistance: 1
@@ -640,6 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: banana
+  grabbable: 1
   stackCount: 123
   _shitmassAmount: 50
   _digestTime: 10
@@ -1094,6 +1097,14 @@ PrefabInstance:
     - target: {fileID: 8694187540189102928, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
       propertyPath: m_Name
       value: Dooker
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
+      propertyPath: grabbable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
+      propertyPath: stateUpdateInterval
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8694187540189102941, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
       propertyPath: m_RootOrder

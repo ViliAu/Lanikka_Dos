@@ -5,19 +5,19 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour {
     [Header("Inventory attributes")]
     [SerializeField] private int maxStackSize = 10;
-    [SerializeField] public Pickupable[] items; // Tää propertyks joskus
+    [SerializeField] public Item[] items; // Tää propertyks joskus
 
     private void Start() {
-        items = new Pickupable[10];
+        items = new Item[10];
     }
 
     /// <summary>
     /// Adds picked up item to Player's inventory if there's space.
     /// </summary>
     /// <param name="pick">Picked up item</param>
-    public void AddItem(Pickupable pick) {
+    public void AddItem(Item pick) {
         // Check if we already have that item => Iterate through items
-        foreach (Pickupable p in items) {
+        foreach (Item p in items) {
             if (p == null) {
                 continue;
             }

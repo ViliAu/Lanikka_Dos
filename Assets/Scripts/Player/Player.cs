@@ -63,4 +63,14 @@ public class Player : MonoBehaviour {
             return pui;
         }
     }
+
+    private PlayerInteraction pint;
+    public PlayerInteraction Player_Interaction {
+        get {
+            if (pint == null) {
+                pint = transform.GetComponent<PlayerInteraction>();
+            }
+            return pint;
+        }
+    }
 }
