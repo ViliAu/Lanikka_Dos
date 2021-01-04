@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Doodie : Item {
     
-    
+    public float price = 2f;
 
 }

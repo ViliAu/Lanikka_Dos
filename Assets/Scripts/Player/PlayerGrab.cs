@@ -41,8 +41,10 @@ public class PlayerGrab : MonoBehaviour {
             }
         }
         // Scroll + scroll equip
-        scrollOffset += EntityManager.Player.Player_Input.scroll * scrollInterval;
-        scrollOffset = Mathf.Clamp(scrollOffset, scrollBounds.x, scrollBounds.y);
+        if (!equipped) {
+            scrollOffset += EntityManager.Player.Player_Input.scroll * scrollInterval;
+            scrollOffset = Mathf.Clamp(scrollOffset, scrollBounds.x, scrollBounds.y);
+        }
         if (scrollOffset == scrollBounds.x && grabbedRig != null) {
             EquipRig(true);
         }
@@ -97,6 +99,7 @@ public class PlayerGrab : MonoBehaviour {
             }
             equipped = true;
             grabbedRig.isKinematic = true;
+            grabbedRig.detectCollisions = false;
             EntityManager.Player.Player_Equipment.RemoveEquippedItem();
             grabbedRig.transform.position = EntityManager.Player.Player_Equipment.hand.transform.position;
             grabbedRig.transform.rotation = EntityManager.Player.Player_Equipment.hand.transform.rotation;
@@ -105,6 +108,7 @@ public class PlayerGrab : MonoBehaviour {
         else {
             equipped = false;
             grabbedRig.isKinematic = false;
+            grabbedRig.detectCollisions = true;
             grabbedRig.transform.parent = null;
             grabbedRig.AddForce(EntityManager.Player.Player_Camera.head.forward * EntityManager.Player.Player_Equipment.dropForce, ForceMode.Impulse);
             GrabObject(false);

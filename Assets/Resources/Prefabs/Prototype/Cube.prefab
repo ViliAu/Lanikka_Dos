@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6215021262443383491}
   - component: {fileID: 6215021262443383493}
   - component: {fileID: 1609359935}
+  - component: {fileID: 5412642920547180871}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -112,3 +113,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5412642920547180871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215021262443383494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22ab3383c706d2409ddfc0d07645c83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityName: selljere
+  grabbable: 1
+  moneyPrefab: {fileID: 2488594666016029040, guid: 0f28ccd86269c454ca26ed8fb91f8ad4, type: 3}
+  dropMoneyInterval: 0.2
+  moneySpawnOffset: {x: 0, y: 1, z: 0}

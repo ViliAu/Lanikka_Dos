@@ -52,8 +52,14 @@ public class PlayerInventory : MonoBehaviour {
         }
     }
 
-    public void RemoveItemByIndex(int index) {
-        items[index] = null;
+    public void RemoveItemByIndex(int index, bool destroy) {
+        if (destroy)
+            items[index].DestroyItem();
+        else {
+            items[index] = null;
+        }
+        if (EntityManager.Player.Player_Equipment.itemIndex == index)
+            EntityManager.Player.Player_Equipment.RemoveEquippedItem();
     }
 
     public void DecrementStackSize(int index) {
@@ -62,10 +68,7 @@ public class PlayerInventory : MonoBehaviour {
         }
         items[index].stackCount--;
         if (items[index].stackCount == 0) {
-            if (EntityManager.Player.Player_Equipment.itemIndex == index) {
-                EntityManager.Player.Player_Equipment.DestroyEquippedItem();
-            }
-            RemoveItemByIndex(index);
+            RemoveItemByIndex(index, true);
         }
     }
 

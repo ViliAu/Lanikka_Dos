@@ -24,10 +24,10 @@ public class PlayerInteraction : MonoBehaviour {
 
     private void CastInteractRay() {
         ray = cam.ViewportPointToRay(new Vector2(0.5f, 0.5f));
-        if (Physics.Raycast(ray, out hit, range, interactionMask, QueryTriggerInteraction.Ignore)) {
+        if (Physics.Raycast(ray, out hit, range, interactionMask, QueryTriggerInteraction.Collide)) {
             interactRig = hit.transform.GetComponent<Rigidbody>();
             if ((intera = hit.transform.GetComponent<Interactable>()) != null) {
-                EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
+                intera.PlayerFocus();
                 if (EntityManager.Player.Player_Input.interacted)
                     intera.PlayerInteract();
                 return;
@@ -38,6 +38,8 @@ public class PlayerInteraction : MonoBehaviour {
         }
         else {
             EntityManager.Player.Player_UI.ChangeCrosshairDarkness(0.75f);
+            EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
+            EntityManager.Player.Player_UI.ChangeFocusText("");
             intera = null;
             interactRig = null;
         }

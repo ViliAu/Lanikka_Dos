@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour {
     [SerializeField] private RectTransform canvas = null;
     private Image crosshair = null;
     private TMP_Text moneyAmount = null;
+    private TMP_Text focusText = null;
 
     private void Awake() {
         // Find canvas
@@ -25,6 +26,11 @@ public class PlayerUI : MonoBehaviour {
         if (moneyAmount == null)
             if ((moneyAmount = canvas.Find("MoneyAmount").GetComponent<TMP_Text>()) == null)
                 Debug.LogError("Couldn't find money text");
+
+        // Find focus text
+        if (focusText == null)
+            if ((focusText = canvas.Find("FocusText").GetComponent<TMP_Text>()) == null)
+                Debug.LogError("Couldn't find focus text");
     }
 
     public void ChangeCrosshairDarkness(float darkness) {
@@ -32,7 +38,20 @@ public class PlayerUI : MonoBehaviour {
             crosshair.color = new Color(darkness, darkness, darkness);
     }
 
+    public void ChangeCrosshair(string name) {
+        Sprite sprite = Database.Singleton.GetCrosshair(name);
+        if (sprite != null && crosshair.sprite != sprite) {
+            crosshair.sprite = sprite;
+        }
+    }
+
     public void ChangeMoneyAmount(float amount) {
-        moneyAmount.text = amount.ToString() + "$";
+        if (moneyAmount != null)
+            moneyAmount.text = amount.ToString() + "$";
+    }
+
+    public void ChangeFocusText(string s) {
+        if (focusText != null)
+            focusText.text = s;
     }
 }

@@ -4,7 +4,24 @@ using UnityEngine;
 
 public class Money : Interactable {
 
-    [SerializeField] private float amount = 100f;
+    [Header("Money settings")]
+    public float amount = 100f;
+    [Tooltip("Thresholds for the money models (max.)")]
+    [SerializeField]private float[] modelThresholds;
+
+    // Activate the right money model
+    private void Awake() {
+        bool activated = false;
+        for (int i = 0; i < modelThresholds.Length; i++) {
+            if (amount <= modelThresholds[i] && !activated) {
+                transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+                activated = true;
+            }
+            else {
+                transform.GetChild(0).GetChild(i).gameObject.SetActive(false);
+            }
+        }    
+    }
 
     public override void PlayerInteract() {
         base.PlayerInteract();
@@ -12,4 +29,17 @@ public class Money : Interactable {
         Destroy(gameObject);
     }
 
+    public void SetAmount(float a) {
+        amount = a;
+        bool activated = false;
+        for (int i = 0; i < modelThresholds.Length; i++) {
+            if (amount <= modelThresholds[i] && !activated) {
+                transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+                activated = true;
+            }
+            else {
+                transform.GetChild(0).GetChild(i).gameObject.SetActive(false);
+            }
+        } 
+    }
 }

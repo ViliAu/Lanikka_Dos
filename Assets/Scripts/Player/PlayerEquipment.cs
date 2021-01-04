@@ -110,7 +110,7 @@ public class PlayerEquipment : MonoBehaviour {
             rig.AddForce(hand.forward * dropForce, ForceMode.Impulse);
         }
         equippedItem = null;
-        EntityManager.Player.Player_Inventory.RemoveItemByIndex(itemIndex);
+        EntityManager.Player.Player_Inventory.RemoveItemByIndex(itemIndex, false);
         //ChangeEquipment(itemIndex, 0);
     }
 
