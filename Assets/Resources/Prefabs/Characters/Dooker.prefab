@@ -48,7 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: dooker
+  grabbable: 1
+  isHighlightable: 1
   stateUpdateInterval: 5
+  pathFindInterval: 0.5
+  eatingInterval: 1.5
   foodSlots: []
   maxFoodCount: 5
   maxShitmass: 100
@@ -57,6 +61,7 @@ MonoBehaviour:
   shitMassPerShit: 20
   shitTime: 3
   shitSpawn: {fileID: 2965419544850616495}
+  currentState: 0
 --- !u!195 &8694187540189102931
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -214,6 +219,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 495361a9f2c08d84fb539c8242c9b159, type: 2}
+    - target: {fileID: -4172260548781492159, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4172260548781492159, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4172260548781492159, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dce9e441ed7ce1744a0ac5c6c3f3bc6e, type: 3}
       propertyPath: m_Name
       value: Dooker

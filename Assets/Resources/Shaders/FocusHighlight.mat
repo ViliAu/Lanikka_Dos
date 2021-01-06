@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FocusHighlight
+  m_Shader: {fileID: -6465566751694194690, guid: 6505127213c809743a2832291feb0861, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_1589363610f64e02b0f55d8dd459020c:
+        m_Texture: {fileID: 2800000, guid: acd611b6157084047a7e9ef0833fcafb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_2dc7716a7a0e40739faa1b2169366148:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_f63947b1caec44f79484cf04dc6086f9:
+        m_Texture: {fileID: 2800000, guid: d82be4349b0646348931352a1b742d20, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture3D_02ef34b29a6345459ece04a66d04280c:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_289f3c201d8e446d90f0cc29aad7ffcf: 0
+    - Vector1_646d967c73974acd858ed9b6a1d10e42: 0.1
+    - Vector1_ab7c6e72a7c2435793d543f5224c636d: 1
+    - Vector1_be3a8d9ea6b24216b608844c96f8aca5: 0
+    - _HighlightAmount: 0
+    m_Colors:
+    - Color_09f8a2b1153945788239097064eb46fa: {r: 1, g: 0, b: 0, a: 0}
+    - Color_4ab800dfc60349ce94c07eb6611b4a89: {r: 1, g: 1, b: 1, a: 0}
+    - Color_7caec43e369b471ba43ba290e064556d: {r: 0.94997585, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []

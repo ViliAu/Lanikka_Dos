@@ -26,7 +26,7 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
+    animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
     animationCompression: 3
@@ -341,7 +341,7 @@ ModelImporter:
       parentName: Phys_Belly
       position: {x: 4.628318e-10, y: 0.0007594776, z: -0.0019412573}
       rotation: {x: 0.61645216, y: -0.00000009386454, z: 0.00000007348679, w: 0.7873923}
-      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+      scale: {x: 1.2615091, y: 1.2615091, z: 1.2615093}
     - name: Belly_end
       parentName: Belly
       position: {x: -0, y: 0.0013821268, z: 0}
@@ -526,12 +526,12 @@ ModelImporter:
     feetSpacing: 0
     globalScale: 1
     rootMotionBoneName: Root
-    hasTranslationDoF: 0
+    hasTranslationDoF: 1
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
