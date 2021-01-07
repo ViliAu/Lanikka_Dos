@@ -66,7 +66,6 @@ public class Interactable : Entity {
 
     private void SetHighlightAmount(float target) {
         if (meshRenderers == null || !meshRenderers[0].material.HasProperty(HL_PROPERTY_NAME)) {
-            Debug.Log("No mesh renderers found");
             return;
         }
 

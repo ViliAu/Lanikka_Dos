@@ -50,7 +50,7 @@ Material:
     m_Floats:
     - Boolean_289f3c201d8e446d90f0cc29aad7ffcf: 0
     - Vector1_646d967c73974acd858ed9b6a1d10e42: 0.1
-    - Vector1_ab7c6e72a7c2435793d543f5224c636d: 1
+    - Vector1_ab7c6e72a7c2435793d543f5224c636d: 0
     - Vector1_be3a8d9ea6b24216b608844c96f8aca5: 0
     - _HighlightAmount: 0
     m_Colors:
