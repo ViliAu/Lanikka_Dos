@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour {
             ladderLookModifier = Vector3.SignedAngle(EntityManager.Player.Player_Camera.head.forward, transform.forward, EntityManager.Player.transform.right) / ladderMaxAngle;
             ladderLookModifier = DUtil.Clamp1Neg1(ladderLookModifier);
             dir = dir * Mathf.Abs(1-Mathf.Abs(ladderLookModifier));
-            print(Mathf.Abs(1-Mathf.Abs(ladderLookModifier)));
         }
 
         // Check the correct speed (crouch, sprint or normal)
