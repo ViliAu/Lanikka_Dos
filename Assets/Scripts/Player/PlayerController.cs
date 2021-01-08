@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float ladderWidth = 0.1f;
     [Tooltip("How fast the player climbs ladders")]
     [SerializeField] private float climbSpeed = 1f;
+    [SerializeField] private float ladderMaxAngle = 10f;
 
     [Header("Ground mask")]
     [SerializeField] private LayerMask groundMask = default;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour {
     public bool IsLaddered {get; private set;}
 
     private float controllerHeight = 2f;
+    private float ladderLookModifier = 1f;
 
     /* Memory data */
     [HideInInspector] public Vector3 velocity;
@@ -61,11 +63,19 @@ public class PlayerController : MonoBehaviour {
     /* Creates a velocity vector from given input and current speed */ 
     private void Acceleration() {
         Vector3 dir = transform.rotation * EntityManager.Player.Player_Input.input;
-
-        if (!IsGrounded) {
+        if (!IsGrounded && !IsLaddered) {
             AirAcceleration(dir);
             return;
         }
+
+        // Laddered
+        if (IsLaddered) {
+            ladderLookModifier = Vector3.SignedAngle(EntityManager.Player.Player_Camera.head.forward, transform.forward, EntityManager.Player.transform.right) / ladderMaxAngle;
+            ladderLookModifier = DUtil.Clamp1Neg1(ladderLookModifier);
+            dir = dir * Mathf.Abs(1-Mathf.Abs(ladderLookModifier));
+            print(Mathf.Abs(1-Mathf.Abs(ladderLookModifier)));
+        }
+
         // Check the correct speed (crouch, sprint or normal)
         // Crouching
         if (EntityManager.Player.Player_Input.crouched) {
@@ -152,8 +162,7 @@ public class PlayerController : MonoBehaviour {
     private void LadderClimb() {
         if (IsLaddered) {
             velocity.y = EntityManager.Player.Player_Input.input.z * 
-                climbSpeed * 
-                    (Vector3.SignedAngle(EntityManager.Player.Player_Camera.head.forward, transform.forward, EntityManager.Player.transform.right) / 90);
+                climbSpeed * ladderLookModifier;
         }
     }
 

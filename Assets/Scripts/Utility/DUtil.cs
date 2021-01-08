@@ -11,4 +11,13 @@ public static class DUtil {
         return a - b < 0 ? b - a <= threshold : a - b <= threshold;
     }
 
+    /// <summary>
+    /// Clamps a value between -1 and 1
+    /// </summary>
+    /// <param name="a">Value to be clamped</param>
+    /// <returns>Returns the value clamped between -1 and 1</returns>
+    public static float Clamp1Neg1(float a) {
+        return a < -1 ? -1 : a > 1 ? 1 : a;
+    }
+
 }
