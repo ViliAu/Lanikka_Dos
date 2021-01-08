@@ -17,16 +17,18 @@ public class DookerPen : MonoBehaviour {
     [Header("Debug")]
     [SerializeField] private bool drawBounds = false;
 
-    private void Update() {
+    private void OnDrawGizmos() {
         if (drawBounds)
             DrawBounds();
     }
 
     private void DrawBounds() {
-        Debug.DrawLine(new Vector3(xBounds[0], 1, zBounds[0]), new Vector3(xBounds[0], 1, zBounds[1]));
-        Debug.DrawLine(new Vector3(xBounds[0], 1, zBounds[1]), new Vector3(xBounds[1], 1, zBounds[1]));
-        Debug.DrawLine(new Vector3(xBounds[1], 1, zBounds[1]), new Vector3(xBounds[1], 1, zBounds[0]));
-        Debug.DrawLine(new Vector3(xBounds[1], 1, zBounds[0]), new Vector3(xBounds[0], 1, zBounds[0]));
+        Gizmos.color = Color.red;
+        float yPos = 0.05f;
+        Gizmos.DrawLine(new Vector3(xBounds[0], yPos, zBounds[0]), new Vector3(xBounds[0], yPos, zBounds[1]));
+        Gizmos.DrawLine(new Vector3(xBounds[0], yPos, zBounds[1]), new Vector3(xBounds[1], yPos, zBounds[1]));
+        Gizmos.DrawLine(new Vector3(xBounds[1], yPos, zBounds[1]), new Vector3(xBounds[1], yPos, zBounds[0]));
+        Gizmos.DrawLine(new Vector3(xBounds[1], yPos, zBounds[0]), new Vector3(xBounds[0], yPos, zBounds[0]));
     }
 
     public Vector3 GetNewWalkPos(float yPos) {

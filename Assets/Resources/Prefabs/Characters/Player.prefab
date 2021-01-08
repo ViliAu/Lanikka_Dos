@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74ab637ce0f0804fbc577c0367752eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 2
+  range: 2.8
   interactionMask:
     serializedVersion: 2
     m_Bits: 55
@@ -336,8 +336,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollInterval: 0.1
   scrollBounds: {x: 0.3, y: 1.5}
-  grabSpeed: 5
-  rotationSpeed: 100
+  grabSpeed: 9
+  rotationSpeed: 600
   throwForce: 5
 --- !u!114 &3828608250052126188
 MonoBehaviour:
@@ -591,7 +591,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0

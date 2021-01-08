@@ -71,7 +71,7 @@ public class Dooker : NPC {
 
             // Nothing to do
             else if (currentState == State.CRYING) {
-                SoundSystem.PlaySoundGroup("dooker_cry", transform.position);
+                //SoundSystem.PlaySoundGroup("dooker_cry", transform.position);
                 return;
             }
         }
@@ -152,7 +152,7 @@ public class Dooker : NPC {
         SoundSystem.PlaySoundGroup("dooker_efe", transform.position);
         currentShitmass -= shitMassPerShit;
 
-        Doodie doodie = Instantiate(Database.Singleton.GetEntityPrefab("normal") as Doodie, shitSpawn.position, transform.rotation, null) as Doodie;
+        Doodie doodie = Instantiate(Database.Singleton.GetEntityPrefab("doodie_normal") as Doodie, shitSpawn.position, transform.rotation, null) as Doodie;
         // TODO: Paska paukkumis animi
 
         // If we're out of power walk to a random spot and start idling
