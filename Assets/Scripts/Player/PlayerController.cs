@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     /* User data */
+    [Header("Movement speeds")]
     public float speed = 15;
     [SerializeField] private float sprintSpeed = 30f;
     [SerializeField] private float crouchSpeed = 13f;
 
+    [Header("Ground movement")]
     [SerializeField] private float acceleration = 50f;
-    [SerializeField] private float airAcceleration = 1f;
     [SerializeField] private float deceleration = 10f;
+
+    [Header("Air stuff")]
+    [SerializeField] private float airAcceleration = 1f;
     [SerializeField] private float gravity = 5f;
     [SerializeField] private float maximumGravity = 120f;
     [SerializeField] private float jumpHeight = 15f;
+    [Header("Ladder")]
+    [Tooltip("How far the palyer can grab a ladder")]
+    [SerializeField] private float ladderWidth = 0.1f;
+    [Tooltip("How fast the player climbs ladders")]
+    [SerializeField] private float climbSpeed = 1f;
 
     [Header("Ground mask")]
     [SerializeField] private LayerMask groundMask = default;
 
     public bool IsGrounded {get; private set;}
     public bool CanUncrouch {get; private set;}
+    public bool IsLaddered {get; private set;}
 
     private float controllerHeight = 2f;
 
@@ -36,12 +46,13 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
-        GroundCheck();
+        StateCheck();
         Acceleration();
         Deceleration();
         ApplyGravity();
         Jump();
         Crouch();
+        LadderClimb();
         ApplyVelocity();
         if (transform.position.y < -100)
             transform.position = Vector3.zero;
@@ -88,7 +99,7 @@ public class PlayerController : MonoBehaviour {
 
     /* Decelerates player */
     private void Deceleration() {
-        if (!IsGrounded) {
+        if (!IsGrounded && !IsLaddered) {
             return;
         }
         velocity.x = Mathf.Lerp(velocity.x, 0, deceleration * Time.deltaTime);
@@ -97,14 +108,16 @@ public class PlayerController : MonoBehaviour {
 
     /* Handles gravity */
     private void ApplyGravity() {
-        if (IsGrounded) {
-            if (velocity.y < 0)
-                velocity.y = 0;
-        }
-        else {
-            velocity.y = Mathf.Clamp(velocity.y - gravity * Time.deltaTime, -maximumGravity, 1000);
-            if (velocity.y > 0 && !CanUncrouch)
-                velocity.y = 0;
+        if (!IsLaddered) {
+            if (IsGrounded) {
+                if (velocity.y < 0)
+                    velocity.y = 0;
+            }
+            else {
+                velocity.y = Mathf.Clamp(velocity.y - gravity * Time.deltaTime, -maximumGravity, 1000);
+                if (velocity.y > 0 && !CanUncrouch)
+                    velocity.y = 0;
+            }
         }
     }
 
@@ -136,21 +149,34 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void LadderClimb() {
+        if (IsLaddered) {
+            velocity.y = EntityManager.Player.Player_Input.input.z * 
+                climbSpeed * 
+                    (Vector3.SignedAngle(EntityManager.Player.Player_Camera.head.forward, transform.forward, EntityManager.Player.transform.right) / 90);
+        }
+    }
+
     /* Applies velocity vector to char controller (moves the player) */
     private void ApplyVelocity() {
         controller.Move(velocity * Time.deltaTime);
     }
 
     //Ground check
-    private void GroundCheck() {                                                   
+    private void StateCheck() {     
+
         RaycastHit hit;
         float cMod = Mathf.Abs(2-controllerHeight) * 0.5f;
         Vector3 radius = new Vector3(0,controller.radius,0);
         Vector3 upperPos = transform.position + Vector3.up * (controller.height + cMod) - radius;
         Vector3 lowerPos = transform.position + radius + Vector3.up * cMod;
 
-        //Check if we hit something
+        // Check if we hit a ladder
+        IsLaddered = Physics.CheckCapsule(lowerPos + Vector3.up * ladderWidth, upperPos, controller.radius + ladderWidth, LayerMask.GetMask("Ladder"), QueryTriggerInteraction.Collide);
+
+        //Check we're grounded
         IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, 0.085f, groundMask, QueryTriggerInteraction.Ignore);
+        // Check if we can uncrouch
         float crouchCeiling = IsGrounded ? 2 * cMod : 0;
         CanUncrouch = !Physics.CapsuleCast(lowerPos, upperPos, controller.radius, Vector3.up, out hit, crouchCeiling + 0.085f, groundMask, QueryTriggerInteraction.Ignore);
         Debug.DrawLine(Vector3.zero, upperPos, Color.green);
