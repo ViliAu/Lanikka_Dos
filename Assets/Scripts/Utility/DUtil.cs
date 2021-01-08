@@ -19,5 +19,4 @@ public static class DUtil {
     public static float Clamp1Neg1(float a) {
         return a < -1 ? -1 : a > 1 ? 1 : a;
     }
-
 }

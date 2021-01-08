@@ -6,10 +6,14 @@ public class PlayerCamera : MonoBehaviour {
     public Transform head = null;
     public bool locked = false;
     private Vector2 camEuler = default;
+    private Camera cam;
 
-    private void Start() {
+    private void Awake() {
+        cam = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        camEuler.x = head.transform.eulerAngles.x;
+        camEuler.y = transform.eulerAngles.y;
     }
 
     private void Update() {
@@ -30,5 +34,8 @@ public class PlayerCamera : MonoBehaviour {
         // Apply rotation
         head.transform.rotation = Quaternion.Euler(new Vector3(camEuler.x, head.eulerAngles.y, head.eulerAngles.z));
         transform.rotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, camEuler.y, transform.eulerAngles.z));
+
+        // Check zoom
+        cam.fieldOfView = EntityManager.Player.Player_Input.zoom ? 20 : 90;
     }
 }

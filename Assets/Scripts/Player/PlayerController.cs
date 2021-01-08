@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
     [Tooltip("How fast the player climbs ladders")]
     [SerializeField] private float climbSpeed = 1f;
     [SerializeField] private float ladderMaxAngle = 10f;
+    [SerializeField] private float ladderJumpForce = 10f;
 
     [Header("Ground mask")]
     [SerializeField] private LayerMask groundMask = default;
@@ -39,6 +40,8 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public Vector3 velocity;
     private CharacterController controller;
     private Transform head;
+    private Collider[] ldrCols = null;
+    private Transform ladder;
 
     /* Initialize vars */
     private void Start() {
@@ -54,7 +57,6 @@ public class PlayerController : MonoBehaviour {
         ApplyGravity();
         Jump();
         Crouch();
-        LadderClimb();
         ApplyVelocity();
         if (transform.position.y < -100)
             transform.position = Vector3.zero;
@@ -62,7 +64,9 @@ public class PlayerController : MonoBehaviour {
 
     /* Creates a velocity vector from given input and current speed */ 
     private void Acceleration() {
-        Vector3 dir = transform.rotation * EntityManager.Player.Player_Input.input;
+        Vector3 dir = EntityManager.Player.Player_Input.input;
+        // Rotate input
+        dir = transform.rotation * EntityManager.Player.Player_Input.input;
         if (!IsGrounded && !IsLaddered) {
             AirAcceleration(dir);
             return;
@@ -70,9 +74,10 @@ public class PlayerController : MonoBehaviour {
 
         // Laddered
         if (IsLaddered) {
-            ladderLookModifier = Vector3.SignedAngle(EntityManager.Player.Player_Camera.head.forward, transform.forward, EntityManager.Player.transform.right) / ladderMaxAngle;
+            ladderLookModifier = Vector3.SignedAngle(EntityManager.Player.Player_Camera.head.forward, transform.forward, transform.right) / ladderMaxAngle;
             ladderLookModifier = DUtil.Clamp1Neg1(ladderLookModifier);
-            dir = dir * Mathf.Abs(1-Mathf.Abs(ladderLookModifier));
+            ladderLookModifier = Vector3.Angle(ladder.forward, transform.forward) > 45 ? ladderLookModifier *= -1 : ladderLookModifier;
+            dir = LadderClimb(dir);
         }
 
         // Check the correct speed (crouch, sprint or normal)
@@ -106,6 +111,13 @@ public class PlayerController : MonoBehaviour {
         velocity.z = Mathf.Lerp(velocity.z, speed * dir.z, airAcceleration * Time.deltaTime);
     }
 
+    private Vector3 LadderClimb(Vector3 dir) {
+        float vel = Vector3.Dot(dir, ladder.forward);
+        velocity.y = vel * climbSpeed * ladderLookModifier;
+        dir *= (1-vel);
+        return dir;
+    }
+
     /* Decelerates player */
     private void Deceleration() {
         if (!IsGrounded && !IsLaddered) {
@@ -132,8 +144,16 @@ public class PlayerController : MonoBehaviour {
 
     /* Handles jumping */
     private void Jump() {
-        if (EntityManager.Player.Player_Input.jumped && IsGrounded)
-            velocity.y = jumpHeight;
+        if (EntityManager.Player.Player_Input.jumped) {
+            if (IsGrounded) {
+                velocity.y = jumpHeight;
+            }
+            else if (IsLaddered) {
+                velocity.y = jumpHeight;
+                velocity += -ladder.forward * ladderJumpForce;
+                IsLaddered = false;
+            }
+        }            
     }
 
     private void Crouch() {
@@ -153,15 +173,8 @@ public class PlayerController : MonoBehaviour {
             // Smoothing.. maybe rework
             if (controllerHeight < 1.9f) {
                 if (IsGrounded)
-                    velocity.y = 1.1f;
+                    velocity.y = 1.2f;
             }
-        }
-    }
-
-    private void LadderClimb() {
-        if (IsLaddered) {
-            velocity.y = EntityManager.Player.Player_Input.input.z * 
-                climbSpeed * ladderLookModifier;
         }
     }
 
@@ -180,7 +193,10 @@ public class PlayerController : MonoBehaviour {
         Vector3 lowerPos = transform.position + radius + Vector3.up * cMod;
 
         // Check if we hit a ladder
-        IsLaddered = Physics.CheckCapsule(lowerPos + Vector3.up * ladderWidth, upperPos, controller.radius + ladderWidth, LayerMask.GetMask("Ladder"), QueryTriggerInteraction.Collide);
+        ldrCols = Physics.OverlapCapsule(lowerPos + Vector3.up * ladderWidth, upperPos, controller.radius + ladderWidth, LayerMask.GetMask("Ladder"), QueryTriggerInteraction.Collide);
+        IsLaddered = ldrCols.Length != 0;
+        if (IsLaddered)
+            ladder = ldrCols[0].transform;
 
         //Check we're grounded
         IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, 0.085f, groundMask, QueryTriggerInteraction.Ignore);

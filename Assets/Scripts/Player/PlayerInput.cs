@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour {
     [HideInInspector] public bool interacted = false;
     [HideInInspector] public bool crouched = false;
     [HideInInspector] public bool dropped = false;
+    [HideInInspector] public bool zoom = false;
     [HideInInspector] public int pressedNum = -1;
     [HideInInspector] public int grab = 0;
     [HideInInspector] public bool sprinting = false;
@@ -30,6 +31,7 @@ public class PlayerInput : MonoBehaviour {
         interacted = Input.GetKeyDown(KeyCode.E);
         dropped = Input.GetKeyDown(KeyCode.G);
         threw = Input.GetKeyDown(KeyCode.Mouse1);
+        zoom = Input.GetKey(KeyCode.C);
 
         rotating = Input.GetKey(KeyCode.R);
         crouched = Input.GetKey(KeyCode.LeftControl);

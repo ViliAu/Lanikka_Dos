@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1485375245}
   - component: {fileID: 1485375247}
   - component: {fileID: 1485375246}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3828608249770732164}
   - component: {fileID: 3828608249770732167}
   - component: {fileID: 3828608249770732166}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3828608249878052756}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 7292143550321142258}
   - component: {fileID: 3828608250052126191}
   - component: {fileID: 5061951201491449838}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,11 +282,15 @@ MonoBehaviour:
   sprintSpeed: 12
   crouchSpeed: 3
   acceleration: 50
-  airAcceleration: 3
   deceleration: 10
+  airAcceleration: 3
   gravity: 32
   maximumGravity: 500
   jumpHeight: 8
+  ladderWidth: 0.1
+  climbSpeed: 5
+  ladderMaxAngle: 30
+  ladderJumpForce: 10
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -374,6 +378,7 @@ MonoBehaviour:
   interacted: 0
   crouched: 0
   dropped: 0
+  zoom: 0
   pressedNum: -1
   grab: 0
   sprinting: 0
@@ -463,7 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3828608250526654102}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +502,7 @@ GameObject:
   - component: {fileID: 3828608250643263627}
   - component: {fileID: 3828608250643263626}
   - component: {fileID: 3828608250643263629}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -610,7 +615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3828608251300111386}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: EquipmentHold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +647,7 @@ GameObject:
   - component: {fileID: 3828608251459408114}
   - component: {fileID: 3828608251459408113}
   - component: {fileID: 3828608251459408112}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +728,7 @@ GameObject:
   - component: {fileID: 5941209209253658855}
   - component: {fileID: 7965936839577317680}
   - component: {fileID: 7159614208156824708}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: MoneyAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +862,7 @@ GameObject:
   - component: {fileID: 1383243574076701585}
   - component: {fileID: 1105886680177782315}
   - component: {fileID: 919848122105521284}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: FocusText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
