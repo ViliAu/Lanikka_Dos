@@ -389,8 +389,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
+        time: 0.004875183
+        value: 0.096385956
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -463,9 +463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56308114636025c44beabd4483b770a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {x: 0, y: 0, z: 0}
+  startPoint: {x: 0, y: 10, z: 0}
   endPoint: {x: 0, y: 10, z: 10}
   segments: 10
+  looseness: 3
 --- !u!1 &1418582100
 GameObject:
   m_ObjectHideFlags: 0
