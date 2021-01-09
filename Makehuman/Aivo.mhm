@@ -1,0 +1,95 @@
+# Written by MakeHuman 1.1.1
+version v1.1.1
+tags Aivo
+camera 9.0 332.5 0.188867916224 0.617513006469 -0.0471946733641 2.3
+modifier torso/torso-vshape-decr|incr 0.360000
+modifier mouth/mouth-dimples-in|out 0.020000
+modifier nose/nose-width1-decr|incr -0.020000
+modifier stomach/stomach-tone-decr|incr -1.000000
+modifier nose/nose-trans-backward|forward 0.130000
+modifier macrodetails-universal/Muscle 0.721000
+modifier mouth/mouth-scale-horiz-decr|incr 1.000000
+modifier macrodetails/African 0.000000
+modifier neck/neck-trans-down|up -1.000000
+modifier macrodetails-proportions/BodyProportions 0.500000
+modifier mouth/mouth-laugh-lines-in|out 0.020000
+modifier torso/torso-scale-horiz-decr|incr -1.000000
+modifier neck/neck-scale-depth-decr|incr -1.000000
+modifier torso/torso-trans-backward|forward 0.456000
+modifier neck/neck-scale-horiz-decr|incr -1.000000
+modifier nose/nose-trans-down|up 0.414000
+modifier head/head-scale-depth-decr|incr 0.796000
+modifier macrodetails/Gender 1.000000
+modifier torso/torso-scale-vert-decr|incr -1.000000
+modifier head/head-angle-in|out 1.000000
+modifier forehead/forehead-trans-backward|forward -0.020000
+modifier nose/nose-point-width-decr|incr 1.000000
+modifier macrodetails-height/Height 0.558000
+modifier breast/BreastSize 0.517000
+modifier mouth/mouth-scale-vert-decr|incr 1.000000
+modifier head/head-invertedtriangular 0.469000
+modifier nose/nose-septumangle-decr|incr 0.062000
+modifier torso/torso-muscle-dorsi-decr|incr -0.198000
+modifier nose/nose-base-down|up 1.000000
+modifier torso/torso-muscle-pectoral-decr|incr 1.000000
+modifier forehead/forehead-scale-vert-decr|incr 0.198000
+modifier nose/nose-nostrils-width-decr|incr 1.000000
+modifier mouth/mouth-trans-down|up 0.402000
+modifier macrodetails/Age 0.578000
+modifier neck/neck-double-decr|incr -1.000000
+modifier breast/BreastFirmness 0.500000
+modifier neck/neck-back-scale-depth-decr|incr 0.074000
+modifier macrodetails/Asian 0.228521
+modifier chin/chin-prominent-decr|incr 0.442000
+modifier nose/nose-scale-depth-decr|incr 1.000000
+modifier neck/neck-trans-backward|forward 0.006000
+modifier forehead/forehead-temple-decr|incr -0.006000
+modifier head/head-trans-backward|forward 0.768000
+modifier mouth/mouth-upperlip-middle-down|up 0.388000
+modifier mouth/mouth-trans-in|out -0.006000
+modifier head/head-fat-decr|incr -1.000000
+modifier head/head-diamond 0.381000
+modifier head/head-age-decr|incr -0.184000
+modifier macrodetails/Caucasian 0.771479
+modifier nose/nose-trans-in|out -0.034000
+modifier chin/chin-jaw-drop-decr|incr 0.116000
+modifier nose/nose-curve-concave|convex -0.048000
+modifier head/head-trans-in|out 0.020000
+modifier head/head-triangular 0.143000
+modifier head/head-square 0.048000
+modifier head/head-scale-horiz-decr|incr 0.402000
+modifier torso/torso-scale-depth-decr|incr 1.000000
+modifier stomach/stomach-navel-in|out 0.020000
+modifier nose/nose-scale-vert-decr|incr 0.210000
+modifier head/head-round 0.048000
+modifier mouth/mouth-lowerlip-width-decr|incr -0.198000
+modifier nose/nose-compression-compress|uncompress 0.292000
+modifier head/head-rectangular 0.293000
+modifier mouth/mouth-cupidsbow-decr|incr 0.456000
+modifier head/head-back-scale-depth-decr|incr 1.000000
+modifier mouth/mouth-upperlip-height-decr|incr 1.000000
+modifier nose/nose-scale-horiz-decr|incr -1.000000
+modifier mouth/mouth-upperlip-width-decr|incr 0.198000
+modifier head/head-scale-vert-decr|incr 1.000000
+modifier neck/neck-scale-vert-decr|incr -1.000000
+modifier forehead/forehead-nubian-decr|incr 0.062000
+modifier macrodetails-universal/Weight 0.660000
+modifier mouth/mouth-trans-backward|forward 1.000000
+modifier neck/neck-trans-in|out 0.034000
+modifier mouth/mouth-upperlip-ext-down|up -0.088000
+modifier pelvis/pelvis-tone-decr|incr 0.130000
+modifier mouth/mouth-scale-depth-decr|incr 1.000000
+modifier nose/nose-width2-decr|incr 0.374000
+modifier mouth/mouth-lowerlip-height-decr|incr 1.000000
+modifier head/head-trans-down|up 1.000000
+modifier stomach/stomach-pregnant-decr|incr 0.674000
+modifier mouth/mouth-cupidsbow-width-decr|incr 0.360000
+modifier nose/nose-width3-decr|incr 0.620000
+proxy male1591 d7e4934e-daed-4ad5-a055-18c9cba487dc
+eyes Low-Poly 1cc97a30-85a1-42e6-a9f7-b3e753732baa
+pose tpose.bvh
+clothesHideFaces True
+expression attention01.mhpose
+skinMaterial skins/old_caucasian_male/old_caucasian_male.mhmat
+material Low-Poly 1cc97a30-85a1-42e6-a9f7-b3e753732baa eyes/materials/brown.mhmat
+subdivide False
