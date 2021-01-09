@@ -131,8 +131,8 @@ public class PlayerController : MonoBehaviour {
     private void ApplyGravity() {
         if (!IsLaddered) {
             if (IsGrounded) {
-                if (velocity.y < 0)
-                    velocity.y = 0;
+                if (velocity.y < -gravity)
+                    velocity.y = -gravity;
             }
             else {
                 velocity.y = Mathf.Clamp(velocity.y - gravity * Time.deltaTime, -maximumGravity, 1000);
@@ -172,8 +172,7 @@ public class PlayerController : MonoBehaviour {
             controller.height = controllerHeight;
             // Smoothing.. maybe rework
             if (controllerHeight < 1.9f) {
-                if (IsGrounded)
-                    velocity.y = 1.2f;
+                controller.Move(Vector3.up * controllerHeight * Time.deltaTime);
             }
         }
     }
@@ -184,8 +183,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     //Ground check
-    private void StateCheck() {     
-
+    private void StateCheck() {
         RaycastHit hit;
         float cMod = Mathf.Abs(2-controllerHeight) * 0.5f;
         Vector3 radius = new Vector3(0,controller.radius,0);
@@ -199,11 +197,11 @@ public class PlayerController : MonoBehaviour {
             ladder = ldrCols[0].transform;
 
         //Check we're grounded
-        IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, 0.085f, groundMask, QueryTriggerInteraction.Ignore);
+        IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
+
         // Check if we can uncrouch
         float crouchCeiling = IsGrounded ? 2 * cMod : 0;
-        CanUncrouch = !Physics.CapsuleCast(lowerPos, upperPos, controller.radius, Vector3.up, out hit, crouchCeiling + 0.085f, groundMask, QueryTriggerInteraction.Ignore);
-        Debug.DrawLine(Vector3.zero, upperPos, Color.green);
-        Debug.DrawLine(Vector3.zero, lowerPos, Color.red);
+        CanUncrouch = !Physics.CapsuleCast(lowerPos, upperPos, controller.radius, Vector3.up, out hit, crouchCeiling + controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
+        
     }
 }

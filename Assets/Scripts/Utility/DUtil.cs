@@ -19,4 +19,15 @@ public static class DUtil {
     public static float Clamp1Neg1(float a) {
         return a < -1 ? -1 : a > 1 ? 1 : a;
     }
+
+    /// <summary>
+    /// Used to check if a value is between two constants
+    /// </summary>
+    /// <param name="a">The queried float</param>
+    /// <param name="min">Minimum</param>
+    /// <param name="max">maximum</param>
+    /// <returns>Returns wether or not given value is between min and max</returns>
+    public static bool Between(float a, float min, float max) {
+        return a > min ? a < max : false;
+    }
 }
