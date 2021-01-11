@@ -198,10 +198,13 @@ public class PlayerController : MonoBehaviour {
 
         //Check we're grounded
         IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
+        Mover m = null;
+        if (IsGrounded && (m = hit.transform.GetComponent<Mover>()) != null) {
+            controller.Move(new Vector3(m.moveVec.x, 0, m.moveVec.z));
+        }
 
         // Check if we can uncrouch
         float crouchCeiling = IsGrounded ? 2 * cMod : 0;
         CanUncrouch = !Physics.CapsuleCast(lowerPos, upperPos, controller.radius, Vector3.up, out hit, crouchCeiling + controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
-        
     }
 }
