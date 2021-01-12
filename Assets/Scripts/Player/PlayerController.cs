@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 
     /* Memory data */
     [HideInInspector] public Vector3 velocity;
+    private Vector3 additionalVelocity = Vector3.zero;
     private CharacterController controller;
     private Transform head;
     private Collider[] ldrCols = null;
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour {
             velocity.x = Mathf.Lerp(velocity.x, speed * dir.x, acceleration * Time.deltaTime);
             velocity.z = Mathf.Lerp(velocity.z, speed * dir.z, acceleration * Time.deltaTime);
         }
+        velocity += additionalVelocity;
     }
 
     private void AirAcceleration(Vector3 dir) {
@@ -123,8 +125,8 @@ public class PlayerController : MonoBehaviour {
         if (!IsGrounded && !IsLaddered) {
             return;
         }
-        velocity.x = Mathf.Lerp(velocity.x, 0, deceleration * Time.deltaTime);
-        velocity.z = Mathf.Lerp(velocity.z, 0, deceleration * Time.deltaTime);
+        velocity.x = Mathf.Lerp(velocity.x, additionalVelocity.x, deceleration * Time.deltaTime);
+        velocity.z = Mathf.Lerp(velocity.z, additionalVelocity.z, deceleration * Time.deltaTime);
     }
 
     /* Handles gravity */
@@ -198,13 +200,23 @@ public class PlayerController : MonoBehaviour {
 
         //Check we're grounded
         IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
-        Mover m = null;
-        if (IsGrounded && (m = hit.transform.GetComponent<Mover>()) != null) {
-            controller.Move(new Vector3(m.moveVec.x, 0, m.moveVec.z));
-        }
+
+        // Chekc if we move with some object
+        AdditionalMovementCheck(hit);
 
         // Check if we can uncrouch
         float crouchCeiling = IsGrounded ? 2 * cMod : 0;
         CanUncrouch = !Physics.CapsuleCast(lowerPos, upperPos, controller.radius, Vector3.up, out hit, crouchCeiling + controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
+    }
+
+    private void AdditionalMovementCheck(RaycastHit hit) {
+        Mover m = null;
+        if (IsGrounded && (m = hit.transform.GetComponent<Mover>()) != null) {
+            velocity -= additionalVelocity;
+            additionalVelocity = (new Vector3(m.moveVec.x, 0, m.moveVec.z));
+        }
+        else {
+            additionalVelocity = Vector3.zero;
+        }
     }
 }

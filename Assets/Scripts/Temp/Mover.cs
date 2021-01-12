@@ -9,8 +9,8 @@ public class Mover : MonoBehaviour {
 
     void Update() {
         a += 0.005f;
-        moveVec = Vector3.forward * Mathf.Sin(a) * 5 * Time.deltaTime + Vector3.right * Mathf.Cos(a) * 5 * Time.deltaTime; 
-        transform.Translate(moveVec);
+        moveVec = Vector3.forward * Mathf.Sin(a) * 5; 
+        transform.Translate(moveVec * Time.deltaTime);
     }
 
 }
