@@ -51,7 +51,7 @@ public class Interactable : Entity {
     }
 
     private IEnumerator PlayHighlightAnimation(float target) {
-        if (meshRenderers == null || !meshRenderers[0].material.HasProperty(HL_PROPERTY_NAME)) {
+        if (meshRenderers == null || meshRenderers.Length == 0 || !meshRenderers[0].material.HasProperty(HL_PROPERTY_NAME)) {
             yield break;
         }
 
@@ -62,6 +62,7 @@ public class Interactable : Entity {
             SetHighlightAmount(hl);
             yield return null;
         }
+        highlightCoroutine = null;
     }
 
     private void SetHighlightAmount(float target) {
