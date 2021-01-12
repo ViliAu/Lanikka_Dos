@@ -10,9 +10,11 @@ public class Door : Interactable {
    [SerializeField] private AudioClip closeSound = null;
    [SerializeField] private Axis axis = Axis.Y;
    private bool open = false;
-   private float originalAngle;
-   private float currAngle = 0;
    private Rigidbody rig;
+
+   private Quaternion originalRotation = Quaternion.identity;
+   private Quaternion currentRotation = Quaternion.identity;
+   private Quaternion openRotation = Quaternion.identity;
 
    private enum Axis {
        X,
@@ -24,20 +26,21 @@ public class Door : Interactable {
        rig = GetComponent<Rigidbody>();
        switch (axis) {
            case Axis.X: {
-               currAngle = originalAngle = rig == null ? transform.rotation.eulerAngles.x : rig.rotation.eulerAngles.x;
+               currentRotation = originalRotation = rig == null ? transform.rotation : rig.rotation;
+               openRotation = originalRotation * Quaternion.Euler(openAngle, 0, 0);
                break;
            }
            case Axis.Y: {
-               currAngle = originalAngle = rig == null ? transform.rotation.eulerAngles.y : rig.rotation.eulerAngles.y;
+               currentRotation = originalRotation = rig == null ? transform.rotation : rig.rotation;
+               openRotation = originalRotation * Quaternion.Euler(0, openAngle, 0);
                break;
            }
            case Axis.Z: {
-               currAngle = originalAngle = rig == null ? transform.rotation.eulerAngles.z : rig.rotation.eulerAngles.z;
+               currentRotation = originalRotation = rig == null ? transform.rotation : rig.rotation;
+               openRotation = originalRotation * Quaternion.Euler(0, 0, openAngle);
                break;
            }
        }
-
-       openAngle += originalAngle;
    }
 
     public override void PlayerInteract() {
@@ -49,34 +52,9 @@ public class Door : Interactable {
     }
 
     private IEnumerator PlayAnimation(bool open) {
-        float destinationAngle = open ? originalAngle : openAngle;
-        float a = currAngle;
-
-        while ((!open && !DUtil.Approx(a, openAngle, 0.1f)) || (open && !DUtil.Approx(a, originalAngle, 0.1f))) {
-            currAngle = a = Mathf.Lerp(a, destinationAngle, openSpeed * Time.deltaTime);
-            switch (axis) {
-                case Axis.X: {
-                    if (rig == null)
-                        transform.rotation = Quaternion.Euler(new Vector3(a, 0, 0));
-                    else
-                        rig.MoveRotation(Quaternion.Euler(new Vector3(a, 0, 0)));
-                    break;
-                }
-                case Axis.Y: {
-                    if (rig == null)
-                        transform.rotation = Quaternion.Euler(new Vector3(0, a, 0));
-                    else
-                        rig.MoveRotation(Quaternion.Euler(new Vector3(0, a, 0)));
-                    break;
-                }
-                case Axis.Z: {
-                    if (rig == null)
-                        transform.rotation = Quaternion.Euler(new Vector3(0, 0, a));
-                    else
-                        rig.MoveRotation(Quaternion.Euler(new Vector3(0, 0, a)));
-                    break;
-                }
-            }
+        Quaternion destinationRotation = open ? originalRotation : openRotation;
+        while ((!open && Quaternion.Angle(transform.rotation, openRotation) > 0.1f) || (open && Quaternion.Angle(transform.rotation, originalRotation) > 0.1f)) {
+            transform.rotation = Quaternion.Lerp(transform.rotation, destinationRotation, openSpeed * Time.deltaTime);
             yield return null;
         }
     }
