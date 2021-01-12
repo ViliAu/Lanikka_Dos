@@ -2412,6 +2412,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3110044618337959960, guid: a8a9d568c0444c14587483958c61990c, type: 3}
+      propertyPath: greetSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 16fd7b442a529294d9508ac8402dd653, type: 3}
+    - target: {fileID: 3110044618337959960, guid: a8a9d568c0444c14587483958c61990c, type: 3}
       propertyPath: visionRange
       value: 20
       objectReference: {fileID: 0}

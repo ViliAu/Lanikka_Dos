@@ -9,30 +9,37 @@ public class Shopkeeper : NPC {
     [SerializeField] private float visionCheckInterval = 0.5f;
     [SerializeField] private float lookSpeed = 5f; 
     [SerializeField] private Vector3 visionOffset = Vector3.zero;
+    [SerializeField] private AudioClip greetSound = null;
 
     private Quaternion restRotation;
-    private bool playerInVision = false;
+    protected bool playerInVision = false;
+    protected float playerRange = 0f;
 
     // HuoM TÄMÄ ON TEMPPI TÄMÄ VAIHTUU SIT KU SAADAAN KUNNOLLA VOISLAINEJA
     private bool playerGreeted = false;
     RaycastHit hit;
 
-    private void Awake() {
+    protected virtual void Awake() {
         if (headBone == null) {
             Debug.LogError("Shopkeeper "+entityName+" does not have his head bone assigned.");
+            return;
+        }
+        if (greetSound == null) {
+            Debug.LogError("Shopkeeper "+entityName+" does not have his greet sound assigned.");
             return;
         }
         restRotation = headBone.rotation;
         InvokeRepeating("CheckVision", 0, visionCheckInterval);
     }
 
-    private void Update() {
+    protected virtual void Update() {
         RotateHead();    
     }
 
-    private void CheckVision() {
+    protected virtual void CheckVision() {
         Vector3 visionVector = EntityManager.Player.Player_Camera.head.position - headBone.transform.position;
-        playerInVision = visionVector.magnitude <= visionRange && Vector3.Angle(transform.forward, visionVector) <= visionAngle;
+        playerRange = visionVector.magnitude;
+        playerInVision = playerRange <= visionRange && Vector3.Angle(transform.forward, visionVector) <= visionAngle;
     }
 
     private void RotateHead() {
@@ -44,7 +51,7 @@ public class Shopkeeper : NPC {
             if (!playerGreeted) {
                 if (Physics.Raycast(headBone.position, EntityManager.Player.Player_Camera.head.position - headBone.transform.position, out hit, visionRange, LayerMask.GetMask("Default") | LayerMask.GetMask("Player"), QueryTriggerInteraction.Collide)) {
                     if (hit.transform.GetComponent<Player>() != null) {
-                        SoundSystem.PlaySound("shopkeeper_greet_player", transform.position);
+                        SoundSystem.PlaySound(greetSound.name, transform.position);
                         playerGreeted = true;
                     }
                 }

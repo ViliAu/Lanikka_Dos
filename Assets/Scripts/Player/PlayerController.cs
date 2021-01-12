@@ -202,11 +202,14 @@ public class PlayerController : MonoBehaviour {
         IsGrounded = Physics.CapsuleCast(upperPos, lowerPos, controller.radius, -Vector3.up, out hit, controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
 
         // Chekc if we move with some object
-        AdditionalMovementCheck(hit);
+        if (IsGrounded)
+            AdditionalMovementCheck(hit);
 
         // Check if we can uncrouch
         float crouchCeiling = IsGrounded ? 2 * cMod : 0;
         CanUncrouch = !Physics.CapsuleCast(lowerPos, upperPos, controller.radius, Vector3.up, out hit, crouchCeiling + controller.skinWidth + 0.005f, groundMask, QueryTriggerInteraction.Ignore);
+        if (!CanUncrouch)
+            LidCheck(hit);
     }
 
     private void AdditionalMovementCheck(RaycastHit hit) {
@@ -217,6 +220,13 @@ public class PlayerController : MonoBehaviour {
         }
         else {
             additionalVelocity = Vector3.zero;
+        }
+    }
+
+    private void LidCheck(RaycastHit hit) {
+        Door door;
+        if (!CanUncrouch && (door = hit.transform.GetComponent<Door>()) != null && !door.Open) {
+            door.StopAllCoroutines();
         }
     }
 }

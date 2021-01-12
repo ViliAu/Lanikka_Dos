@@ -7,6 +7,13 @@ public class Sellpoint : Interactable {
     [SerializeField] private Money moneyPrefab = null;
     [SerializeField] private float dropMoneyInterval = 0.2f;
     [SerializeField] private Vector3 moneySpawnOffset = Vector3.up;
+    [SerializeField] private Vector3 moneyForce = Vector3.forward;
+
+    public delegate void SellingStartedHandler(float value);
+    public event SellingFinishedHandler OnSellingStarted;
+
+    public delegate void SellingFinishedHandler(float value);
+    public event SellingFinishedHandler OnSellingFinished;
 
     private void Update() {
         if (EntityManager.Player.Player_Input.dropped) {
@@ -49,27 +56,44 @@ public class Sellpoint : Interactable {
         if (totalInventoryValue > 0) {
             StartCoroutine(DropMoney(totalInventoryValue));
         }
-        // ???
-        CalculateValues(); // miskei otimi
-        EntityManager.Player.Player_UI.ChangeFocusText("Sell 0 doodies for 0$");
+        else {
+            SellingFinishedInvoker(0);
+        }
     }
 
     // TODO: RAHA TEMPPINA
     private IEnumerator DropMoney(float value) {
+        float totVal = value;
         if (moneyPrefab == null) {
             Debug.LogError("No money prefab assigned to "+gameObject.name);
             yield return null;
         }
+
+        SellingStartedInvoker(totVal);
         while (value > 22) {
-            Money clone = Instantiate(moneyPrefab, transform.position + moneySpawnOffset, Quaternion.identity, null) as Money;
+            Money clone = Instantiate(moneyPrefab, transform.position + transform.rotation * moneySpawnOffset, Quaternion.identity, null) as Money;
             moneyPrefab.SetAmount(22);
             value -= moneyPrefab.amount;
+            clone.GetComponent<Rigidbody>().AddForce(transform.rotation * moneyForce, ForceMode.Impulse);
             yield return new WaitForSecondsRealtime(dropMoneyInterval);
         }
 
         if (value > 0) {
-            Money clone2 = Instantiate(moneyPrefab, transform.position + moneySpawnOffset, Quaternion.identity, null) as Money;
+            Money clone2 = Instantiate(moneyPrefab, transform.position + transform.rotation * moneySpawnOffset, Quaternion.identity, null) as Money;
+            clone2.GetComponent<Rigidbody>().AddForce(transform.rotation * moneyForce, ForceMode.Impulse);
             clone2.SetAmount(value);
         }
+        // ???
+        CalculateValues(); // miskei otimi
+        EntityManager.Player.Player_UI.ChangeFocusText("Sell 0 doodies for 0$");
+        SellingFinishedInvoker(totVal);
     }  
+
+    public void SellingStartedInvoker(float value) {
+        OnSellingStarted?.Invoke(value);
+    }
+
+    public void SellingFinishedInvoker(float value) {
+        OnSellingFinished?.Invoke(value);
+    }
 }
