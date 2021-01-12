@@ -22,6 +22,8 @@ public class Sellpoint : Interactable {
     }
 
     public override void PlayerFocusEnter() {
+        if (!canInteract)
+            return;
         base.PlayerFocusEnter();
         CalculateValues();
     }
@@ -42,6 +44,8 @@ public class Sellpoint : Interactable {
     }
 
     public override void PlayerInteract() {
+        if (!canInteract)
+            return;
         base.PlayerInteract();
         float totalInventoryValue = 0;
         for (int i = 0; i < EntityManager.Player.Player_Inventory.items.Length; i++) {

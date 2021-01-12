@@ -59,6 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: shitbuyer_sellpoint
   grabbable: 1
+  canInteract: 1
   isHighlightable: 0
   moneyPrefab: {fileID: 2488594666016029040, guid: 0f28ccd86269c454ca26ed8fb91f8ad4, type: 3}
   dropMoneyInterval: 0.2
@@ -158,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: shit_buyer
   grabbable: 1
+  canInteract: 1
   isHighlightable: 1
   headBone: {fileID: 294235571884909257}
   visionRange: 7
@@ -359,6 +361,10 @@ PrefabInstance:
     - target: {fileID: 3950726386531126759, guid: dda0d682d77e03945afc2d813b35bd00, type: 3}
       propertyPath: openAngle
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950726386531126759, guid: dda0d682d77e03945afc2d813b35bd00, type: 3}
+      propertyPath: canInteract
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3950726386531126759, guid: dda0d682d77e03945afc2d813b35bd00, type: 3}
       propertyPath: interactable

@@ -54,12 +54,13 @@ public class Shitbuyer : Shopkeeper {
     private void SellStartedCallBack(float value) {
         active = false;
         SoundSystem.PlaySound(CalculateLaughState(value), transform.position);
+        sellpoint.canInteract = false;
     }
 
     // TODO: Temppi vaa
     private void SellFinishedCallback(float value) {
         if (value <= 0) {
-            SoundSystem.PlaySound("shitbuyer_angry", transform.position);
+            SoundSystem.PlaySound(Random.Range(0, 2) == 0 ? "shitbuyer_angry" : "shitbuyer_angry2", transform.position);
             return;
         }
         dumpsterLid.ChangeState(true);
@@ -96,6 +97,7 @@ public class Shitbuyer : Shopkeeper {
             yield return null;
         }
         active = true;
+        sellpoint.canInteract = true;
         yield return null;
     }
 

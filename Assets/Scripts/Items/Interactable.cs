@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Interactable : Entity {
 
-    // Highlights
+    [Header("Interactable settings")]
+    public bool canInteract = true;
+    // Highlight settings
     public bool isHighlightable = true;
+    
     private Coroutine highlightCoroutine = null;
     private MeshRenderer[] meshRenderers = null;
     private const string HL_PROPERTY_NAME = "_HighlightAmount";
@@ -19,13 +22,18 @@ public class Interactable : Entity {
     /// Get's called when the player interacts with an item
     /// </summary>
     public virtual void PlayerInteract() {
-
+        if (!canInteract)
+            return;
     }
 
     /// <summary>
     /// Get's called when the player focuses to an item
     /// </summary>
     public virtual void PlayerFocusEnter() {
+        if (!canInteract) {
+            PlayerFocusExit();
+            return;
+        }
         EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
 
         if (highlightCoroutine != null)

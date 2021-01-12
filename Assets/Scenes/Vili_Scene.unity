@@ -628,6 +628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: banana
   grabbable: 1
+  canInteract: 1
   isHighlightable: 1
   stackCount: 123
   _shitmassAmount: 50
@@ -732,6 +733,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
+      propertyPath: axis
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
+      propertyPath: openAngle
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
+      propertyPath: openSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3973713329724446673, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
       propertyPath: m_RootOrder
       value: 1
