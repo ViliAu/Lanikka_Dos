@@ -19,6 +19,8 @@ public class ShopItem : Interactable {
         }   
         else {
             SoundSystem.PlaySound2D("ui_negative");
+            EntityManager.Player.Player_UI.ChangeFocusText("Not enough money for " + itemToGive.entityName+"!");
+            Invoke("ResetFocusText", 2f);
         }
     }
 
@@ -28,8 +30,17 @@ public class ShopItem : Interactable {
         EntityManager.Player.Player_UI.ChangeFocusText("Buy "+ amountToGive + "x " + itemToGive.entityName + " " + price + "$");
     }
 
+    public override void PlayerFocusExit() {
+        base.PlayerFocusExit();
+        CancelInvoke("ResetFocusText");
+    }
+
     // Tää kutsutaa sit kaupas ku tulee lentokonetäydennyksii
     public void Restock() {
         gameObject.SetActive(true);
+    }
+
+    private void ResetFocusText() {
+        EntityManager.Player.Player_UI.ChangeFocusText("Buy "+ amountToGive + "x " + itemToGive.entityName + " " + price + "$");
     }
 }
