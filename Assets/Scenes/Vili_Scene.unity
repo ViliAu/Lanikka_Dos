@@ -1067,6 +1067,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1162979488012477230, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.1804415
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488012477230, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9967858
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488012477230, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488012477230, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Center.x
+      value: -0.090222776
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488012477230, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.99839294
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488012477230, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1162979488071465404, guid: 86adda2566ed84649b524c027006985c, type: 3}
       propertyPath: m_Name
       value: Shop_Refigerator
@@ -1114,6 +1138,30 @@ PrefabInstance:
     - target: {fileID: 1162979488071465405, guid: 86adda2566ed84649b524c027006985c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488574700525, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.1804415
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488574700525, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9967858
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488574700525, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488574700525, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Center.x
+      value: -0.090222776
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488574700525, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.99839294
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162979488574700525, guid: 86adda2566ed84649b524c027006985c, type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86adda2566ed84649b524c027006985c, type: 3}

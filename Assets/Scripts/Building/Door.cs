@@ -8,18 +8,36 @@ public class Door : Interactable {
    [SerializeField] private float openSpeed = 5f;
    [SerializeField] private AudioClip openSound = null;
    [SerializeField] private AudioClip closeSound = null;
+   [SerializeField] private Axis axis = Axis.Y;
    private bool open = false;
    private float originalAngle;
    private float currAngle = 0;
    private Rigidbody rig;
 
+   private enum Axis {
+       X,
+       Y,
+       Z
+   }
+
    private void Awake() {
        rig = GetComponent<Rigidbody>();
-       currAngle = originalAngle = rig == null ? transform.rotation.eulerAngles.y : rig.rotation.eulerAngles.y;
-       openAngle += originalAngle;
-       if (rig != null) {
-           rig.centerOfMass = new Vector3(0, rig.centerOfMass.y, 0);
+       switch (axis) {
+           case Axis.X: {
+               currAngle = originalAngle = rig == null ? transform.rotation.eulerAngles.x : rig.rotation.eulerAngles.x;
+               break;
+           }
+           case Axis.Y: {
+               currAngle = originalAngle = rig == null ? transform.rotation.eulerAngles.y : rig.rotation.eulerAngles.y;
+               break;
+           }
+           case Axis.Z: {
+               currAngle = originalAngle = rig == null ? transform.rotation.eulerAngles.z : rig.rotation.eulerAngles.z;
+               break;
+           }
        }
+
+       openAngle += originalAngle;
    }
 
     public override void PlayerInteract() {
@@ -36,10 +54,28 @@ public class Door : Interactable {
 
         while ((!open && !DUtil.Approx(a, openAngle, 0.1f)) || (open && !DUtil.Approx(a, originalAngle, 0.1f))) {
             currAngle = a = Mathf.Lerp(a, destinationAngle, openSpeed * Time.deltaTime);
-            if (rig == null)
-                transform.rotation = Quaternion.Euler(new Vector3(0, a, 0));
-            else {
-                rig.MoveRotation(Quaternion.Euler(new Vector3(0, a, 0)));
+            switch (axis) {
+                case Axis.X: {
+                    if (rig == null)
+                        transform.rotation = Quaternion.Euler(new Vector3(a, 0, 0));
+                    else
+                        rig.MoveRotation(Quaternion.Euler(new Vector3(a, 0, 0)));
+                    break;
+                }
+                case Axis.Y: {
+                    if (rig == null)
+                        transform.rotation = Quaternion.Euler(new Vector3(0, a, 0));
+                    else
+                        rig.MoveRotation(Quaternion.Euler(new Vector3(0, a, 0)));
+                    break;
+                }
+                case Axis.Z: {
+                    if (rig == null)
+                        transform.rotation = Quaternion.Euler(new Vector3(0, 0, a));
+                    else
+                        rig.MoveRotation(Quaternion.Euler(new Vector3(0, 0, a)));
+                    break;
+                }
             }
             yield return null;
         }

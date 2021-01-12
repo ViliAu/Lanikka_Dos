@@ -32,7 +32,6 @@ MonoBehaviour:
   openSpeed: 5
   openSound: {fileID: 8300000, guid: e90e25bae3b606a48a6f397e2117db8a, type: 3}
   closeSound: {fileID: 8300000, guid: 7b27b3efd44116943911610befb65af2, type: 3}
-  pivotObject: {fileID: 1162979488071465405}
 --- !u!65 &1162979488574700525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65,7 +64,6 @@ MonoBehaviour:
   openSpeed: 5
   openSound: {fileID: 8300000, guid: e90e25bae3b606a48a6f397e2117db8a, type: 3}
   closeSound: {fileID: 8300000, guid: 7b27b3efd44116943911610befb65af2, type: 3}
-  pivotObject: {fileID: 1162979488071465405}
 --- !u!1 &1162979487104390944
 GameObject:
   m_ObjectHideFlags: 0
