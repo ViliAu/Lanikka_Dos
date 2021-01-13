@@ -123,7 +123,7 @@ public class PlayerEquipment : MonoBehaviour {
         if (equippedItem == null)
             EntityManager.Player.Player_UI.ChangeHeldItem(null, "");
         else {
-            EntityManager.Player.Player_UI.ChangeHeldItem(Database.Singleton.GetIcon("icon_"+equippedItem.gameObject.name),
+            EntityManager.Player.Player_UI.ChangeHeldItem(Database.Singleton.GetIcon(equippedItem.entityName),
                 EntityManager.Player.Player_Inventory.items[itemIndex].stackCount + "/" + EntityManager.Player.Player_Inventory.maxStackSize);
         }
     }

@@ -15,12 +15,6 @@ public class Sellpoint : Interactable {
     public delegate void SellingFinishedHandler(float value);
     public event SellingFinishedHandler OnSellingFinished;
 
-    private void Update() {
-        if (EntityManager.Player.Player_Input.dropped) {
-            CalculateValues();
-        }
-    }
-
     public override void PlayerFocusEnter() {
         if (!canInteract)
             return;
@@ -89,7 +83,7 @@ public class Sellpoint : Interactable {
         }
         // ???
         CalculateValues(); // miskei otimi
-        EntityManager.Player.Player_UI.ChangeFocusText("Sell 0 doodies for 0$");
+        //EntityManager.Player.Player_UI.ChangeFocusText("Sell 0 doodies for 0$");
         SellingFinishedInvoker(totVal);
     }  
 

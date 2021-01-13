@@ -55,11 +55,9 @@ public class PlayerInventory : MonoBehaviour {
     public void RemoveItemByIndex(int index, bool destroy) {
         if (destroy)
             items[index].DestroyItem();
-        else {
-            items[index] = null;
-        }
         if (EntityManager.Player.Player_Equipment.itemIndex == index)
             EntityManager.Player.Player_Equipment.RemoveEquippedItem();
+        items[index] = null;
     }
 
     public void DecrementStackSize(int index) {

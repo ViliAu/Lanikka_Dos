@@ -8,7 +8,7 @@ public class IconCreator : EditorWindow {
     [MenuItem("DUtil/Generate Icons")]
     static void StartCreating() {
         // Scan all the items from items folder
-        Object[] objs = Resources.LoadAll("Prefabs");
+        Entity[] objs = Resources.LoadAll<Entity>("Prefabs");
         if (objs.Length == 0) {
             Debug.Log("No prefabs fou nd");
             return;
@@ -16,7 +16,7 @@ public class IconCreator : EditorWindow {
 
         // Save each icon as PNG
         for (int i = 0; i < objs.Length; i++) {
-            Texture2D tex = GetPreviewTexture(objs[i]);
+            Texture2D tex = GetPreviewTexture(objs[i].gameObject);
             if (tex == null)
                 return;
 
@@ -30,9 +30,8 @@ public class IconCreator : EditorWindow {
 
             // Save the file as PNG
             string path = "Assets\\Resources\\Textures\\UI\\Icons\\Generated\\";
-            string fileName = "icon_" + objs[i].name + ".png";
+            string fileName = objs[i].entityName + ".png";
             File.WriteAllBytes(path + fileName, decodedPhoto);
-            DestroyImmediate(tex);
         }
 
         // Refresh project panel
@@ -40,10 +39,10 @@ public class IconCreator : EditorWindow {
         ChangeToSprite(ref objs);
     }
 
-    static void ChangeToSprite(ref Object[] objs) {
+    static void ChangeToSprite(ref Entity[] objs) {
         for (int i = 0; i < objs.Length; i++) {
             string path = "Assets\\Resources\\Textures\\UI\\Icons\\Generated\\";
-            string fileName = "icon_" + objs[i].name + ".png";
+            string fileName = objs[i].entityName + ".png";
             TextureImporter importer = AssetImporter.GetAtPath(path + fileName) as TextureImporter;
             if (importer != null) {
                 importer.textureType = TextureImporterType.Sprite;
@@ -71,7 +70,13 @@ public class IconCreator : EditorWindow {
 
     static Texture2D ClipPixels(Texture2D tex) {
         Color[] pixels = tex.GetPixels();
-        Color clipColor = pixels[0];
+        Color clipColor = new Color(0, 0, 0, 1);
+        for (int i = 0; i < pixels.Length; i++) {
+            if (pixels[i].a == 1 ) {
+                clipColor = pixels[i];
+                break;
+            }
+        }
         // Clip all pixels that are similiar enough to clipColor
         
         for (int i = 0; i < pixels.Length; i++) {
