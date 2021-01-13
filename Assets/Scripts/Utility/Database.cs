@@ -8,6 +8,7 @@ public class Database : MonoBehaviour {
     [SerializeField] private SoundSystem.SoundGroup[] _soundGroups;
     [SerializeField] private Dictionary<string, Entity> entityPrefabs = new Dictionary<string, Entity>();
     [SerializeField] private Dictionary<string, Sprite> crosshairs = new Dictionary<string, Sprite>();
+    [SerializeField] private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
 
     public SoundSystem.SoundGroup[] SoundGroups {
         get {
@@ -68,6 +69,16 @@ public class Database : MonoBehaviour {
         //Debug.Log("Succesfully assigned: " + counter + " entities.");
     }
 
+    public void AssignIcons(Object[] objs) {
+        crosshairs = new Dictionary<string, Sprite>();
+        int counter = 0;
+        for (int i = 0; i < objs.Length; i++) {
+            crosshairs.Add((objs[i] as Sprite).name, (objs[i] as Sprite));
+            counter++;
+        }
+        //Debug.Log("Succesfully assigned: " + counter + " entities.");
+    }
+
     public AudioClip GetAudioClip(string soundName) {
         AudioClip clip;
         audioClips.TryGetValue(soundName, out clip);
@@ -81,6 +92,11 @@ public class Database : MonoBehaviour {
 
     public Sprite GetCrosshair(string crosshairName) {
         crosshairs.TryGetValue(crosshairName, out Sprite sprite);
+        return sprite;
+    }
+
+    public Sprite GetIcon(string iconName) {
+        crosshairs.TryGetValue(iconName, out Sprite sprite);
         return sprite;
     }
 }

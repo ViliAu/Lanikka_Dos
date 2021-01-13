@@ -7,6 +7,7 @@ public class AutomaticAssignerScript : MonoBehaviour {
         AssignAudioClips();
         AssignEntityPrefabs();
         AssignCrosshairs();
+        AssignIcons();
     }
 
     private static void AssignAudioClips() {
@@ -22,6 +23,11 @@ public class AutomaticAssignerScript : MonoBehaviour {
     private static void AssignCrosshairs() {
          Object[] objs = Resources.LoadAll("Textures/UI/Crosshair", typeof(Sprite));
          Database.Singleton.AssignCrosshairs(objs);
+    }
+
+    private static void AssignIcons() {
+         Object[] objs = Resources.LoadAll("Textures/UI/Icons/Generated", typeof(Sprite));
+         Database.Singleton.AssignIcons(objs);
     }
 
 }

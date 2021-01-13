@@ -29,9 +29,8 @@ public class IconCreator : EditorWindow {
                 return;
 
             // Save the file as PNG
-            string path = "Assets\\Resources\\Textures\\UI\\Icons\\Generated\\icon_";
-            string fileName = objs[i].name.ToLower() + ".png";
-            fileName = fileName.Replace(" ", "_");
+            string path = "Assets\\Resources\\Textures\\UI\\Icons\\Generated\\";
+            string fileName = "icon_" + objs[i].name + ".png";
             File.WriteAllBytes(path + fileName, decodedPhoto);
             DestroyImmediate(tex);
         }
@@ -43,9 +42,8 @@ public class IconCreator : EditorWindow {
 
     static void ChangeToSprite(ref Object[] objs) {
         for (int i = 0; i < objs.Length; i++) {
-            string path = "Assets\\Resources\\Textures\\UI\\Icons\\Generated\\icon_";
-            string fileName = objs[i].name.ToLower() + ".png";
-            fileName = fileName.Replace(" ", "_");
+            string path = "Assets\\Resources\\Textures\\UI\\Icons\\Generated\\";
+            string fileName = "icon_" + objs[i].name + ".png";
             TextureImporter importer = AssetImporter.GetAtPath(path + fileName) as TextureImporter;
             if (importer != null) {
                 importer.textureType = TextureImporterType.Sprite;
@@ -74,12 +72,12 @@ public class IconCreator : EditorWindow {
     static Texture2D ClipPixels(Texture2D tex) {
         Color[] pixels = tex.GetPixels();
         Color clipColor = pixels[0];
-
         // Clip all pixels that are similiar enough to clipColor
         
         for (int i = 0; i < pixels.Length; i++) {
             if (pixels[i] == clipColor) {
-                pixels[i].a = ColorPerimeter(pixels, clipColor, i, 2);
+                pixels[i].a = 0;
+                pixels[i].a += ColorPerimeter(pixels, clipColor, i, 3);
             }
         }
         tex.SetPixels(pixels);
@@ -94,20 +92,29 @@ public class IconCreator : EditorWindow {
             return 0;
         }
         // Check front
-        if (pixels[i+width] != alphaColor && pixels[i+width].a != 0) {
-            return 1;
+        for (int j = 0; j < width; j++) {
+            if (pixels[i+j] != alphaColor && pixels[i+j].a == 1) {
+                return 1f/* - (float)j / (float)width*/;
+            }
         }
+        
         // Check back
-        if (pixels[i-width] != alphaColor && pixels[i-width].a != 0) {
-            return 1;
-        }
-        // Check down
-        if (pixels[i+width*texSide] != alphaColor && pixels[i+width*texSide].a != 0) {
-            return 1;
+        for (int j = 0; j < width; j++) {
+            if (pixels[i-j] != alphaColor && pixels[i-j].a == 1) {
+                return 1f/* - (float)j / (float)width*/;
+            }
         }
         // Check up
-        if (pixels[i-width*texSide] != alphaColor && pixels[i-width*texSide].a != 0) {
-            return 1;
+        for (int j = 0; j < width; j++) {
+            if (pixels[i+j*texSide] != alphaColor && pixels[i+j*texSide].a == 1) {
+                return 1f/* - (float)j / (float)width*/;
+            }
+        } 
+        // Check down
+        for (int j = 0; j < width; j++) {
+            if (pixels[i-j*texSide] != alphaColor && pixels[i-j*texSide].a == 1) {
+                return 1f/* - (float)j / (float)width*/;
+            }
         }
         return 0;
     }

@@ -273,13 +273,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3828608249770732164, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3828608250052126193, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
-      propertyPath: ladderMaxAngle
-      value: 30
+    - target: {fileID: 610415051, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3828608250052126194, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
       propertyPath: m_RootOrder
@@ -329,9 +325,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3828608251459408114, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
+    - target: {fileID: 3828608250526654102, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.469
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
@@ -737,26 +733,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
-      propertyPath: pivot
-      value: 
-      objectReference: {fileID: 1752916318}
-    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
-      propertyPath: doorObj
-      value: 
-      objectReference: {fileID: 1752916318}
-    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
-      propertyPath: isTesting
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
-      propertyPath: openSpeed
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973713329724446672, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
-      propertyPath: doorOpenType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3973713329724446673, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -807,11 +783,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
---- !u!1 &1752916318 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3973713329724446676, guid: 74d35301c86e14541a04f19643b53eba, type: 3}
-  m_PrefabInstance: {fileID: 1506719206}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1887000097
 GameObject:
   m_ObjectHideFlags: 0

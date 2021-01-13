@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerEquipment : MonoBehaviour {
 
@@ -19,10 +20,12 @@ public class PlayerEquipment : MonoBehaviour {
     private Vector3 initialPos = default;
     private PlayerInventory inv;
 
-    private void Start() {
+    private void Awake() {
         inv = EntityManager.Player.Player_Inventory;
         hand = transform.Find("Head").Find("EquipmentHold").transform;
         initialPos = hand.localPosition;
+        // Init UI
+        UpdateUI();
     }
 
     private void Update() {
@@ -64,6 +67,7 @@ public class PlayerEquipment : MonoBehaviour {
 
         Equip(EntityManager.Player.Player_Inventory.items[num]);
         itemIndex = num;
+        UpdateUI();
     }
 
     private void Equip(Item p) {
@@ -87,6 +91,7 @@ public class PlayerEquipment : MonoBehaviour {
         if (equippedItem != null) {
             equippedItem.EnableItem(false);
             equippedItem = null;
+            UpdateUI();
         }
     }
 
@@ -111,9 +116,16 @@ public class PlayerEquipment : MonoBehaviour {
         }
         equippedItem = null;
         EntityManager.Player.Player_Inventory.RemoveItemByIndex(itemIndex, false);
-        //ChangeEquipment(itemIndex, 0);
+        ChangeEquipment(itemIndex, 0);
     }
 
-    //private int 
+    private void UpdateUI() {
+        if (equippedItem == null)
+            EntityManager.Player.Player_UI.ChangeHeldItem(null, "");
+        else {
+            EntityManager.Player.Player_UI.ChangeHeldItem(Database.Singleton.GetIcon("icon_"+equippedItem.gameObject.name),
+                EntityManager.Player.Player_Inventory.items[itemIndex].stackCount + "/" + EntityManager.Player.Player_Inventory.maxStackSize);
+        }
+    }
 
 }

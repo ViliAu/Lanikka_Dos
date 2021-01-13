@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour {
     [Header("Inventory attributes")]
-    [SerializeField] private int maxStackSize = 10;
-    [SerializeField] public Item[] items; // Tää propertyks joskus
+    public int maxStackSize = 10;
+    public Item[] items; // Tää propertyks joskus
 
     private void Start() {
         items = new Item[10];
@@ -70,9 +70,5 @@ public class PlayerInventory : MonoBehaviour {
         if (items[index].stackCount == 0) {
             RemoveItemByIndex(index, true);
         }
-    }
-
-    public void RemoveItemByName(string entityName, int amount) {
-
     }
 }

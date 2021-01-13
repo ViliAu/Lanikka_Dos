@@ -7,6 +7,9 @@ using TMPro;
 public class PlayerUI : MonoBehaviour {
 
     [SerializeField] private RectTransform canvas = null;
+    [SerializeField] private RectTransform heldItem = null;
+    [SerializeField] Image heldItemImage = null;
+    [SerializeField] TMP_Text heldItemText = null;
     private Image crosshair = null;
     private TMP_Text moneyAmount = null;
     private TMP_Text focusText = null;
@@ -53,5 +56,11 @@ public class PlayerUI : MonoBehaviour {
     public void ChangeFocusText(string s) {
         if (focusText != null)
             focusText.text = s;
+    }
+
+    public void ChangeHeldItem(Sprite sprite, string str) {
+        heldItemImage.sprite = sprite;
+        heldItemText.text = str;
+        heldItemImage.gameObject.SetActive(sprite != null);
     }
 }
