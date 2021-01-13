@@ -13,10 +13,10 @@ public class PlayerGrab : MonoBehaviour {
     [SerializeField] private float rotationSpeed = 20f;
     [SerializeField] private float throwForce = 100f;
 
-    [SerializeField] private Rigidbody grabbedRig = null;
+    public Rigidbody grabbedRig = null;
     private Vector3 destination = Vector3.zero;
     private float scrollOffset = 1;
-    [SerializeField] private bool equipped = false;
+    private bool equipped = false;
 
     private Quaternion originalRotation = Quaternion.identity;
     private int ogLayer = 0;

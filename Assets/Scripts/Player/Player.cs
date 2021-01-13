@@ -83,4 +83,14 @@ public class Player : MonoBehaviour {
             return pwal;
         }
     }
+
+    private PlayerGrab pgrab;
+    public PlayerGrab Player_Grab {
+        get {
+            if (pgrab == null) {
+                pgrab = transform.GetComponent<PlayerGrab>();
+            }
+            return pgrab;
+        }
+    }
 }
