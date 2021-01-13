@@ -16,10 +16,14 @@ public class FoodContainer : Interactable {
     [SerializeField] private Vector3 modelSpawnStartOffset = Vector3.zero;
     [SerializeField] private Vector3 rowOffset = Vector3.zero;
     [SerializeField] private Vector3 columnOffset = Vector3.zero;
+    [SerializeField] private float positionJitter = 0.1f;
+    [SerializeField] private float rotationJitter = 360f;
     [SerializeField] private int rows = 2;
 
     [Header("Debug")]
     [SerializeField] private bool debug = false;
+
+    int currentModels = 0;
 
     private void Update() {
         CheckPosition();
@@ -45,30 +49,30 @@ public class FoodContainer : Interactable {
                     edibles.Add((Edible)EntityManager.Player.Player_Equipment.equippedItem);
                     EntityManager.Player.Player_Inventory.DecrementStackSize(EntityManager.Player.Player_Equipment.itemIndex);
                     SoundSystem.PlaySound2D("place_item_generic");
-                    UpdateModels();
+                    UpdateModels(true);
                 }
             }
         }
     }
 
-    public void UpdateModels() {
-        for (int i = 0; i < edibles.Count+1; i++) {
-            if (transform.Find(i.ToString()) != null) {
-                Destroy(transform.Find(i.ToString()).gameObject);
+    /// <summary>
+    /// Black magic (Updates the models of the table)
+    /// </summary>
+    /// <param name="append">If we added an item to the table</param>
+    public void UpdateModels(bool append) {
+        if (!append) {
+            GameObject go;
+            if ((go = transform.Find(edibles.Count.ToString()).gameObject) != null) {
+                Destroy(go);
             }
+            return;
         }
-        int k = 0;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < maxFoodCount/rows; j++) {
-                if (k == edibles.Count)
-                    break;
-                Edible a = Instantiate<Edible>(Database.Singleton.GetEntityPrefab(edibles[k].entityName) as Edible, transform.position + transform.rotation * (modelSpawnStartOffset + i * rowOffset + j * columnOffset), transform.rotation, transform);
-                a.name = k.ToString();
-                a.GetComponent<Rigidbody>().isKinematic = true; // Presume that the edible has a rig
-                a.canInteract = false;
-                k++;
-            }
-        }
+        int k = edibles.Count-1;
+        Edible a = Instantiate<Edible>(Database.Singleton.GetEntityPrefab(edibles[k].entityName) as Edible, transform.position + transform.rotation * (modelSpawnStartOffset + (k % this.rows) * rowOffset + ((int) k / this.rows) * columnOffset) + transform.right * Random.Range(-positionJitter, positionJitter) + transform.forward * Random.Range(-positionJitter, positionJitter), transform.rotation * Quaternion.Euler(0, Random.Range(-rotationJitter, rotationJitter), 0), transform); // Mörkö (älä koske)
+        a.name = k.ToString();
+        a.GetComponent<Rigidbody>().isKinematic = true; // Presume that the edible has a rig
+        a.GetComponent<Rigidbody>().detectCollisions = false;
+        a.canInteract = false;
     }
 
     private void DrawLines() {
