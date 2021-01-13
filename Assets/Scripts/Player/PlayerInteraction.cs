@@ -62,8 +62,7 @@ public class PlayerInteraction : MonoBehaviour {
     }
     private void LoseFocus() {
         EntityManager.Player.Player_UI.ChangeCrosshairDarkness(0.75f);
-        if (EntityManager.Player.Player_UI.GetCrosshairName() == "crosshair_dot")
-            EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
+        EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
         EntityManager.Player.Player_UI.ChangeFocusText("");
         if (interactable != null)
             interactable.PlayerFocusExit();

@@ -68,5 +68,6 @@ public class PlayerInventory : MonoBehaviour {
         if (items[index].stackCount == 0) {
             RemoveItemByIndex(index, true);
         }
+        EntityManager.Player.Player_Equipment.UpdateUI();
     }
 }

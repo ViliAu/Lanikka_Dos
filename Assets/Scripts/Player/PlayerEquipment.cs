@@ -55,6 +55,8 @@ public class PlayerEquipment : MonoBehaviour {
     }
 
     private void ChangeEquipment(int num, int scroll) {
+        if (EntityManager.Player.Player_Grab.grabbedRig != null && scroll != 0)
+            return;
         //Scroll
         if (scroll != 0) {
             num += scroll;
@@ -119,7 +121,7 @@ public class PlayerEquipment : MonoBehaviour {
         ChangeEquipment(itemIndex, 0);
     }
 
-    private void UpdateUI() {
+    public void UpdateUI() {
         if (equippedItem == null)
             EntityManager.Player.Player_UI.ChangeHeldItem(null, "");
         else {

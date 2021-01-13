@@ -15,8 +15,11 @@ public class Item : Interactable {
     }
 
     public override void PlayerInteract() {
+        if (!canInteract)
+            return;
         base.PlayerInteract();
         EntityManager.Player.Player_Inventory.AddItem(this);
+        EntityManager.Player.Player_Equipment.UpdateUI();
     }
 
 }

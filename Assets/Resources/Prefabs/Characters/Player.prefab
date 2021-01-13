@@ -571,7 +571,7 @@ MonoBehaviour:
   range: 2.8
   interactionMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 183
   interactRig: {fileID: 0}
 --- !u!114 &4896631473384617892
 MonoBehaviour:
@@ -590,6 +590,8 @@ MonoBehaviour:
   grabSpeed: 9
   rotationSpeed: 600
   throwForce: 5
+  grabbedRig: {fileID: 0}
+  equipped: 0
 --- !u!114 &3828608250052126188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,7 +664,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 3828608249770732169}
-  heldItem: {fileID: 372387262}
   heldItemImage: {fileID: 610415051}
   heldItemText: {fileID: 2093950314}
 --- !u!114 &7292143550321142258
