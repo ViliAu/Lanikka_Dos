@@ -12,7 +12,7 @@ public class PlayerInteraction : MonoBehaviour {
     private Camera cam;
     private Ray ray;
     private RaycastHit hit;
-    private Interactable interactable;
+    public Interactable interactable {get; private set;}
 
     private void Awake() {
         cam = Camera.main;
@@ -68,5 +68,13 @@ public class PlayerInteraction : MonoBehaviour {
             interactable.PlayerFocusExit();
         interactable = null;
         interactRig = null;
+    }
+
+    /// <summary>
+    /// Used for example when changing while looking at a food table
+    /// </summary>
+    public void UpdateFocus() {
+        if (interactable != null)
+            interactable.PlayerFocusEnter();
     }
 }

@@ -23,7 +23,7 @@ public class FoodContainer : Interactable {
     [Header("Debug")]
     [SerializeField] private bool debug = false;
 
-    int currentModels = 0;
+    
 
     private void Update() {
         CheckPosition();
@@ -41,6 +41,25 @@ public class FoodContainer : Interactable {
         }
     }
 
+    public override void PlayerFocusEnter() {
+        base.PlayerFocusEnter();
+        if (EntityManager.Player.Player_Equipment.equippedItem != null) {
+            if (EntityManager.Player.Player_Equipment.equippedItem as Edible && edibles.Count < maxFoodCount) {
+                EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_food");
+                EntityManager.Player.Player_UI.ChangeFocusText("Add 1 "+EntityManager.Player.Player_Equipment.equippedItem.GetReadableEntityName()+" to the food table");
+            }
+            else if (edibles.Count == maxFoodCount) {
+                EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
+                EntityManager.Player.Player_UI.ChangeFocusText("The table is full!");
+            }
+        }
+        else {
+            if (edibles.Count < maxFoodCount) {
+                EntityManager.Player.Player_UI.ChangeFocusText("Hold a food item to add it to the table");
+            }
+        }
+    }
+
     public override void PlayerInteract() {
         base.PlayerInteract();
         if (EntityManager.Player.Player_Equipment.equippedItem != null) {
@@ -50,6 +69,7 @@ public class FoodContainer : Interactable {
                     EntityManager.Player.Player_Inventory.DecrementStackSize(EntityManager.Player.Player_Equipment.itemIndex);
                     SoundSystem.PlaySound2D("place_item_generic");
                     UpdateModels(true);
+                    PlayerFocusEnter();
                 }
             }
         }

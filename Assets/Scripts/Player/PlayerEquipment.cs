@@ -70,6 +70,7 @@ public class PlayerEquipment : MonoBehaviour {
         Equip(EntityManager.Player.Player_Inventory.items[num]);
         itemIndex = num;
         UpdateUI();
+        EntityManager.Player.Player_Interaction.UpdateFocus();
     }
 
     private void Equip(Item p) {

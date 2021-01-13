@@ -33,6 +33,10 @@ public class Dooker : NPC {
     [SerializeField] private float shitTime = 3f;
     [Tooltip("Gameobject that indicates where the shit will spawn from.")]
     [SerializeField] private Transform shitSpawn = null;
+    [Tooltip("Shit force")]
+    [SerializeField] private Vector3 shitForce = Vector3.zero;
+    [Tooltip("Shit drop table")]
+    [SerializeField] private DropTable shitTable = null;
 
     private NavMeshAgent agent;
 
@@ -77,27 +81,9 @@ public class Dooker : NPC {
         }
 
         // If we're shitting
-        if (currentState == State.DEFECATING && (!IsInvoking("Defecate") || !IsInvoking("BucketDefecate"))) {
-            // TODO: KYYKKY ANIMI
-
-            // Bucket shit
-            if (EntityManager.DookerPen.shitBucket != null && EntityManager.DookerPen.shitBucket.CanAddShit()) {
-                // We're close enough
-                if (Vector3.Distance(transform.position, EntityManager.DookerPen.shitBucket.transform.position) <
-                    EntityManager.DookerPen.shitBucket.dookerDistance) {
-                    agent.destination = transform.position;
-                    Invoke("BucketDefecate", shitTime);
-                }
-                // Go closer
-                else {
-                    agent.destination = EntityManager.DookerPen.shitBucket.transform.position;
-                }
-            }
-
-            // Shit on the ground
-            else {
-                Invoke("Defecate", shitTime);
-            }
+        if (currentState == State.DEFECATING && !IsInvoking("SeekShitBucket")) {
+            // Try to find the bucket
+            Invoke("SeekShitBucket", pathFindInterval);
         }
 
         // If we're going to get some food
@@ -105,6 +91,25 @@ public class Dooker : NPC {
             if (EntityManager.DookerPen.foodContainer != null) {
                 Invoke("SeekFoodContainer", pathFindInterval);
             }
+        }
+    }
+
+    private void SeekShitBucket() {
+        // Check if the bucket is missing or full; if it is => Shit on the ground
+        if (EntityManager.DookerPen.shitBucket == null || !EntityManager.DookerPen.shitBucket.CanAddShit()) {
+            GroundDefecate();
+            return;
+        }
+        // Check if we're close enough to the bucket
+        if (Vector3.Distance(transform.position, EntityManager.DookerPen.shitBucket.transform.position) <
+            EntityManager.DookerPen.shitBucket.dookerDistance) {
+            agent.destination = transform.position;
+            BucketDefecate();
+        }
+        // If not, go closer
+        else {
+            agent.destination = EntityManager.DookerPen.shitBucket.transform.position;
+            Invoke("SeekShitBucket", pathFindInterval);
         }
     }
 
@@ -127,10 +132,6 @@ public class Dooker : NPC {
         }
     }
 
-    private void SeekShitBucket() {
-
-    }
-
     private void Digest() {
         // If the ass is full of shit don't digest food anymore;
         // rather halt the digestion until more shit space is acquired
@@ -146,25 +147,30 @@ public class Dooker : NPC {
         }
     }
 
-    private void Defecate() {
+    private void GroundDefecate() {
         // Stop the agent
         agent.destination = transform.position;
         SoundSystem.PlaySoundGroup("dooker_efe", transform.position);
         currentShitmass -= shitMassPerShit;
 
-        Doodie doodie = Instantiate(Database.Singleton.GetEntityPrefab("doodie_normal") as Doodie, shitSpawn.position, transform.rotation, null) as Doodie;
+        GameObject doodie = Instantiate(shitTable != null ? shitTable.RollDrop() : Database.Singleton.GetEntityPrefab("doodie_normal").gameObject, shitSpawn.position, transform.rotation, null);
         // TODO: Paska paukkumis animi
+        doodie.GetComponent<Rigidbody>().AddForce(transform.rotation * shitForce, ForceMode.Impulse);
 
-        // If we're out of power walk to a random spot and start idling
+        // If we're out of poo power walk to a random spot and start idling
         if (currentShitmass < shitMassPerShit) {
             currentState = State.IDLE;
+            return;
+        }
+        else {
+            Invoke("SeekShitBucket", shitTime);
         }
     }
 
     private void BucketDefecate() {
         // If the bucket is full shit on the ground
-        if (!EntityManager.DookerPen.shitBucket.CanAddShit()) {
-            Invoke("Defecate", 0);
+        if (EntityManager.DookerPen.shitBucket == null || !EntityManager.DookerPen.shitBucket.CanAddShit()) {
+            GroundDefecate();
             return;
         }
 
@@ -172,12 +178,15 @@ public class Dooker : NPC {
         agent.destination = transform.position;
         SoundSystem.PlaySoundGroup("dooker_efe", transform.position);
         currentShitmass -= shitMassPerShit;
-        EntityManager.DookerPen.shitBucket.AddShit("normal"); // TODO: ANIMI JA DROPTABLE
+        EntityManager.DookerPen.shitBucket.AddShit(shitTable != null ? shitTable.RollDrop().GetComponent<Doodie>() : Database.Singleton.GetEntityPrefab("doodie_normal") as Doodie); // TODO: ANIMI JA DROPTABLE
         // TODO: Paska paukkumis animi
-
         // If we're out of power walk to a random spot and start idling
         if (currentShitmass < shitMassPerShit) {
             currentState = State.IDLE;
+            return;
+        }
+        else {
+            Invoke("SeekShitBucket", shitTime);
         }
     }
 

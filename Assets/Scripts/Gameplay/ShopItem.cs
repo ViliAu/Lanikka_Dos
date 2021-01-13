@@ -19,7 +19,7 @@ public class ShopItem : Interactable {
         }   
         else {
             SoundSystem.PlaySound2D("ui_negative");
-            EntityManager.Player.Player_UI.ChangeFocusText("Not enough money for " + itemToGive.entityName+"!");
+            EntityManager.Player.Player_UI.ChangeFocusText("Not enough money for " + itemToGive.GetReadableEntityName()+"!");
             Invoke("ResetFocusText", 2f);
         }
     }
@@ -27,7 +27,7 @@ public class ShopItem : Interactable {
     public override void PlayerFocusEnter() {
         base.PlayerFocusEnter();
         EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dollar");
-        EntityManager.Player.Player_UI.ChangeFocusText("Buy "+ amountToGive + "x " + itemToGive.entityName + " " + price + "$");
+        EntityManager.Player.Player_UI.ChangeFocusText("Buy "+ amountToGive + "x " + itemToGive.GetReadableEntityName() + " " + price + "$");
     }
 
     public override void PlayerFocusExit() {
@@ -41,6 +41,6 @@ public class ShopItem : Interactable {
     }
 
     private void ResetFocusText() {
-        EntityManager.Player.Player_UI.ChangeFocusText("Buy "+ amountToGive + "x " + itemToGive.entityName + " " + price + "$");
+        EntityManager.Player.Player_UI.ChangeFocusText("Buy "+ amountToGive + "x " + itemToGive.GetReadableEntityName() + " " + price + "$");
     }
 }

@@ -34,16 +34,16 @@ public class ShitBucket : Interactable {
         return i < maxCount;
     }
 
-    public void AddShit(string name) {
+    public void AddShit(Doodie diuppa) {
         // Simply add the doodie in a stack
         foreach (Doodie d in doodies) {
-            if (d.entityName == name) {
+            if (d.entityName == diuppa.entityName) {
                 d.stackCount++;
                 return;
             }
         }
         // Instantiate and add a new prefab
-        Doodie duu = Instantiate<Doodie>(Database.Singleton.GetEntityPrefab(name) as Doodie, transform.position, transform.rotation, null);
+        Doodie duu = Instantiate<Doodie>(Database.Singleton.GetEntityPrefab(diuppa.entityName) as Doodie, transform.position, transform.rotation, null);
         duu.EnableItem(false);
         doodies.Add(duu);
     }
