@@ -8,6 +8,7 @@ public class Interactable : Entity {
     public bool canInteract = true;
     // Highlight settings
     public bool isHighlightable = true;
+    public bool isGrabbable = true;
     
     private Coroutine highlightCoroutine = null;
     private MeshRenderer[] meshRenderers = null;

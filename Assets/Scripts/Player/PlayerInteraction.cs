@@ -26,12 +26,13 @@ public class PlayerInteraction : MonoBehaviour {
         ray = cam.ViewportPointToRay(new Vector2(0.5f, 0.5f));
         if (Physics.Raycast(ray, out hit, range, interactionMask, QueryTriggerInteraction.Collide)) {
             Interactable intera = null;
-            // Get rigidbody for grabbing
-            if (interactRig == null) {
-                interactRig = hit.transform.GetComponent<Rigidbody>();
-            }
             // Get intera for interacting / focusing
             if ((intera = hit.transform.GetComponent<Interactable>()) != null) {
+                if (intera.isGrabbable) {
+                    if (interactRig == null) {
+                        interactRig = hit.transform.GetComponent<Rigidbody>();
+                    }
+                }
                 // If the interactable thing exists and we currently are not focusing on an interactable object
                 if (interactable == null) {
                     interactable = intera;
@@ -61,7 +62,8 @@ public class PlayerInteraction : MonoBehaviour {
     }
     private void LoseFocus() {
         EntityManager.Player.Player_UI.ChangeCrosshairDarkness(0.75f);
-        EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
+        if (EntityManager.Player.Player_UI.GetCrosshairName() == "crosshair_dot")
+            EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
         EntityManager.Player.Player_UI.ChangeFocusText("");
         if (interactable != null)
             interactable.PlayerFocusExit();

@@ -70,10 +70,10 @@ public class Database : MonoBehaviour {
     }
 
     public void AssignIcons(Object[] objs) {
-        crosshairs = new Dictionary<string, Sprite>();
+        icons = new Dictionary<string, Sprite>();
         int counter = 0;
         for (int i = 0; i < objs.Length; i++) {
-            crosshairs.Add((objs[i] as Sprite).name, (objs[i] as Sprite));
+            icons.Add((objs[i] as Sprite).name, (objs[i] as Sprite));
             counter++;
         }
         //Debug.Log("Succesfully assigned: " + counter + " entities.");
@@ -96,7 +96,7 @@ public class Database : MonoBehaviour {
     }
 
     public Sprite GetIcon(string iconName) {
-        crosshairs.TryGetValue(iconName, out Sprite sprite);
+        icons.TryGetValue(iconName, out Sprite sprite);
         return sprite;
     }
 }

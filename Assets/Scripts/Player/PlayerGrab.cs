@@ -13,18 +13,20 @@ public class PlayerGrab : MonoBehaviour {
     [SerializeField] private float rotationSpeed = 20f;
     [SerializeField] private float throwForce = 100f;
 
-    private Rigidbody grabbedRig = null;
+    [SerializeField] private Rigidbody grabbedRig = null;
     private Vector3 destination = Vector3.zero;
     private float scrollOffset = 1;
-    private bool equipped = false;
+    [SerializeField] private bool equipped = false;
 
     private Quaternion originalRotation = Quaternion.identity;
+    private int ogLayer = 0;
 
     private void Update() {
         CheckInput();
-        UpdateDestination();
         MoveRig();
         RotateRig();
+        if (equipped)
+            EquipObject(true);
     }
 
     private void CheckInput() {
@@ -46,11 +48,17 @@ public class PlayerGrab : MonoBehaviour {
             scrollOffset = Mathf.Clamp(scrollOffset, scrollBounds.x, scrollBounds.y);
         }
         if (scrollOffset == scrollBounds.x && grabbedRig != null) {
-            EquipRig(true);
+            EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_grab");
+            if (EntityManager.Player.Player_Input.interacted)
+                EquipObject(true);
+        }
+        else {
+            if (EntityManager.Player.Player_UI.GetCrosshairName() == "crosshair_grab")
+                EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
         }
         if ((equipped && EntityManager.Player.Player_Equipment.equippedItem != null)
             || (equipped && EntityManager.Player.Player_Input.dropped)) {
-            EquipRig(false);
+            EquipObject(false);
         }
         // Throw
         if (EntityManager.Player.Player_Input.threw && !equipped && grabbedRig != null) {
@@ -65,10 +73,13 @@ public class PlayerGrab : MonoBehaviour {
             grabbedRig.interpolation = RigidbodyInterpolation.Interpolate;
             originalRotation = grabbedRig.transform.rotation;
             grabbedRig.freezeRotation = true;
+            ogLayer = grabbedRig.gameObject.layer;
+            grabbedRig.gameObject.layer = 7;
             scrollOffset = Vector3.Distance(grabbedRig.transform.position,
                 EntityManager.Player.Player_Camera.head.position) / EntityManager.Player.Player_Interaction.range;
         }
         else {
+            grabbedRig.gameObject.layer = ogLayer;
             grabbedRig.interpolation = RigidbodyInterpolation.None;
             EntityManager.Player.Player_Camera.locked = false;
             grabbedRig.freezeRotation = false;
@@ -76,19 +87,24 @@ public class PlayerGrab : MonoBehaviour {
         }
     }
 
-    private void UpdateDestination() {
-        destination = EntityManager.Player.Player_Camera.head.transform.position + EntityManager.Player.Player_Camera.head.forward
-            * (EntityManager.Player.Player_Interaction.range * scrollOffset);
-    }
-
     private void MoveRig() {
-        if (grabbedRig == null || equipped) {
-            return;
+        if (!equipped) {
+            if (grabbedRig == null)
+                return;
+            destination = EntityManager.Player.Player_Camera.head.transform.position + EntityManager.Player.Player_Camera.head.forward
+                * (EntityManager.Player.Player_Interaction.range * scrollOffset);
+
+            grabbedRig.velocity = (destination - grabbedRig.transform.position) * grabSpeed;
         }
-        grabbedRig.velocity = (destination - grabbedRig.transform.position) * grabSpeed;
+        else {
+            grabbedRig.transform.position = EntityManager.Player.Player_Equipment.hand.transform.position;
+            grabbedRig.transform.rotation = EntityManager.Player.Player_Equipment.hand.transform.rotation;
+            grabbedRig.transform.parent = EntityManager.Player.Player_Equipment.hand;
+        }
     }
 
-    private void EquipRig(bool eq) {
+    private void EquipObject(bool eq) {
+        EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
         if (eq) {
             // If the grabbed thing is actually an item, add it to inv instead
             Item i = null;
@@ -101,9 +117,6 @@ public class PlayerGrab : MonoBehaviour {
             grabbedRig.isKinematic = true;
             grabbedRig.detectCollisions = false;
             EntityManager.Player.Player_Equipment.RemoveEquippedItem();
-            grabbedRig.transform.position = EntityManager.Player.Player_Equipment.hand.transform.position;
-            grabbedRig.transform.rotation = EntityManager.Player.Player_Equipment.hand.transform.rotation;
-            grabbedRig.transform.parent = EntityManager.Player.Player_Equipment.hand;
         }
         else {
             equipped = false;

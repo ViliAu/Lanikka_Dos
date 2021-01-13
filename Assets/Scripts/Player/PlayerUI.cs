@@ -7,7 +7,6 @@ using TMPro;
 public class PlayerUI : MonoBehaviour {
 
     [SerializeField] private RectTransform canvas = null;
-    [SerializeField] private RectTransform heldItem = null;
     [SerializeField] Image heldItemImage = null;
     [SerializeField] TMP_Text heldItemText = null;
     private Image crosshair = null;
@@ -46,6 +45,10 @@ public class PlayerUI : MonoBehaviour {
         if (sprite != null && crosshair.sprite != sprite) {
             crosshair.sprite = sprite;
         }
+    }
+
+    public string GetCrosshairName() {
+        return crosshair.sprite.name;
     }
 
     public void ChangeMoneyAmount(float amount) {
