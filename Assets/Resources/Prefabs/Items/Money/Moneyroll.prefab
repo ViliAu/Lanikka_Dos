@@ -60,8 +60,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: changeme
-  grabbable: 1
+  canInteract: 1
   isHighlightable: 1
+  isGrabbable: 1
   amount: 22
   modelThresholds:
   - 20
