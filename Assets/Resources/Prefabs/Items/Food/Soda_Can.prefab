@@ -107,11 +107,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: soda_can
-  grabbable: 1
   canInteract: 1
   isHighlightable: 1
+  isGrabbable: 1
   stackCount: 1
-  _shitmassAmount: 50
+  _shitmassAmount: 400
   _digestTime: 10
 --- !u!1001 &4380302021183029933
 PrefabInstance:

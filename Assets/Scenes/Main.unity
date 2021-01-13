@@ -2674,26 +2674,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dooker
       objectReference: {fileID: 0}
-    - target: {fileID: 8694187540189102928, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
-      propertyPath: shitTable
-      value: 
-      objectReference: {fileID: 7612742807029816434, guid: 380e0d0ad56e3bd45a3c65645c161616, type: 3}
-    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
-      propertyPath: isGrabbable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
-      propertyPath: shitForce.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
-      propertyPath: shitForce.z
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 8694187540189102941, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
       propertyPath: m_RootOrder
       value: 13

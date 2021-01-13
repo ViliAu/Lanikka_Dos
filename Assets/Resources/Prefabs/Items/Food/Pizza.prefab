@@ -78,10 +78,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: pepe_pizza
-  grabbable: 1
+  canInteract: 1
   isHighlightable: 1
+  isGrabbable: 1
   stackCount: 1
-  _shitmassAmount: 25
+  _shitmassAmount: 500
   _digestTime: 20
 --- !u!54 &3234224494826483649
 Rigidbody:

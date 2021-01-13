@@ -78,10 +78,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: gourmet
-  grabbable: 1
+  canInteract: 1
   isHighlightable: 1
+  isGrabbable: 1
   stackCount: 1
-  _shitmassAmount: 15
+  _shitmassAmount: 300
   _digestTime: 5
 --- !u!65 &5698095585755746082
 BoxCollider:

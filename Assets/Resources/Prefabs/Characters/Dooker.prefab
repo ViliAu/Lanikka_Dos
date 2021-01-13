@@ -50,18 +50,20 @@ MonoBehaviour:
   entityName: dooker
   canInteract: 1
   isHighlightable: 1
-  isGrabbable: 1
+  isGrabbable: 0
   stateUpdateInterval: 5
   pathFindInterval: 0.5
   eatingInterval: 1.5
   foodSlots: []
   maxFoodCount: 5
-  maxShitmass: 100
+  maxShitmass: 1000
   currentShitmass: 0
   shitmassThreshold: 75
   shitMassPerShit: 20
   shitTime: 3
   shitSpawn: {fileID: 2965419544850616495}
+  shitForce: {x: 0, y: 0.5, z: -1}
+  shitTable: {fileID: 7612742807029816434, guid: 380e0d0ad56e3bd45a3c65645c161616, type: 3}
   currentState: 0
 --- !u!195 &8694187540189102931
 NavMeshAgent:
