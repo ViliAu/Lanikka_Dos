@@ -62,7 +62,7 @@ public class FoodContainer : Interactable {
             for (int j = 0; j < maxFoodCount/rows; j++) {
                 if (k == edibles.Count)
                     break;
-                Edible a = Instantiate<Edible>(Database.Singleton.GetEntityPrefab(edibles[i].entityName) as Edible, transform.position + transform.rotation * (modelSpawnStartOffset + i * rowOffset + j * columnOffset), transform.rotation, transform);
+                Edible a = Instantiate<Edible>(Database.Singleton.GetEntityPrefab(edibles[k].entityName) as Edible, transform.position + transform.rotation * (modelSpawnStartOffset + i * rowOffset + j * columnOffset), transform.rotation, transform);
                 a.name = k.ToString();
                 a.GetComponent<Rigidbody>().isKinematic = true; // Presume that the edible has a rig
                 a.canInteract = false;
