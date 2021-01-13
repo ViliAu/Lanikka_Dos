@@ -189,6 +189,7 @@ public class Dooker : NPC {
                     // TODO: IMUTUS ANIMI TÄHÄ
                     AddFood(EntityManager.DookerPen.foodContainer.edibles[EntityManager.DookerPen.foodContainer.edibles.Count-1]);
                     EntityManager.DookerPen.foodContainer.edibles.RemoveAt(EntityManager.DookerPen.foodContainer.edibles.Count-1);
+                    EntityManager.DookerPen.foodContainer.UpdateModels();
                     Invoke("SeekFoodContainer", eatingInterval);
                     return;
                 }

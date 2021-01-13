@@ -11,8 +11,19 @@ public class FoodContainer : Interactable {
     [Tooltip("How far the dookers can be when eating")]
     public float dookerDistance = 1f;
 
+    [Header("Model spawn settings")]
+    [Tooltip("Where the first model spawns")]
+    [SerializeField] private Vector3 modelSpawnStartOffset = Vector3.zero;
+    [SerializeField] private Vector3 rowOffset = Vector3.zero;
+    [SerializeField] private Vector3 columnOffset = Vector3.zero;
+    [SerializeField] private int rows = 2;
+
+    [Header("Debug")]
+    [SerializeField] private bool debug = false;
+
     private void Update() {
         CheckPosition();
+        DrawLines();
     }
 
     private void CheckPosition() {
@@ -34,9 +45,38 @@ public class FoodContainer : Interactable {
                     edibles.Add((Edible)EntityManager.Player.Player_Equipment.equippedItem);
                     EntityManager.Player.Player_Inventory.DecrementStackSize(EntityManager.Player.Player_Equipment.itemIndex);
                     SoundSystem.PlaySound2D("place_item_generic");
+                    UpdateModels();
                 }
             }
         }
+    }
+
+    public void UpdateModels() {
+        for (int i = 0; i < edibles.Count+1; i++) {
+            if (transform.Find(i.ToString()) != null) {
+                Destroy(transform.Find(i.ToString()).gameObject);
+            }
+        }
+        int k = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < maxFoodCount/rows; j++) {
+                if (k == edibles.Count)
+                    break;
+                Edible a = Instantiate<Edible>(Database.Singleton.GetEntityPrefab(edibles[i].entityName) as Edible, transform.position + transform.rotation * (modelSpawnStartOffset + i * rowOffset + j * columnOffset), transform.rotation, transform);
+                a.name = k.ToString();
+                a.GetComponent<Rigidbody>().isKinematic = true; // Presume that the edible has a rig
+                a.canInteract = false;
+                k++;
+            }
+        }
+    }
+
+    private void DrawLines() {
+        if (!debug)
+            return;
+        Debug.DrawLine(transform.position, transform.position + transform.rotation * modelSpawnStartOffset, Color.red);
+        Debug.DrawLine(transform.position + transform.rotation * modelSpawnStartOffset, transform.position + transform.rotation * modelSpawnStartOffset + transform.rotation * rowOffset, Color.green);
+        Debug.DrawLine(transform.position + transform.rotation * modelSpawnStartOffset, transform.position + transform.rotation * modelSpawnStartOffset + transform.rotation * columnOffset, Color.blue);
     }
 
 }
