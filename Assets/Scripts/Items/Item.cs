@@ -23,8 +23,10 @@ public class Item : Interactable {
         if (!canInteract)
             return;
         base.PlayerInteract();
-        if (EntityManager.Player.Player_Inventory.AddItem(this))
+        if (EntityManager.Player.Player_Inventory.AddItem(this)) {
             EntityManager.Player.Player_Equipment.UpdateUI();
+            SoundSystem.PlaySoundGroup2D("ui_pickup");
+        }
     }
 
     public override bool PlayerInteractBool() {
@@ -33,6 +35,7 @@ public class Item : Interactable {
         base.PlayerInteract();
         if (EntityManager.Player.Player_Inventory.AddItem(this)) {
             EntityManager.Player.Player_Equipment.UpdateUI();
+            SoundSystem.PlaySoundGroup2D("ui_pickup");
             return true;
         }
         return false;

@@ -1,24 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Database : MonoBehaviour {
     
     [SerializeField] private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
-    [SerializeField] private SoundSystem.SoundGroup[] _soundGroups;
     [SerializeField] private Dictionary<string, Entity> entityPrefabs = new Dictionary<string, Entity>();
     [SerializeField] private Dictionary<string, Sprite> crosshairs = new Dictionary<string, Sprite>();
     [SerializeField] private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
 
-    public SoundSystem.SoundGroup[] SoundGroups {
-        get {
-            return _soundGroups;
-        }
-        private set {
-            _soundGroups = value;
-        }
-    }
-
+    [SerializeField] private List<SoundGroup> soundGroups = new List<SoundGroup>();
 
     private static Database _instance;
     public static Database Singleton {
@@ -79,6 +69,16 @@ public class Database : MonoBehaviour {
         //Debug.Log("Succesfully assigned: " + counter + " entities.");
     }
 
+    public void AssignSoundGroups(Object[] objs) {
+        soundGroups = new List<SoundGroup>();
+        int counter = 0;
+        for (int i = 0; i < objs.Length; i++) {
+            soundGroups.Add(objs[i] as SoundGroup);
+            counter++;
+        }
+        //Debug.Log("Succesfully assigned: " + counter + " entities.");
+    }
+
     public AudioClip GetAudioClip(string soundName) {
         AudioClip clip;
         audioClips.TryGetValue(soundName, out clip);
@@ -98,5 +98,9 @@ public class Database : MonoBehaviour {
     public Sprite GetIcon(string iconName) {
         icons.TryGetValue(iconName, out Sprite sprite);
         return sprite;
+    }
+
+    public SoundGroup[] GetSoundGroups() {
+        return soundGroups.ToArray();
     }
 }

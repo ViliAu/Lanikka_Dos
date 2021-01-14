@@ -8,6 +8,7 @@ public class AutomaticAssignerScript : MonoBehaviour {
         AssignEntityPrefabs();
         AssignCrosshairs();
         AssignIcons();
+        AssignSoundGroups();
     }
 
     private static void AssignAudioClips() {
@@ -28,6 +29,11 @@ public class AutomaticAssignerScript : MonoBehaviour {
     private static void AssignIcons() {
          Object[] objs = Resources.LoadAll("Textures/UI/Icons/Generated", typeof(Sprite));
          Database.Singleton.AssignIcons(objs);
+    }
+
+    private static void AssignSoundGroups() {
+        Object[] objs = Resources.LoadAll("ScriptableObjects", typeof(SoundGroup));
+        Database.Singleton.AssignSoundGroups(objs);
     }
 
 }

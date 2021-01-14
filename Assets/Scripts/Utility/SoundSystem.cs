@@ -3,12 +3,6 @@ using UnityEngine;
 
 public static class SoundSystem {
 
-    [System.Serializable]
-    public class SoundGroup {
-        public string groupName = "changeme";
-        public AudioClip[] audioClips;
-    }
-
     private static GameObject sourceRoot;
     private static AudioSource musicSource01;
     private static AudioSource musicSource02;
@@ -45,7 +39,7 @@ public static class SoundSystem {
 
     static string GetRandomSoundGroupClip(string groupName) {
         // Find the correct sound group
-        SoundGroup[] soundGroups = Database.Singleton.SoundGroups;
+        SoundGroup[] soundGroups = Database.Singleton.GetSoundGroups();
         for (int i = 0; i < soundGroups.Length; i++) {
             if (soundGroups[i].groupName == groupName) {
                 // Play a random sound from the sound group
