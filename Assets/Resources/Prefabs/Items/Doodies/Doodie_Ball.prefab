@@ -78,8 +78,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: doodie_ball
-  grabbable: 1
+  canInteract: 1
   isHighlightable: 1
+  isGrabbable: 1
   stackCount: 1
   price: 2
 --- !u!54 &8230419186488013391
@@ -150,7 +151,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7511211002980465453}
-  m_Mesh: {fileID: 8528037923141218990, guid: fc22a2444cbc4b74fa19a304a352d8fd, type: 3}
+  m_Mesh: {fileID: -8232987763057219899, guid: fc22a2444cbc4b74fa19a304a352d8fd, type: 3}
 --- !u!23 &4072084683850722937
 MeshRenderer:
   m_ObjectHideFlags: 0
