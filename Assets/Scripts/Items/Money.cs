@@ -10,7 +10,8 @@ public class Money : Interactable {
     public float[] modelThresholds;
 
     // Activate the right money model
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         bool activated = false;
         for (int i = 0; i < modelThresholds.Length; i++) {
             if (amount <= modelThresholds[i] && !activated) {

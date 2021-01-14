@@ -5,14 +5,15 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour {
 
     public float range = 3f;
-    [SerializeField] private LayerMask interactionMask = default;
+    public LayerMask interactionMask = default;
 
     public Rigidbody interactRig;
 
     private Camera cam;
-    private Ray ray;
     private RaycastHit hit;
+
     public Interactable interactable {get; private set;}
+    public Ray ray {get; private set;}
 
     private void Awake() {
         cam = Camera.main;
@@ -29,9 +30,7 @@ public class PlayerInteraction : MonoBehaviour {
             // Get intera for interacting / focusing
             if ((intera = hit.transform.GetComponent<Interactable>()) != null) {
                 if (intera.isGrabbable) {
-                    if (interactRig == null) {
-                        interactRig = hit.transform.GetComponent<Rigidbody>();
-                    }
+                    interactRig = intera.rig;
                 }
                 // If the interactable thing exists and we currently are not focusing on an interactable object
                 if (interactable == null) {

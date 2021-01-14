@@ -29,4 +29,16 @@ public class EntityManager : MonoBehaviour {
             return dp;
         }
     }
+
+    /// <summary>
+    /// Changes layer of the gameobject and all of it's children
+    /// </summary>
+    /// <param name="go">Gameobject to be affected</param>
+    /// <param name="layer">Layer to change to</param>
+    public static void ChangeLayer(GameObject go, int layer) {
+        go.layer = layer;
+        foreach (Transform child in go.transform) {
+            ChangeLayer(child.gameObject, layer);
+        }
+    }
 }

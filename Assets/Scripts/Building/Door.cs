@@ -12,7 +12,6 @@ public class Door : Interactable {
    [SerializeField] private AudioClip closeSound = null;
    [SerializeField] private Axis axis = Axis.Y;
    public bool Open {get; private set;}
-   private Rigidbody rig;
 
    private Quaternion originalRotation = Quaternion.identity;
    private Quaternion currentRotation = Quaternion.identity;
@@ -26,11 +25,11 @@ public class Door : Interactable {
        Z
    }
 
-   private void Awake() {
-       Open = false;
-       rig = GetComponent<Rigidbody>();
-       currentRotation = originalRotation = rig == null ? transform.rotation : rig.rotation;
-       openRotation = originalRotation * Quaternion.Euler(axis == Axis.X ? openAngle : 0, axis == Axis.Y ? openAngle : 0, axis == Axis.Z ? openAngle : 0);
+    protected override void Awake() {
+        base.Awake();
+        Open = false;
+        currentRotation = originalRotation = rig == null ? transform.rotation : rig.rotation;
+        openRotation = originalRotation * Quaternion.Euler(axis == Axis.X ? openAngle : 0, axis == Axis.Y ? openAngle : 0, axis == Axis.Z ? openAngle : 0);
    }
 
     public override void PlayerInteract() {

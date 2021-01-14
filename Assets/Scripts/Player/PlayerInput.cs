@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour {
     [HideInInspector] public int pressedNum = -1;
     [HideInInspector] public int grab = 0;
     [HideInInspector] public bool sprinting = false;
+    [HideInInspector] public bool magnet = false;
 
     public int scroll = 0;
 
@@ -31,18 +32,20 @@ public class PlayerInput : MonoBehaviour {
         interacted = Input.GetKeyDown(KeyCode.E);
         dropped = Input.GetKeyDown(KeyCode.G);
         threw = Input.GetKeyDown(KeyCode.Mouse1);
-        zoom = Input.GetKey(KeyCode.C);
 
         rotating = Input.GetKey(KeyCode.R);
+        zoom = Input.GetKey(KeyCode.C);
+        magnet = Input.GetKey(KeyCode.E);
         crouched = Input.GetKey(KeyCode.LeftControl);
         sprinting = Input.GetKey(KeyCode.LeftShift);
-        GetPressedNum();
 
         // Returns just -1 or 1
         scroll = Input.GetAxisRaw("Mouse ScrollWheel") > 0 ? 1 : Input.GetAxisRaw("Mouse ScrollWheel") < 0 ? -1 : 0;
 
         // Returns 1 when you press the grab button, -1 when you release it. Otherwise 0
         grab = Input.GetKeyDown(KeyCode.Mouse0) ? 1 : Input.GetKeyUp(KeyCode.Mouse0) ? -1 : 0;
+
+        GetPressedNum();
     }
 
     public void GetPressedNum() {

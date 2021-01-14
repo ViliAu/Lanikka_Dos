@@ -49,7 +49,8 @@ public class Dooker : NPC {
         CRYING
     }
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         agent = GetComponent<NavMeshAgent>();
         InvokeRepeating("UpdateState", 0, stateUpdateInterval);
     }

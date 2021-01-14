@@ -74,12 +74,12 @@ public class PlayerGrab : MonoBehaviour {
             originalRotation = grabbedRig.transform.rotation;
             grabbedRig.freezeRotation = true;
             ogLayer = grabbedRig.gameObject.layer;
-            grabbedRig.gameObject.layer = 7;
+            EntityManager.ChangeLayer(grabbedRig.gameObject, 7);
             scrollOffset = Vector3.Distance(grabbedRig.transform.position,
                 EntityManager.Player.Player_Camera.head.position) / EntityManager.Player.Player_Interaction.range;
         }
         else {
-            grabbedRig.gameObject.layer = ogLayer;
+            EntityManager.ChangeLayer(grabbedRig.gameObject, ogLayer);
             grabbedRig.interpolation = RigidbodyInterpolation.None;
             EntityManager.Player.Player_Camera.locked = false;
             grabbedRig.freezeRotation = false;

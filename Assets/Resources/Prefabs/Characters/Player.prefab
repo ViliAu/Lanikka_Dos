@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 7292143550321142258}
   - component: {fileID: 3828608250052126191}
   - component: {fileID: 5061951201491449838}
+  - component: {fileID: 4564575251654141589}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -591,7 +592,6 @@ MonoBehaviour:
   rotationSpeed: 600
   throwForce: 5
   grabbedRig: {fileID: 0}
-  equipped: 0
 --- !u!114 &3828608250052126188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,6 +631,7 @@ MonoBehaviour:
   pressedNum: -1
   grab: 0
   sprinting: 0
+  magnet: 0
   scroll: 0
 --- !u!114 &5062508489193256519
 MonoBehaviour:
@@ -710,6 +711,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4564575251654141589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828608250052126197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab7a3a7db1d7804c85ae6a8674393f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 2
+  force: 7
+  pickupRange: 0.8
+  magnetOffset: 1
+  attractedItems: []
 --- !u!1 &3828608250526654105
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,8 @@ public class Shopkeeper : NPC {
     private bool playerGreeted = false;
     RaycastHit hit;
 
-    protected virtual void Awake() {
+    protected override void Awake() {
+        base.Awake();
         if (headBone == null) {
             Debug.LogError("Shopkeeper "+entityName+" does not have his head bone assigned.");
             return;

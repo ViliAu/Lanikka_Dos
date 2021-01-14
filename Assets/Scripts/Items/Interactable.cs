@@ -14,8 +14,11 @@ public class Interactable : Entity {
     private MeshRenderer[] meshRenderers = null;
     private const string HL_PROPERTY_NAME = "_HighlightAmount";
 
-    private void Awake() {
+    public Rigidbody rig {get; private set;}
+
+    protected virtual void Awake() {
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        rig = GetComponent<Rigidbody>();
     }
 
 

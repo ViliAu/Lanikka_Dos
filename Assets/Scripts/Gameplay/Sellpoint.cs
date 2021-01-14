@@ -66,10 +66,10 @@ public class Sellpoint : Interactable {
             Debug.LogError("No money prefab assigned to "+gameObject.name);
             yield return null;
         }
-
+        Money clone;
         SellingStartedInvoker(totVal);
         while (value > 22) {
-            Money clone = Instantiate(moneyPrefab, transform.position + transform.rotation * moneySpawnOffset, Quaternion.identity, null) as Money;
+            clone = Instantiate(moneyPrefab, transform.position + transform.rotation * moneySpawnOffset, Quaternion.identity, null) as Money;
             moneyPrefab.SetAmount(22);
             value -= moneyPrefab.amount;
             clone.GetComponent<Rigidbody>().AddForce(transform.rotation * moneyForce, ForceMode.Impulse);
@@ -77,13 +77,11 @@ public class Sellpoint : Interactable {
         }
 
         if (value > 0) {
-            Money clone2 = Instantiate(moneyPrefab, transform.position + transform.rotation * moneySpawnOffset, Quaternion.identity, null) as Money;
-            clone2.GetComponent<Rigidbody>().AddForce(transform.rotation * moneyForce, ForceMode.Impulse);
-            clone2.SetAmount(value);
+            clone = Instantiate(moneyPrefab, transform.position + transform.rotation * moneySpawnOffset, Quaternion.identity, null) as Money;
+            clone.GetComponent<Rigidbody>().AddForce(transform.rotation * moneyForce, ForceMode.Impulse);
+            clone.SetAmount(value);
         }
-        // ???
-        CalculateValues(); // miskei otimi
-        //EntityManager.Player.Player_UI.ChangeFocusText("Sell 0 doodies for 0$");
+        CalculateValues();
         SellingFinishedInvoker(totVal);
     }  
 

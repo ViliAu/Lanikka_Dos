@@ -6,6 +6,11 @@ public class Item : Interactable {
 
     public int stackCount = 1;
 
+    protected override void Awake() {
+        base.Awake();
+        //EntityManager.ChangeLayer(gameObject, 8);
+    }
+
     public virtual void DestroyItem() {
         Destroy(gameObject);
     }
