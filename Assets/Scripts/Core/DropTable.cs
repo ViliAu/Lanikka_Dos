@@ -1,7 +1,7 @@
 #pragma warning disable 0649
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Generic; 
+ using UnityEngine;
 
 public class DropTable : MonoBehaviour {
 
@@ -17,7 +17,7 @@ public class DropTable : MonoBehaviour {
         for (int i = 0; i < prefabs.Length; i++)
             totalWeight += prefabs[i].weight;
         for (int i = 0; i < prefabs.Length; i++){
-            prefabs[i].absoluteChance = (float)prefabs[i].weight / (float)totalWeight * 100 + "%";
+            prefabs[i].absoluteChance = ((float)prefabs[i].weight / (float)totalWeight * 100).ToString("F2") + "%";
         }
     }
 

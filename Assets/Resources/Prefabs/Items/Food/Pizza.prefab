@@ -83,7 +83,7 @@ MonoBehaviour:
   isGrabbable: 1
   stackCount: 1
   _shitmassAmount: 500
-  _digestTime: 20
+  _digestTime: 15
 --- !u!54 &3234224494826483649
 Rigidbody:
   m_ObjectHideFlags: 0

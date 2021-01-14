@@ -2674,6 +2674,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dooker
       objectReference: {fileID: 0}
+    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
+      propertyPath: maxFoodCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694187540189102940, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
+      propertyPath: shitMassPerShit
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 8694187540189102941, guid: 1d3d443afd8dd254da4057422e9a2940, type: 3}
       propertyPath: m_RootOrder
       value: 13

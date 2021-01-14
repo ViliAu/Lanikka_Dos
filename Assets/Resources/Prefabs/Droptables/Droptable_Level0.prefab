@@ -45,11 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - prefabToDrop: {fileID: 3274639206984480976, guid: c29de53cfbe6c0749b67223dbfcb555c, type: 3}
-    weight: 60
-    absoluteChance: 
+    weight: 373
+    absoluteChance: 33,79%
   - prefabToDrop: {fileID: 3274639206984480976, guid: 49216ce58c457f74cbe2784e07e60642, type: 3}
-    weight: 30
-    absoluteChance: 
+    weight: 439
+    absoluteChance: 39,76%
   - prefabToDrop: {fileID: 3274639206984480976, guid: 27aa71c3cc6de2543b93d4e480a30828, type: 3}
-    weight: 10
-    absoluteChance: 
+    weight: 292
+    absoluteChance: 26,45%
