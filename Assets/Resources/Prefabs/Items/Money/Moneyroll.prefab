@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f3d46227e48d946af69bbbb99b8e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: changeme
+  entityName: money
   canInteract: 1
   isHighlightable: 1
   isGrabbable: 1

@@ -82,7 +82,7 @@ MonoBehaviour:
   isHighlightable: 1
   isGrabbable: 1
   stackCount: 1
-  price: 2
+  price: 5
 --- !u!54 &8059093921816730280
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9534dacd3e3c37489d0f77996ce303f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: Food Container
+  entityName: food_container
   canInteract: 1
   isHighlightable: 1
   isGrabbable: 1

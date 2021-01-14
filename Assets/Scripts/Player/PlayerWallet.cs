@@ -29,6 +29,6 @@ public class PlayerWallet : MonoBehaviour {
     }
 
     private void UpdateUI() {
-        EntityManager.Player.Player_UI.ChangeMoneyAmount(money);
+        EntityManager.Player.Player_UI.SetMoneyAmount(money);
     }
 }

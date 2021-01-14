@@ -31,9 +31,7 @@ public class FoodContainer : Interactable {
     }
 
     private void CheckPosition() {
-        if (transform.position.x > EntityManager.DookerPen.xBounds.y && transform.position.x < EntityManager.DookerPen.xBounds.x
-            && transform.position.z > EntityManager.DookerPen.zBounds.y && transform.position.z < EntityManager.DookerPen.zBounds.x 
-                && transform.position.y < 2) {
+        if (EntityManager.DookerPen.IsInside(transform.position)) {
             EntityManager.DookerPen.foodContainer = this;
         }
         else {
@@ -45,17 +43,17 @@ public class FoodContainer : Interactable {
         base.PlayerFocusEnter();
         if (EntityManager.Player.Player_Equipment.equippedItem != null) {
             if (EntityManager.Player.Player_Equipment.equippedItem as Edible && edibles.Count < maxFoodCount) {
-                EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_food");
-                EntityManager.Player.Player_UI.ChangeFocusText("Add 1 "+EntityManager.Player.Player_Equipment.equippedItem.GetReadableEntityName()+" to the food table");
+                EntityManager.Player.Player_UI.SetCrosshair("crosshair_food");
+                EntityManager.Player.Player_UI.SetFocusText("Add 1 "+EntityManager.Player.Player_Equipment.equippedItem.GetReadableEntityName()+" to the food table");
             }
             else if (edibles.Count == maxFoodCount) {
-                EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
-                EntityManager.Player.Player_UI.ChangeFocusText("The table is full!");
+                EntityManager.Player.Player_UI.SetCrosshair("crosshair_dot");
+                EntityManager.Player.Player_UI.SetFocusText("The table is full!");
             }
         }
         else {
             if (edibles.Count < maxFoodCount) {
-                EntityManager.Player.Player_UI.ChangeFocusText("Hold a food item to add it to the table");
+                EntityManager.Player.Player_UI.SetFocusText("Hold a food item to add it to the table");
             }
         }
     }

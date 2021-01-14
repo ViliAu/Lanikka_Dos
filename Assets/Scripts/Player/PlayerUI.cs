@@ -20,12 +20,12 @@ public class PlayerUI : MonoBehaviour {
         }
     }
 
-    public void ChangeCrosshairDarkness(float darkness) {
+    public void SetCrosshairDarkness(float darkness) {
         if (crosshair.color.r != darkness)
             crosshair.color = new Color(darkness, darkness, darkness);
     }
 
-    public void ChangeCrosshair(string name) {
+    public void SetCrosshair(string name) {
         Sprite sprite = Database.Singleton.GetCrosshair(name);
         if (sprite != null && crosshair.sprite != sprite) {
             crosshair.sprite = sprite;
@@ -36,17 +36,17 @@ public class PlayerUI : MonoBehaviour {
         return crosshair.sprite.name;
     }
 
-    public void ChangeMoneyAmount(float amount) {
+    public void SetMoneyAmount(float amount) {
         if (moneyAmount != null)
             moneyAmount.text = amount.ToString() + "$";
     }
 
-    public void ChangeFocusText(string s) {
+    public void SetFocusText(string s) {
         if (focusText != null)
             focusText.text = s;
     }
 
-    public void ChangeHeldItem(Sprite sprite, string str) {
+    public void SetHeldItem(Sprite sprite, string str) {
         heldItemImage.sprite = sprite;
         heldItemText.text = str;
         heldItemImage.gameObject.SetActive(sprite != null);

@@ -48,13 +48,13 @@ public class PlayerGrab : MonoBehaviour {
             scrollOffset = Mathf.Clamp(scrollOffset, scrollBounds.x, scrollBounds.y);
         }
         if (scrollOffset == scrollBounds.x && grabbedRig != null) {
-            EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_grab");
+            EntityManager.Player.Player_UI.SetCrosshair("crosshair_grab");
             if (EntityManager.Player.Player_Input.interacted)
                 EquipObject(true);
         }
         else {
             if (EntityManager.Player.Player_UI.GetCrosshairName() == "crosshair_grab")
-                EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
+                EntityManager.Player.Player_UI.SetCrosshair("crosshair_dot");
         }
         if ((equipped && EntityManager.Player.Player_Equipment.equippedItem != null)
             || (equipped && EntityManager.Player.Player_Input.dropped)) {
@@ -104,7 +104,7 @@ public class PlayerGrab : MonoBehaviour {
     }
 
     private void EquipObject(bool eq) {
-        EntityManager.Player.Player_UI.ChangeCrosshair("crosshair_dot");
+        EntityManager.Player.Player_UI.SetCrosshair("crosshair_dot");
         if (eq) {
             // If the grabbed thing is actually an item, add it to inv instead
             Item i = null;

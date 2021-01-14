@@ -16,9 +16,7 @@ public class ShitBucket : Interactable {
     }
 
     private void CheckPosition() {
-        if (transform.position.x > EntityManager.DookerPen.xBounds.y && transform.position.x < EntityManager.DookerPen.xBounds.x
-            && transform.position.z > EntityManager.DookerPen.zBounds.y && transform.position.z < EntityManager.DookerPen.zBounds.x 
-                && transform.position.y < 2) {
+        if (EntityManager.DookerPen.IsInside(transform.position)) {
             EntityManager.DookerPen.shitBucket = this;
         }
         else {

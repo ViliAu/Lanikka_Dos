@@ -34,7 +34,7 @@ public class Sellpoint : Interactable {
                 totalShits += EntityManager.Player.Player_Inventory.items[i].stackCount;
             }
         }
-        EntityManager.Player.Player_UI.ChangeFocusText("Sell "+ totalShits + " doodies for " + totalInventoryValue + "$");
+        EntityManager.Player.Player_UI.SetFocusText("Sell "+ totalShits + " doodies for " + totalInventoryValue + "$");
     }
 
     public override void PlayerInteract() {

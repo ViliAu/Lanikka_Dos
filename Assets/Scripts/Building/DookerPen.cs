@@ -5,9 +5,9 @@ using UnityEngine;
 public class DookerPen : MonoBehaviour {
     [Header("Pen settings")]
     [Header("Bounds")]
-    [Tooltip("X = positive, Y = negative")]
+    [Tooltip("X = bigger, Y = smaller")]
     public Vector2 zBounds;
-    [Tooltip("X = positive, Y = negative")]
+    [Tooltip("X = bigger, Y = smaller")]
     public Vector2 xBounds;
 
     [Header("Pen data")]
@@ -33,6 +33,11 @@ public class DookerPen : MonoBehaviour {
 
     public Vector3 GetNewWalkPos(float yPos) {
         return new Vector3(Random.Range(xBounds[1], xBounds[0]), yPos, Random.Range(zBounds[1], zBounds[0]));
+    }
+
+    // Assume that the dooker pen is on y=0
+    public bool IsInside(Vector3 position) {
+        return DUtil.Between(position.x, xBounds.y, xBounds.x) &&  DUtil.Between(position.z, zBounds.y, zBounds.x) && position.y < 2;
     }
 
 }

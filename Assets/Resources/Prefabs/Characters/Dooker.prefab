@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: dooker
   canInteract: 1
-  isHighlightable: 1
+  isHighlightable: 0
   isGrabbable: 0
   stateUpdateInterval: 5
   pathFindInterval: 0.5
@@ -58,8 +58,8 @@ MonoBehaviour:
   maxFoodCount: 5
   maxShitmass: 1000
   currentShitmass: 0
-  shitmassThreshold: 75
-  shitMassPerShit: 20
+  shitmassThreshold: 700
+  shitMassPerShit: 200
   shitTime: 3
   shitSpawn: {fileID: 2965419544850616495}
   shitForce: {x: 0, y: 0.5, z: -1}

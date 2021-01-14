@@ -26,12 +26,12 @@ public class Money : Interactable {
 
     public override void PlayerFocusEnter() {
         base.PlayerFocusEnter();
-        EntityManager.Player.Player_UI.ChangeFocusText("Pickup money $"+amount);
+        EntityManager.Player.Player_UI.SetFocusText("Pickup money $"+amount);
     }
 
     public override void PlayerFocusExit() {
         base.PlayerFocusEnter();
-        EntityManager.Player.Player_UI.ChangeFocusText("");
+        EntityManager.Player.Player_UI.SetFocusText("");
     }
 
     public override void PlayerInteract() {

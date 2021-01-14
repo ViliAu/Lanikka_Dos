@@ -47,7 +47,7 @@ public class Interactable : Entity {
             PlayerFocusExit();
             return;
         }
-        EntityManager.Player.Player_UI.ChangeCrosshairDarkness(1f);
+        EntityManager.Player.Player_UI.SetCrosshairDarkness(1f);
 
         if (highlightCoroutine != null)
             StopCoroutine(highlightCoroutine);
@@ -58,8 +58,8 @@ public class Interactable : Entity {
     /// Get's called when the player loses focus to an item
     /// </summary>
     public virtual void PlayerFocusExit() {
-        EntityManager.Player.Player_UI.ChangeCrosshairDarkness(0.75f);
-        EntityManager.Player.Player_UI.ChangeFocusText("");
+        EntityManager.Player.Player_UI.SetCrosshairDarkness(0.75f);
+        EntityManager.Player.Player_UI.SetFocusText("");
 
         if (gameObject.activeSelf) {
             if (highlightCoroutine != null)
