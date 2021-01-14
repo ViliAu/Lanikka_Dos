@@ -6,15 +6,15 @@ public class PlayerInteraction : MonoBehaviour {
 
     public float range = 3f;
     public LayerMask interactionMask = default;
-
     public Rigidbody interactRig;
 
     private Camera cam;
     private RaycastHit hit;
 
     public Interactable interactable {get; private set;}
+    public Vector3 interactionPoint {get; private set;}
     public Ray ray {get; private set;}
-
+    
     private void Awake() {
         cam = Camera.main;
     }
@@ -27,6 +27,7 @@ public class PlayerInteraction : MonoBehaviour {
         ray = cam.ViewportPointToRay(new Vector2(0.5f, 0.5f));
         if (Physics.Raycast(ray, out hit, range, interactionMask, QueryTriggerInteraction.Collide)) {
             Interactable intera = null;
+            interactionPoint = hit.point;
             // Get intera for interacting / focusing
             if ((intera = hit.transform.GetComponent<Interactable>()) != null) {
                 if (intera.isGrabbable) {

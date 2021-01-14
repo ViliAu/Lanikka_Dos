@@ -85,19 +85,21 @@ public class Shitbuyer : Shopkeeper {
         }
         // Go to the garage
         agent.destination = restPosition;
-        while (agent.remainingDistance > 0) {
+        while (agent.remainingDistance > 0.1f) {
             yield return null;
         }
         garageDoor.ChangeState(true);
         // Wait for the timeout
         yield return new WaitForSecondsRealtime(buyInterval);
+        garageDoor.ChangeState(false);
         // Go to the sell point
         agent.destination = buyPosition;
-        while (agent.remainingDistance > 0) {
+        while (agent.remainingDistance > 0.1f) {
             yield return null;
         }
         active = true;
         sellpoint.canInteract = true;
+        garageDoor.ChangeState(true);
         yield return null;
     }
 

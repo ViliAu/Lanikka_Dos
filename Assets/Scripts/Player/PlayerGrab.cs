@@ -13,13 +13,13 @@ public class PlayerGrab : MonoBehaviour {
     [SerializeField] private float rotationSpeed = 20f;
     [SerializeField] private float throwForce = 100f;
 
-    public Rigidbody grabbedRig = null;
     private Vector3 destination = Vector3.zero;
+    private Vector3 offset = Vector3.zero;
     private float scrollOffset = 1;
     private bool equipped = false;
-
-    private Quaternion originalRotation = Quaternion.identity;
     private int ogLayer = 0;
+
+    public Rigidbody grabbedRig = null;
 
     private void Update() {
         CheckInput();
@@ -69,14 +69,16 @@ public class PlayerGrab : MonoBehaviour {
 
     private void GrabObject(bool grab) {
         if (grab) {
+            // Setup gameobject
             grabbedRig = EntityManager.Player.Player_Interaction.interactRig;
             grabbedRig.interpolation = RigidbodyInterpolation.Interpolate;
-            originalRotation = grabbedRig.transform.rotation;
             grabbedRig.freezeRotation = true;
             ogLayer = grabbedRig.gameObject.layer;
             EntityManager.ChangeLayer(grabbedRig.gameObject, 7);
-            scrollOffset = Vector3.Distance(grabbedRig.transform.position,
-                EntityManager.Player.Player_Camera.head.position) / EntityManager.Player.Player_Interaction.range;
+
+            // Setup offset
+            scrollOffset = Vector3.Distance(EntityManager.Player.Player_Interaction.interactionPoint, EntityManager.Player.Player_Camera.head.position) / EntityManager.Player.Player_Interaction.range;
+            offset = grabbedRig.transform.position - EntityManager.Player.Player_Interaction.interactionPoint;
         }
         else {
             EntityManager.ChangeLayer(grabbedRig.gameObject, ogLayer);
@@ -89,11 +91,10 @@ public class PlayerGrab : MonoBehaviour {
 
     private void MoveRig() {
         if (!equipped) {
-            if (grabbedRig == null)
+            if (grabbedRig == null) {
                 return;
-            destination = EntityManager.Player.Player_Camera.head.transform.position + EntityManager.Player.Player_Camera.head.forward
-                * (EntityManager.Player.Player_Interaction.range * scrollOffset);
-
+            }
+            destination = EntityManager.Player.Player_Camera.head.position + (EntityManager.Player.Player_Camera.head.forward * EntityManager.Player.Player_Interaction.range * scrollOffset) + offset;
             grabbedRig.velocity = (destination - grabbedRig.transform.position) * grabSpeed;
         }
         else {
