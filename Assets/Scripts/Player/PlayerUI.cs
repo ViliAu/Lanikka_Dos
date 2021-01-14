@@ -9,30 +9,15 @@ public class PlayerUI : MonoBehaviour {
     [SerializeField] private RectTransform canvas = null;
     [SerializeField] Image heldItemImage = null;
     [SerializeField] TMP_Text heldItemText = null;
-    private Image crosshair = null;
-    private TMP_Text moneyAmount = null;
-    private TMP_Text focusText = null;
+    [SerializeField] private Image crosshair = null;
+    [SerializeField] private TMP_Text moneyAmount = null;
+    [SerializeField] private TMP_Text focusText = null;
 
     private void Awake() {
-        // Find canvas
-        if (canvas == null)
-            if ((canvas = EntityManager.Player.transform.Find("Head").Find("Main camera").Find("Canvas").GetComponent<RectTransform>()) == null)
-                Debug.LogError("Couldn't find player canvas");
-
-        // Find crosshair
-        if (crosshair == null)
-            if ((crosshair = canvas.Find("Crosshair").GetComponent<Image>()) == null)
-                Debug.LogError("Couldn't find player crosshair");
-
-        // Find moeny amount
-        if (moneyAmount == null)
-            if ((moneyAmount = canvas.Find("MoneyAmount").GetComponent<TMP_Text>()) == null)
-                Debug.LogError("Couldn't find money text");
-
-        // Find focus text
-        if (focusText == null)
-            if ((focusText = canvas.Find("FocusText").GetComponent<TMP_Text>()) == null)
-                Debug.LogError("Couldn't find focus text");
+        // warningit kohillee
+        if (canvas == null || heldItemImage == null || heldItemText == null || crosshair == null || moneyAmount == null || focusText == null) {
+            Debug.LogError("Check player UI dependencies or revert prefab to fix UI issues.");
+        }
     }
 
     public void ChangeCrosshairDarkness(float darkness) {

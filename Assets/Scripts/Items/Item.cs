@@ -23,8 +23,19 @@ public class Item : Interactable {
         if (!canInteract)
             return;
         base.PlayerInteract();
-        EntityManager.Player.Player_Inventory.AddItem(this);
-        EntityManager.Player.Player_Equipment.UpdateUI();
+        if (EntityManager.Player.Player_Inventory.AddItem(this))
+            EntityManager.Player.Player_Equipment.UpdateUI();
+    }
+
+    public override bool PlayerInteractBool() {
+        if (!canInteract)
+            return false;
+        base.PlayerInteract();
+        if (EntityManager.Player.Player_Inventory.AddItem(this)) {
+            EntityManager.Player.Player_Equipment.UpdateUI();
+            return true;
+        }
+        return false;
     }
 
 }

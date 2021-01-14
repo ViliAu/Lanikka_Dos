@@ -31,6 +31,15 @@ public class Interactable : Entity {
     }
 
     /// <summary>
+    /// Bad overlaod for the magnet ripti
+    /// </summary>
+    public virtual bool PlayerInteractBool() {
+        if (!canInteract)
+            return false;
+        return true;
+    }
+
+    /// <summary>
     /// Get's called when the player focuses to an item
     /// </summary>
     public virtual void PlayerFocusEnter() {

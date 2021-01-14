@@ -24,10 +24,29 @@ public class Money : Interactable {
         }    
     }
 
+    public override void PlayerFocusEnter() {
+        base.PlayerFocusEnter();
+        EntityManager.Player.Player_UI.ChangeFocusText("Pickup money $"+amount);
+    }
+
+    public override void PlayerFocusExit() {
+        base.PlayerFocusEnter();
+        EntityManager.Player.Player_UI.ChangeFocusText("");
+    }
+
     public override void PlayerInteract() {
-        base.PlayerInteract();
+        if (!canInteract)
+            return;
         EntityManager.Player.Player_Wallet.AddMoney(amount);
         Destroy(gameObject);
+    }
+
+    public override bool PlayerInteractBool() {
+        if (!canInteract)
+            return false;
+        EntityManager.Player.Player_Wallet.AddMoney(amount);
+        Destroy(gameObject);
+        return true;
     }
 
     public void SetAmount(float a) {

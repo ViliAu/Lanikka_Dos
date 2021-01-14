@@ -15,7 +15,7 @@ public class PlayerInventory : MonoBehaviour {
     /// Adds picked up item to Player's inventory if there's space.
     /// </summary>
     /// <param name="pick">Picked up item</param>
-    public void AddItem(Item pick) {
+    public bool AddItem(Item pick) {
         // Check if we already have that item => Iterate through items
         foreach (Item p in items) {
             if (p == null) {
@@ -36,7 +36,7 @@ public class PlayerInventory : MonoBehaviour {
                 else if (p.stackCount + pick.stackCount <= maxStackSize) {
                     p.stackCount += pick.stackCount;
                     pick.DestroyItem();
-                    return;
+                    return true;
                 }
             }
         }
@@ -47,9 +47,10 @@ public class PlayerInventory : MonoBehaviour {
                 items[i] = pick;
                 items[i].stackCount = pick.stackCount;
                 pick.EnableItem(false);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     public void RemoveItemByIndex(int index, bool destroy) {

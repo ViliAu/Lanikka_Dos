@@ -11,7 +11,7 @@ public class PlayerMagnet : MonoBehaviour {
 
     private float activationStart = 0f;
 
-    [SerializeField] private List<Item> attractedItems = new List<Item>();
+    [SerializeField] private List<Interactable> attractedItems = new List<Interactable>();
 
     private void Update() {
         GetInput();
@@ -38,17 +38,19 @@ public class PlayerMagnet : MonoBehaviour {
         }
         // Assign cols to the attracted items list
         for (int i = 0; i < cols.Length; i++) {
-            Item item;
-            if ((item = cols[i].GetComponent<Item>()) == null || item.rig == null) {
+            Interactable item;
+            if ((item = cols[i].GetComponent<Interactable>()) == null || item.rig == null) {
                 continue;
             }
-            if (!attractedItems.Contains(item)) {
-                attractedItems.Add(item);
+            if (item as Item || item as Money) {
+                if (!attractedItems.Contains(item)) {
+                    attractedItems.Add(item);
+                }
             }
         }
-        List <Item> removables = new List<Item>();
+        List <Interactable> removables = new List<Interactable>();
         
-        foreach (Item item in attractedItems) {
+        foreach (Interactable item in attractedItems) {
             EntityManager.ChangeLayer(item.gameObject, 7);
             // Check if the item is close enough so we can pick it up
             float dist = (EntityManager.Player.Player_Camera.head.position + EntityManager.Player.Player_Interaction.ray.direction * magnetOffset - item.rig.position).magnitude;
@@ -59,16 +61,23 @@ public class PlayerMagnet : MonoBehaviour {
             }
             item.rig.AddForce(((EntityManager.Player.Player_Camera.head.position + EntityManager.Player.Player_Interaction.ray.direction * magnetOffset - item.rig.position) * (force/dist)));
         }
-        foreach (Item item in removables) {
-            EntityManager.ChangeLayer(item.gameObject, 0);
-            item.PlayerInteract();
-            attractedItems.Remove(item);
+        foreach (Interactable item in removables) {
+            if (item as Item) {
+                if (item.PlayerInteractBool()) {
+                    EntityManager.ChangeLayer(item.gameObject, 0);
+                    attractedItems.Remove(item);
+                }
+            }
+            else if (item as Money) {
+                item.PlayerInteract();
+                attractedItems.Remove(item);
+            }
         }
 
     }
 
     private void ClearAttractedItems() {
-        foreach (Item item in attractedItems) {
+        foreach (Interactable item in attractedItems) {
             EntityManager.ChangeLayer(item.gameObject, 0);
         }
         attractedItems.Clear();
