@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 1437912552864612800}
   - component: {fileID: 8230419186488013391}
   - component: {fileID: 717999661}
+  - component: {fileID: 1796776028}
   m_Layer: 0
   m_Name: Doodie_Ball
   m_TagString: Untagged
@@ -111,6 +112,19 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.125
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &1796776028
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274639206984480976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.19, y: 0.19, z: 0.19}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7511211002980465453
 GameObject:

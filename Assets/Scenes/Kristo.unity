@@ -964,34 +964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25146d2765fa8b4dbdecd5f62b1f11b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundGroups:
-  - groupName: dooker_cry
-    audioClips:
-    - {fileID: 8300000, guid: f8a6a50a74023dc439b749603b64f22a, type: 3}
-    - {fileID: 8300000, guid: a3a75edbabb909448a1cf580d668484d, type: 3}
-    - {fileID: 8300000, guid: e9fda2cd004ed7e46a1cfc5bdc8f90c7, type: 3}
-    - {fileID: 8300000, guid: a81bcbfa7368c21429238fc0e2381187, type: 3}
-    - {fileID: 8300000, guid: a3a9e8efa964a9941ac087f22bd8426b, type: 3}
-  - groupName: dooker_eat
-    audioClips:
-    - {fileID: 8300000, guid: a1d46e8c997d3114d8f7761ecb26d328, type: 3}
-    - {fileID: 8300000, guid: 46210d4abf47dad4baef043712a5a503, type: 3}
-    - {fileID: 8300000, guid: aae0dce104ebdaa41a7dd60aae1018e0, type: 3}
-  - groupName: dooker_efe
-    audioClips:
-    - {fileID: 8300000, guid: 09e70d3733e449e4b8c5f275f8bd1a0f, type: 3}
-    - {fileID: 8300000, guid: 07729fcee51e34641b91f234bb006b4b, type: 3}
-    - {fileID: 8300000, guid: a62e9e8d1f598a941bccdb70ca1f6f9b, type: 3}
-    - {fileID: 8300000, guid: fbd83003c78bbf8449793dbdc664a66d, type: 3}
-    - {fileID: 8300000, guid: 11ba5a409f1f4734ea549b43b12a40e8, type: 3}
-    - {fileID: 8300000, guid: 64b016fa588a3354792b184b5166871a, type: 3}
-    - {fileID: 8300000, guid: 1cbf51afa97c7a645a664f78a54c8eaf, type: 3}
-    - {fileID: 8300000, guid: 055954f9487dd694e9a02e526640563f, type: 3}
-    - {fileID: 8300000, guid: 11239f0223fafc6449451e858e1955d1, type: 3}
-    - {fileID: 8300000, guid: 3f9c5282d56f6694f9f9acce5e293083, type: 3}
-    - {fileID: 8300000, guid: e2e9d167ea14bfc408486f533847a0d2, type: 3}
-    - {fileID: 8300000, guid: e22b01c88e6ed664ab131ac55ccaef66, type: 3}
-    - {fileID: 8300000, guid: e0c13073e0cb49648a8ab8a79bfa64bf, type: 3}
+  soundGroups: []
 --- !u!4 &807760993
 Transform:
   m_ObjectHideFlags: 0
@@ -2079,6 +2052,10 @@ PrefabInstance:
     - target: {fileID: 3828608249770732164, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828608250052126193, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
+      propertyPath: crouchSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3828608250052126194, guid: 2cb0a8171692e2a43b2962b7b745d936, type: 3}
       propertyPath: m_RootOrder

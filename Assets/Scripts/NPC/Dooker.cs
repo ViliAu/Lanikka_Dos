@@ -156,7 +156,10 @@ public class Dooker : NPC {
 
         GameObject doodie = Instantiate(shitTable != null ? shitTable.RollDrop() : Database.Singleton.GetEntityPrefab("doodie_normal").gameObject, shitSpawn.position, transform.rotation, null);
         // TODO: Paska paukkumis animi
-        doodie.GetComponent<Rigidbody>().AddForce(transform.rotation * shitForce, ForceMode.Impulse);
+        Vector2 shitTorqueMinMax = new Vector2(9.3f, 50f);
+        Rigidbody rig = doodie.GetComponent<Rigidbody>();
+        rig.AddForce(transform.rotation * shitForce, ForceMode.Impulse);
+        rig.AddTorque(Random.insideUnitSphere * Random.Range(shitTorqueMinMax.x, shitTorqueMinMax.y));
 
         // If we're out of poo power walk to a random spot and start idling
         if (currentShitmass < shitMassPerShit) {
