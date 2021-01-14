@@ -5,19 +5,23 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     /* User data */
     [Header("Movement speeds")]
-    public float speed = 15;
+    [SerializeField] private float speed = 15;
     [SerializeField] private float sprintSpeed = 30f;
-    [SerializeField] private float crouchSpeed = 13f;
+    [SerializeField] private float crouchMovementSpeed = 13f;
 
     [Header("Ground movement")]
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private float deceleration = 10f;
 
-    [Header("Air stuff")]
+    [Header("Crouch settings")]
+    [SerializeField] private float crouchSpeed = 5f;
+
+    [Header("Air settings")]
     [SerializeField] private float airAcceleration = 1f;
     [SerializeField] private float gravity = 5f;
     [SerializeField] private float maximumGravity = 120f;
     [SerializeField] private float jumpHeight = 15f;
+
     [Header("Ladder")]
     [Tooltip("How far the palyer can grab a ladder")]
     [SerializeField] private float ladderWidth = 0.1f;
@@ -84,8 +88,8 @@ public class PlayerController : MonoBehaviour {
         // Check the correct speed (crouch, sprint or normal)
         // Crouching
         if (EntityManager.Player.Player_Input.crouched) {
-            velocity.x = Mathf.Lerp(velocity.x, crouchSpeed * dir.x, acceleration * Time.deltaTime);
-            velocity.z = Mathf.Lerp(velocity.z, crouchSpeed * dir.z, acceleration * Time.deltaTime);
+            velocity.x = Mathf.Lerp(velocity.x, crouchMovementSpeed * dir.x, acceleration * Time.deltaTime);
+            velocity.z = Mathf.Lerp(velocity.z, crouchMovementSpeed * dir.z, acceleration * Time.deltaTime);
         }
         // Sprinting
         else if (EntityManager.Player.Player_Input.sprinting) {
@@ -165,12 +169,12 @@ public class PlayerController : MonoBehaviour {
         }
         // Crouching
         if (EntityManager.Player.Player_Input.crouched) {
-            controllerHeight = Mathf.Lerp(controller.height, 1, 5 * Time.deltaTime);
+            controllerHeight = Mathf.Lerp(controller.height, 1, crouchSpeed * Time.deltaTime);
             controller.height = controllerHeight;
         }
         // Uncrouching
         else if (CanUncrouch) {
-            controllerHeight = Mathf.Lerp(controller.height, 2, 5 * Time.deltaTime);
+            controllerHeight = Mathf.Lerp(controller.height, 2, crouchSpeed * Time.deltaTime);
             controller.height = controllerHeight;
             // Smoothing.. maybe rework
             if (controllerHeight < 1.9f) {
@@ -187,10 +191,15 @@ public class PlayerController : MonoBehaviour {
     //Ground check
     private void StateCheck() {
         RaycastHit hit;
+
+        // Hullu
         float cMod = Mathf.Abs(2-controllerHeight) * 0.5f;
+        
         Vector3 radius = new Vector3(0,controller.radius,0);
         Vector3 upperPos = transform.position + Vector3.up * (controller.height + cMod) - radius;
         Vector3 lowerPos = transform.position + radius + Vector3.up * cMod;
+        Debug.DrawLine(Vector3.zero, lowerPos, Color.red);
+        Debug.DrawLine(Vector3.zero, upperPos, Color.green);
 
         // Check if we hit a ladder
         ldrCols = Physics.OverlapCapsule(lowerPos + Vector3.up * ladderWidth, upperPos, controller.radius + ladderWidth, LayerMask.GetMask("Ladder"), QueryTriggerInteraction.Collide);

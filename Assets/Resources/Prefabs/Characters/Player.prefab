@@ -528,9 +528,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   sprintSpeed: 12
-  crouchSpeed: 3
+  crouchMovementSpeed: 3
   acceleration: 50
   deceleration: 10
+  crouchSpeed: 5
   airAcceleration: 3
   gravity: 32
   maximumGravity: 500
