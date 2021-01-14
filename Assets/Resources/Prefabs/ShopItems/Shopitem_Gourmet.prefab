@@ -77,12 +77,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: shopitem_gourmet
-  grabbable: 0
+  canInteract: 1
   isHighlightable: 1
+  isGrabbable: 1
   itemToGive: {fileID: 5698095585755746083, guid: d5b2d1921f15a8745ad5bbd762515546, type: 3}
   amountToGive: 1
   price: 1
-  restockTime: 60
+  restockTime: 30
 --- !u!65 &8633145520027663423
 BoxCollider:
   m_ObjectHideFlags: 0
