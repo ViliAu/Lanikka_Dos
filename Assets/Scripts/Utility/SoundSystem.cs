@@ -61,8 +61,28 @@ public static class SoundSystem {
         PlaySoundClip(soundName, volume, soundPosition);
     }
 
+    public static void PlaySound(string soundName, Vector3 soundPosition, Transform parent) {
+        PlaySoundClip(soundName, 1f, soundPosition, parent);
+    }
+
     public static void PlaySound(string soundName, Vector3 soundPosition, float volume, Transform parent) {
         PlaySoundClip(soundName, volume, soundPosition, parent);
+    }
+
+    public static void PlaySoundGroup(string groupName, Vector3 soundPosition) {
+        PlaySound(GetRandomSoundGroupClip(groupName), soundPosition);
+    }
+
+    public static void PlaySoundGroup(string groupName, Vector3 soundPosition, float volume) {
+        PlaySound(GetRandomSoundGroupClip(groupName), soundPosition, volume);
+    }
+
+    public static void PlaySoundGroup(string groupName, Vector3 soundPosition, Transform parent) {
+        PlaySound(GetRandomSoundGroupClip(groupName), soundPosition, parent);
+    }
+
+    public static void PlaySoundGroup(string groupName, Vector3 soundPosition, float volume, Transform parent) {
+        PlaySound(GetRandomSoundGroupClip(groupName), soundPosition, volume, parent);
     }
 
     public static void PlaySound2D(string soundName) {
@@ -71,14 +91,6 @@ public static class SoundSystem {
 
     public static void PlaySound2D(string soundName, float volume) {
         PlaySoundClip(soundName, volume);
-    }
-
-    public static void PlaySoundGroup(string groupName, Vector3 soundPosition) {
-        PlaySound(GetRandomSoundGroupClip(groupName), soundPosition);
-    }
-
-    public static void PlaySoundGroup(string groupName, Vector3 soundPosition, float volume, Transform parent) {
-        PlaySound(GetRandomSoundGroupClip(groupName), soundPosition, volume, parent);
     }
 
     public static void PlaySoundGroup2D(string groupName) {
@@ -114,6 +126,8 @@ public static class SoundSystem {
         soundSource.volume = masterVolume * sfxVolume * volume;
         // If we're playing a 3D sound set spatial blend to 1
         soundSource.spatialBlend = soundPosition == default ? 0 : 1f;
+
+        soundSource.minDistance = 5f;
 
         // Playe audio clip
         soundSource.Play();

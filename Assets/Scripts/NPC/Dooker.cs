@@ -76,7 +76,7 @@ public class Dooker : NPC {
 
             // Nothing to do
             else if (currentState == State.CRYING) {
-                SoundSystem.PlaySoundGroup("dooker_cry", transform.position);
+                SoundSystem.PlaySoundGroup("dooker_cry", transform.position, transform);
                 return;
             }
         }
