@@ -76,7 +76,7 @@ public class Dooker : NPC {
 
             // Nothing to do
             else if (currentState == State.CRYING) {
-                //SoundSystem.PlaySoundGroup("dooker_cry", transform.position);
+                SoundSystem.PlaySoundGroup("dooker_cry", transform.position);
                 return;
             }
         }
@@ -154,7 +154,7 @@ public class Dooker : NPC {
         SoundSystem.PlaySoundGroup("dooker_efe", transform.position);
         currentShitmass -= shitMassPerShit;
 
-        GameObject doodie = Instantiate(shitTable != null ? shitTable.RollDrop() : Database.Singleton.GetEntityPrefab("doodie_normal").gameObject, shitSpawn.position, transform.rotation, null);
+        GameObject doodie = Instantiate(shitTable != null ? shitTable.RollDrop() : Database.GetEntity("doodie_normal").gameObject, shitSpawn.position, transform.rotation, null);
         // TODO: Paska paukkumis animi
         Vector2 shitTorqueMinMax = new Vector2(9.3f, 50f);
         Rigidbody rig = doodie.GetComponent<Rigidbody>();
@@ -182,7 +182,7 @@ public class Dooker : NPC {
         agent.destination = transform.position;
         SoundSystem.PlaySoundGroup("dooker_efe", transform.position);
         currentShitmass -= shitMassPerShit;
-        EntityManager.DookerPen.shitBucket.AddShit(shitTable != null ? shitTable.RollDrop().GetComponent<Doodie>() : Database.Singleton.GetEntityPrefab("doodie_normal") as Doodie); // TODO: ANIMI JA DROPTABLE
+        EntityManager.DookerPen.shitBucket.AddShit(shitTable != null ? shitTable.RollDrop().GetComponent<Doodie>() : Database.GetEntity("doodie_normal") as Doodie); // TODO: ANIMI JA DROPTABLE
         // TODO: Paska paukkumis animi
         // If we're out of power walk to a random spot and start idling
         if (currentShitmass < shitMassPerShit) {

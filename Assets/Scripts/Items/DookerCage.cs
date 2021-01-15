@@ -7,7 +7,7 @@ public class DookerCage : Interactable {
     public override void PlayerInteract() {
         base.PlayerInteract();
         if (EntityManager.DookerPen.IsInside(transform.position)) {
-            Dooker duu = Instantiate<Dooker>(Database.Singleton.GetEntityPrefab("dooker") as Dooker, transform.position, transform.rotation);
+            Dooker duu = Instantiate<Dooker>(Database.GetEntity("dooker") as Dooker, transform.position, transform.rotation);
             Destroy(gameObject);
         }
         else {

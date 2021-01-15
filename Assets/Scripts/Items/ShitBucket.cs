@@ -41,7 +41,7 @@ public class ShitBucket : Interactable {
             }
         }
         // Instantiate and add a new prefab
-        Doodie duu = Instantiate<Doodie>(Database.Singleton.GetEntityPrefab(diuppa.entityName) as Doodie, transform.position, transform.rotation, null);
+        Doodie duu = Instantiate<Doodie>(Database.GetEntity(diuppa.entityName) as Doodie, transform.position, transform.rotation, null);
         duu.EnableItem(false);
         doodies.Add(duu);
     }

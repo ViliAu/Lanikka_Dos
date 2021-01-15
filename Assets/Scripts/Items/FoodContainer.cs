@@ -86,7 +86,7 @@ public class FoodContainer : Interactable {
             return;
         }
         int k = edibles.Count-1;
-        Edible a = Instantiate<Edible>(Database.Singleton.GetEntityPrefab(edibles[k].entityName) as Edible, transform.position + transform.rotation * (modelSpawnStartOffset + (k % this.rows) * rowOffset + ((int) k / this.rows) * columnOffset) + transform.right * Random.Range(-positionJitter, positionJitter) + transform.forward * Random.Range(-positionJitter, positionJitter), transform.rotation * Quaternion.Euler(0, Random.Range(-rotationJitter, rotationJitter), 0), transform); // Mörkö (älä koske)
+        Edible a = Instantiate<Edible>(Database.GetEntity(edibles[k].entityName) as Edible, transform.position + transform.rotation * (modelSpawnStartOffset + (k % this.rows) * rowOffset + ((int) k / this.rows) * columnOffset) + transform.right * Random.Range(-positionJitter, positionJitter) + transform.forward * Random.Range(-positionJitter, positionJitter), transform.rotation * Quaternion.Euler(0, Random.Range(-rotationJitter, rotationJitter), 0), transform); // Mörkö (älä koske)
         a.name = k.ToString();
         a.GetComponent<Rigidbody>().isKinematic = true; // Presume that the edible has a rig
         a.GetComponent<Rigidbody>().detectCollisions = false;

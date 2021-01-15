@@ -3,20 +3,19 @@ using UnityEngine;
 
 public static class SoundSystem {
 
-    private static GameObject sourceRoot;
-    private static AudioSource musicSource01;
-    private static AudioSource musicSource02;
-    private static AudioSource ambianceSource01;
-    private static AudioSource ambianceSource02;
+    private static GameObject sourceRoot = null;
+    private static AudioSource musicSource01 = null;
+    private static AudioSource musicSource02 = null;
+    private static AudioSource ambianceSource01 = null;
+    private static AudioSource ambianceSource02 = null;
 
     private static float masterVolume = .55f;
     private static float sfxVolume = .7f;
     private static float musicVolume = .65f;
     private static float ambianceVolume = .08f;
 
-    public static void Awake() {
+    public static void SoundSystemSetup() {
         sourceRoot = new GameObject("Sound Source Root");                   // Spawn a empty gameobject that holds every sound source
-        sourceRoot.transform.SetParent(Database.Singleton.transform); 
 
         // Make music sources
         musicSource01 = SpawnPermanentSoundSource("Music Source 01", musicVolume);
@@ -39,7 +38,7 @@ public static class SoundSystem {
 
     static string GetRandomSoundGroupClip(string groupName) {
         // Find the correct sound group
-        SoundGroup[] soundGroups = Database.Singleton.GetSoundGroups();
+        SoundGroup[] soundGroups = Database.GetSoundGroups();
         for (int i = 0; i < soundGroups.Length; i++) {
             if (soundGroups[i].groupName == groupName) {
                 // Play a random sound from the sound group
@@ -91,15 +90,12 @@ public static class SoundSystem {
     }
 
     static void PlaySoundClip(string soundName, float volume, Vector3 soundPosition = default, Transform parent = null) {
-
-        // Check if database exists
-        if (Database.Singleton == null) {
-            Debug.LogError("Scene doesn't have database prefab in it. Add the prefab to the scene.");
-            return;
-        }
+        // Is the sound root initialized?
+        if (sourceRoot == null)
+            SoundSystemSetup();
 
         // Is the sound clip we want to play valid ?
-        AudioClip clip = Database.Singleton.GetAudioClip(soundName);
+        AudioClip clip = Database.GetAudioClip(soundName);
         if (clip == null) {
             Debug.Log("Could not find sound file named: " + soundName);
             return;
@@ -117,30 +113,33 @@ public static class SoundSystem {
         soundSource.clip = clip;
         soundSource.volume = masterVolume * sfxVolume * volume;
         // If we're playing a 3D sound set spatial blend to 1
-        if (soundPosition != Vector3.zero)
-            soundSource.spatialBlend = .5f;
+        soundSource.spatialBlend = soundPosition == default ? 0 : 1f;
 
         // Playe audio clip
         soundSource.Play();
-        Database.Singleton.StartCoroutine(DestroySoundObject(soundObject, clip.length));
+        StaticCoroutine.Instance.StartCoroutine(DestroySoundObject(soundObject, clip.length));
     }
 
     public static void PlayMusic(string musicName, float fadeIn) {
-        AudioClip musicClip = Database.Singleton.GetAudioClip(musicName);
+
+        AudioClip musicClip = Database.GetAudioClip(musicName);
         if (musicClip != null) {
-            Database.Singleton.StartCoroutine(MusicFade(musicClip, fadeIn));
+            StaticCoroutine.Instance.StartCoroutine(MusicFade(musicClip, fadeIn));
         }
     }
 
     public static void PlayAmbiance(string ambianceName, float fadeIn) {
-        AudioClip ambianceClip = Database.Singleton.GetAudioClip(ambianceName);
+        AudioClip ambianceClip = Database.GetAudioClip(ambianceName);
         if (ambianceClip != null) {
-            Database.Singleton.StartCoroutine(AmbianceFade(ambianceClip, fadeIn));
+            StaticCoroutine.Instance.StartCoroutine(AmbianceFade(ambianceClip, fadeIn));
         }
     }
 
     static IEnumerator MusicFade(AudioClip musicClip, float fadeIn) {
-        
+        // Is the sound root initialized?
+        if (sourceRoot == null)
+            SoundSystemSetup();
+
         AudioSource fadeInSource = null;
         AudioSource fadeOutSource = null;
         if (!musicSource01.isPlaying && !musicSource02.isPlaying) {
@@ -173,7 +172,10 @@ public static class SoundSystem {
     }
 
     static IEnumerator AmbianceFade(AudioClip ambianceClip, float fadeIn) {
-        
+        // Is the sound root initialized?
+        if (sourceRoot == null)
+            SoundSystemSetup();
+
         AudioSource fadeInSource = null;
         AudioSource fadeOutSource = null;
         if (!ambianceSource01.isPlaying && !ambianceSource02.isPlaying) {

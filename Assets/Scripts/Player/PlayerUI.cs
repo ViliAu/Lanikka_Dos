@@ -26,7 +26,7 @@ public class PlayerUI : MonoBehaviour {
     }
 
     public void SetCrosshair(string name) {
-        Sprite sprite = Database.Singleton.GetCrosshair(name);
+        Sprite sprite = Database.GetCrosshair(name);
         if (sprite != null && crosshair.sprite != sprite) {
             crosshair.sprite = sprite;
         }

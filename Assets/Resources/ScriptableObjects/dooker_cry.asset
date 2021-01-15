@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65589f87483cd245b13487b17a7b2c7, type: 3}
+  m_Name: dooker_cry
+  m_EditorClassIdentifier: 
+  groupName: dooker_cry
+  audioClips:
+  - {fileID: 8300000, guid: f8a6a50a74023dc439b749603b64f22a, type: 3}
+  - {fileID: 8300000, guid: a3a75edbabb909448a1cf580d668484d, type: 3}
+  - {fileID: 8300000, guid: e9fda2cd004ed7e46a1cfc5bdc8f90c7, type: 3}
+  - {fileID: 8300000, guid: a81bcbfa7368c21429238fc0e2381187, type: 3}
+  - {fileID: 8300000, guid: a3a9e8efa964a9941ac087f22bd8426b, type: 3}

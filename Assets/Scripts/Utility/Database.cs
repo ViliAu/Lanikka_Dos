@@ -1,106 +1,100 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Database : MonoBehaviour {
+public static class Database {
     
-    [SerializeField] private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
-    [SerializeField] private Dictionary<string, Entity> entityPrefabs = new Dictionary<string, Entity>();
-    [SerializeField] private Dictionary<string, Sprite> crosshairs = new Dictionary<string, Sprite>();
-    [SerializeField] private Dictionary<string, Sprite> icons = new Dictionary<string, Sprite>();
+    private static Dictionary<string, AudioClip> audioClips = null;
+    private static Dictionary<string, Entity> entities = null;
+    private static Dictionary<string, Sprite> crosshairs = null;
+    private static Dictionary<string, Sprite> icons = null;
 
-    [SerializeField] private List<SoundGroup> soundGroups = new List<SoundGroup>();
+    private static SoundGroup[] soundGroups = null;
 
-    private static Database _instance;
-    public static Database Singleton {
-        get {
-            if (_instance == null) {
-                _instance = FindObjectOfType(typeof(Database)) as Database;
-            }
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-
-    void Awake() {
-        /* TODO : !!! This call should be moved somewhere else !!! */
-        SoundSystem.Awake();
-        AutomaticAssignerScript.AssignObjects();
-    }
-
-    public void AssingAudioClips(Object[] objs) {
+    public static void LoadAudioClips() {
+        AudioClip[] clips = Resources.LoadAll<AudioClip>("Audio");
         audioClips = new Dictionary<string, AudioClip>();
         int counter = 0;
-        for (int i = 0; i < objs.Length; i++)  {
-            audioClips.Add(objs[i].name, (objs[i] as AudioClip));
+        for (int i = 0; i < clips.Length; i++)  {
+            audioClips.Add(clips[i].name, clips[i]);
             counter++;
         }
         //Debug.Log("Succesfully assigned: " + counter + " audio files.");
     }
 
-    public void AssignEntityPrefabs(Object[] objs) {
-        entityPrefabs = new Dictionary<string, Entity>();
+    public static void LoadEntities() {
+        Entity[] ents = Resources.LoadAll<Entity>("Prefabs");
+        entities = new Dictionary<string, Entity>();
         int counter = 0;
-        for (int i = 0; i < objs.Length; i++) {
-            entityPrefabs.Add((objs[i] as Entity).entityName, (objs[i] as Entity));
+        for (int i = 0; i < ents.Length; i++)  {
+            entities.Add(ents[i].entityName, ents[i]);
             counter++;
         }
         //Debug.Log("Succesfully assigned: " + counter + " entities.");
     }
 
-    public void AssignCrosshairs(Object[] objs) {
+    public static void LoadCrosshairs() {
+        Sprite[] crhs = Resources.LoadAll<Sprite>("Textures/UI/Crosshair");
         crosshairs = new Dictionary<string, Sprite>();
         int counter = 0;
-        for (int i = 0; i < objs.Length; i++) {
-            crosshairs.Add((objs[i] as Sprite).name, (objs[i] as Sprite));
+        for (int i = 0; i < crhs.Length; i++) {
+            crosshairs.Add(crhs[i].name, crhs[i]);
             counter++;
         }
         //Debug.Log("Succesfully assigned: " + counter + " entities.");
     }
 
-    public void AssignIcons(Object[] objs) {
+    public static void LoadIcons() {
+        Sprite[] iconList = Resources.LoadAll<Sprite>("Textures/UI/Crosshair");
         icons = new Dictionary<string, Sprite>();
         int counter = 0;
-        for (int i = 0; i < objs.Length; i++) {
-            icons.Add((objs[i] as Sprite).name, (objs[i] as Sprite));
+        for (int i = 0; i < iconList.Length; i++) {
+            icons.Add(iconList[i].name, iconList[i]);
             counter++;
         }
         //Debug.Log("Succesfully assigned: " + counter + " entities.");
     }
 
-    public void AssignSoundGroups(Object[] objs) {
-        soundGroups = new List<SoundGroup>();
-        int counter = 0;
-        for (int i = 0; i < objs.Length; i++) {
-            soundGroups.Add(objs[i] as SoundGroup);
-            counter++;
-        }
-        //Debug.Log("Succesfully assigned: " + counter + " entities.");
+    public static void LoadSoundGroups() {
+        soundGroups = Resources.LoadAll<SoundGroup>("ScriptableObjects");
     }
 
-    public AudioClip GetAudioClip(string soundName) {
+    public static AudioClip GetAudioClip(string soundName) {
+        if (audioClips == null) {
+            LoadAudioClips();
+        }
         AudioClip clip;
         audioClips.TryGetValue(soundName, out clip);
         return clip;
     }
 
-    public Entity GetEntityPrefab(string entityName) {
-        entityPrefabs.TryGetValue(entityName, out Entity entity);
+    public static Entity GetEntity(string entityName) {
+        if (entities == null) {
+            LoadEntities();
+        }
+        entities.TryGetValue(entityName, out Entity entity);
         return entity;
     }
 
-    public Sprite GetCrosshair(string crosshairName) {
+    public static Sprite GetCrosshair(string crosshairName) {
+        if (crosshairs == null) {
+            LoadCrosshairs();
+        }
         crosshairs.TryGetValue(crosshairName, out Sprite sprite);
         return sprite;
     }
 
-    public Sprite GetIcon(string iconName) {
+    public static Sprite GetIcon(string iconName) {
+        if (icons == null) {
+            LoadIcons();
+        }
         icons.TryGetValue(iconName, out Sprite sprite);
         return sprite;
     }
 
-    public SoundGroup[] GetSoundGroups() {
-        return soundGroups.ToArray();
+    public static SoundGroup[] GetSoundGroups() {
+        if (soundGroups == null) {
+            LoadSoundGroups();
+        }
+        return soundGroups;
     }
 }
