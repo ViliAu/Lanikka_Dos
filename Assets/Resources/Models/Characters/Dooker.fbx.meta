@@ -24,8 +24,30 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
+    animationImportWarnings: "\nClip 'Dooker_Armature|Dooker_Idle' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Shoulder.L' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'Shoulder.R'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Dooker_Armature|1_T_Pose':\n\tLeftLowerLeg
+      average position error 1.1 mm and maximum position error 1.1 mm at time 0:
+      0 (0.0%) Frame 0\n\tRightLowerLeg average position error 1.1 mm and maximum
+      position error 1.1 mm at time 0: 0 (0.0%) Frame 0\n\tLeftLowerArm average position
+      error 3.1 mm and maximum position error 3.1 mm at time 0: 0 (0.0%) Frame 0\n\tRightLowerArm
+      average position error 3.1 mm and maximum position error 3.1 mm at time 0:
+      0 (0.0%) Frame 0\n\nRetargeting quality report for clip 'Dooker_Armature|Dooker_Idle':\n\tLeftLowerLeg
+      average position error 1.0 mm and maximum position error 1.5 mm at time 1:37
+      (48.7%) Frame 97\n\tRightLowerLeg average position error 1.0 mm and maximum
+      position error 1.5 mm at time 1:37 (48.7%) Frame 97\n\tLeftUpperArm average
+      position error 78.3 mm and maximum position error 81.8 mm at time 0: 0 (0.0%)
+      Frame 0\n\tLeftLowerArm average position error 63.0 mm and maximum position
+      error 65.6 mm at time 3:16 (98.5%) Frame 196\n\tLeftHand average position error
+      63.0 mm and maximum position error 65.2 mm at time 3:16 (98.5%) Frame 196\n\tRightUpperArm
+      average position error 78.3 mm and maximum position error 81.8 mm at time 0:
+      0 (0.0%) Frame 0\n\tRightLowerArm average position error 63.0 mm and maximum
+      position error 65.6 mm at time 3:16 (98.5%) Frame 196\n\tRightHand average
+      position error 63.0 mm and maximum position error 65.2 mm at time 3:16 (98.5%)
+      Frame 196\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -341,7 +363,7 @@ ModelImporter:
       parentName: Phys_Belly
       position: {x: 4.628318e-10, y: 0.0007594776, z: -0.0019412573}
       rotation: {x: 0.61645216, y: -0.00000009386454, z: 0.00000007348679, w: 0.7873923}
-      scale: {x: 1.2615091, y: 1.2615091, z: 1.2615093}
+      scale: {x: 1.2627218, y: 1.262722, z: 1.2627224}
     - name: Belly_end
       parentName: Belly
       position: {x: -0, y: 0.0013821268, z: 0}
@@ -526,12 +548,12 @@ ModelImporter:
     feetSpacing: 0
     globalScale: 1
     rootMotionBoneName: Root
-    hasTranslationDoF: 1
+    hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
