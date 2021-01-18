@@ -84,6 +84,7 @@ MonoBehaviour:
   canInteract: 1
   isHighlightable: 1
   isGrabbable: 1
+  grabOffset: {x: 0, y: -1, z: 0}
   edibles: []
   maxFoodCount: 10
   dookerDistance: 1

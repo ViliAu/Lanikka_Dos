@@ -592,7 +592,7 @@ MonoBehaviour:
   grabSpeed: 9
   rotationSpeed: 600
   throwForce: 5
-  rotationCenteringSpeed: 10
+  rotationCenteringSpeed: 1
   grabbedRig: {fileID: 0}
 --- !u!114 &3828608250052126188
 MonoBehaviour:
