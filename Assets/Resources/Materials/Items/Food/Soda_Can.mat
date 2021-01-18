@@ -21,18 +21,33 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Soda_Can
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 6505127213c809743a2832291feb0861, type: 3}
   m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_1589363610f64e02b0f55d8dd459020c:
+        m_Texture: {fileID: 2800000, guid: 2ca388ab1ce4faa4a8667d3cd255a4a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_2dc7716a7a0e40739faa1b2169366148:
+        m_Texture: {fileID: 2800000, guid: eab73cf139b96fb49a3ca523d008d681, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_b4214fb257964e558036d29e05e3518b:
+        m_Texture: {fileID: 2800000, guid: d6d587b4b94b4b5489d95670c4356810, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_f63947b1caec44f79484cf04dc6086f9:
+        m_Texture: {fileID: 2800000, guid: ae5cdc2f9019dca4ebccba2280719aad, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 2ca388ab1ce4faa4a8667d3cd255a4a0, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -90,6 +105,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_289f3c201d8e446d90f0cc29aad7ffcf: 1
+    - Vector1_515b374046f94f1aa7a97b0b9dad5279: 1
+    - Vector1_646d967c73974acd858ed9b6a1d10e42: 0.1
+    - Vector1_ab7c6e72a7c2435793d543f5224c636d: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -104,12 +123,13 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _HighlightAmount: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.842
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -117,6 +137,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_4ab800dfc60349ce94c07eb6611b4a89: {r: 1, g: 1, b: 1, a: 0}
+    - Color_7caec43e369b471ba43ba290e064556d: {r: 1, g: 0.8873908, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
