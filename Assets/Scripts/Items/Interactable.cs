@@ -6,9 +6,13 @@ public class Interactable : Entity {
 
     [Header("Interactable settings")]
     public bool canInteract = true;
+
     // Highlight settings
     public bool isHighlightable = true;
+
+    // Grab settings
     public bool isGrabbable = true;
+    public Vector3 grabOffset = Vector3.zero;
     
     private Coroutine highlightCoroutine = null;
     private MeshRenderer[] meshRenderers = null;

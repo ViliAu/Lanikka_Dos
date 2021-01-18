@@ -13,6 +13,8 @@ public class PlayerGrab : MonoBehaviour {
     [SerializeField] private float rotationSpeed = 20f;
     [SerializeField] private float throwForce = 100f;
 
+    [SerializeField] private float rotationCenteringSpeed = 5f;
+
     private Vector3 destination = Vector3.zero;
     private Vector3 offset = Vector3.zero;
     private float scrollOffset = 1;
@@ -134,8 +136,11 @@ public class PlayerGrab : MonoBehaviour {
             return;
         }
         if (EntityManager.Player.Player_Input.rotating) {
-            grabbedRig.transform.Rotate(transform.rotation * GetMouseEulers() , Space.World);
+            grabbedRig.transform.Rotate(transform.rotation * GetMouseEulers() * rotationSpeed * Time.deltaTime , Space.World);
             EntityManager.Player.Player_Camera.locked = true;
+            if (GetMouseEulers().magnitude > 0) {
+                offset = Vector3.Lerp(offset, grabbedRig.GetComponent<Interactable>().grabOffset, rotationCenteringSpeed * Time.deltaTime);
+            }
         }
         else {
             EntityManager.Player.Player_Camera.locked = false;
@@ -143,6 +148,6 @@ public class PlayerGrab : MonoBehaviour {
     }
 
     private Vector3 GetMouseEulers() {
-        return new Vector3(EntityManager.Player.Player_Input.mouseInput.y * rotationSpeed * Time.deltaTime, -EntityManager.Player.Player_Input.mouseInput.x * rotationSpeed * Time.deltaTime, 0);
+        return new Vector3(EntityManager.Player.Player_Input.mouseInput.y, -EntityManager.Player.Player_Input.mouseInput.x, 0);
     }
 }
