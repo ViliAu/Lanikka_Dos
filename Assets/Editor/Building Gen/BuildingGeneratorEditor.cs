@@ -55,35 +55,21 @@ public class BuildingGeneratorEditor : Editor {
         SetupStyles();
 
         // Title
-        GUILayout.BeginHorizontal();
+        GUILayout.Space(headerSpace);
+        DrawTitle();
+
+        // Update buiding
+        gen.BuildingModified();
+    }
+
+    void DrawTitle() {
         GUI.backgroundColor = colTitle;
-        CenterElement();
         GUILayout.Label("Building Generator", titleStyle);
-        GUILayout.EndHorizontal();
-
-        GUILayout.Space(headerSpace);
-
-        GUILayout.BeginHorizontal();
-        GUI.backgroundColor = colHeader;
-        CenterElement();
-        GUILayout.Label("Generation", headerStyle);
-        GUILayout.EndHorizontal();
-
-        GUILayout.Space(headerSpace);
-
-        // Generate button
-        GUILayout.BeginHorizontal();
-        CenterElement();
-        GUI.backgroundColor = colGreen;
-        if (GUILayout.Button("Generate Building", buttonStyle)) {
-            gen.GenerateBuilding();
-        }
-        GUILayout.EndHorizontal();
-
-        GUI.backgroundColor = colDefaultBackground;
     }
 
     void CenterElement() {
         GUILayout.Space(Screen.width / 2 - buttonWidth / 2);
     }
+
+
 }

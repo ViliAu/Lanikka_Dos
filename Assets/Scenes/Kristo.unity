@@ -883,6 +883,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc05477c6b93694f9f3c2d7e58742ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSize: 4
+  controlPoints:
+  - {x: -8, y: -8}
+  - {x: -8, y: 8}
+  - {x: 8, y: 8}
+  - {x: 8, y: -8}
+  points:
+  - {x: -8, y: -8}
+  - {x: -8, y: 8}
+  - {x: 8, y: 8}
+  - {x: 8, y: -8}
 --- !u!1001 &468602351
 PrefabInstance:
   m_ObjectHideFlags: 0
