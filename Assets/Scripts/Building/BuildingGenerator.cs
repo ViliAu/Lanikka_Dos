@@ -5,28 +5,44 @@ using UnityEngine;
 public class BuildingGenerator : MonoBehaviour {
 
     public GameObject wallPrefab;
+    public GameObject topPrefab;
+    public GameObject botPrefab;
 
     public int gridSize = 4;
     public int unitSize = 4;
-    public int height = 12;
+    public int buildingHeight = 20;
+
 
     public Vector2[] controlPoints = new Vector2[] {
-        new Vector2(-8, -8),
         new Vector2(-8, 8),
         new Vector2(8, 8),
-        new Vector2(8, -8)
+        new Vector2(8, -8),
+        new Vector2(-8, -8)
     };
 
-    public Vector2[] points;
+    public Vector2[] points = new Vector2[4];
 
     private Transform _root;
     private Transform Root {
         get {
             if (_root == null) {
-                _root = new GameObject("Building").transform;
+                _root = transform.Find("Building");
+                if (_root == null) {
+                    _root = new GameObject("Building").transform;
+                }
                 _root.transform.SetParent(transform);
             }
             return _root;
+        }
+    }
+
+    // Asset that contains default prefabs
+    private BGDefaultAssets defaultAssets;
+
+    public void LoadDefaultAssets() {
+        defaultAssets = Resources.Load("ScriptableObjects/Building Gen/BGDefault Assets") as BGDefaultAssets;
+        if (defaultAssets == null) {
+            Debug.LogWarning("Could not find default assets. Maybe it was moved or renamed?");
         }
     }
 
@@ -53,28 +69,27 @@ public class BuildingGenerator : MonoBehaviour {
     }
 
     void SpawnWalls() {
-        if (wallPrefab == null)
-            return;
-
+        int numStoreys = Mathf.RoundToInt(buildingHeight / unitSize);
         float storeyHeight = 0;
-        for (int i = 0; i < points.Length; i++) {
-            int next = i == points.Length - 1 ? 0 : i + 1;
-            Vector2 nextDir = (points[next] - points[i]).normalized;
-            int numWalls = Mathf.RoundToInt(Vector2.Distance(points[i], points[next]) / unitSize);
-            int numStoreys = Mathf.RoundToInt(height / unitSize);
-            int curStorey = 0;
+        for (int y = 0; y < numStoreys; y++) {
+            int numWalls = 0;
+            for (int point = 0; point < points.Length; point++) {
+                int next = point == points.Length - 1 ? 0 : point + 1;
+                Vector2 nextDir = (points[next] - points[point]).normalized;
+                numWalls = Mathf.RoundToInt(Vector2.Distance(points[point], points[next]) / unitSize);
 
-            // Spawn gameojbexts
-            for (int y = 0; y < numStoreys; y++) {
-                curStorey = y;
+                // Spawn gameojbexts
                 for (int x = 0; x < numWalls; x++) {
-                    Vector2 spawnPos = points[i] + (nextDir * unitSize * x) + new Vector2(transform.position.x, transform.position.z);
+                    Vector2 spawnPos = points[point] + (nextDir * unitSize * x) + new Vector2(transform.position.x, transform.position.z);
 
                     // Spawn clone
-                    GameObject clone = Instantiate(wallPrefab, new Vector3(spawnPos.x, storeyHeight, spawnPos.y), Quaternion.identity);
+                    GameObject prefab = GetWallObject(y, numStoreys);
+                    if (prefab == null)
+                        return;
 
+                    GameObject clone = Instantiate(prefab, new Vector3(spawnPos.x, storeyHeight, spawnPos.y), Quaternion.identity);
                     // Orientate clone
-                    clone.transform.forward = GetWallNormal(i);
+                    clone.transform.forward = GetWallNormal(point);
                     clone.transform.position += clone.transform.right * unitSize;
 
                     // Set clone propreties
@@ -83,7 +98,7 @@ public class BuildingGenerator : MonoBehaviour {
                 }
             }
 
-            storeyHeight += GetWallHeight(curStorey, numWalls);
+            storeyHeight += GetWallHeight(y, numWalls);
         }
     }
 
@@ -101,10 +116,20 @@ public class BuildingGenerator : MonoBehaviour {
     }
 
     float GetWallHeight(int y, int numWalls) {
-        if (y == 0 || y == numWalls - 1)
-            return 2;
+        if (y == 0) 
+            return 1;
         else 
             return unitSize;
+    }
+
+    GameObject GetWallObject(int y, int numWalls) {
+        if (y == 0) {
+            return botPrefab != null ? botPrefab : defaultAssets.botWallPrefab;
+        }
+        else if (y == numWalls - 1)
+            return topPrefab != null ? topPrefab : defaultAssets.topWallPrefab;
+        else
+            return wallPrefab != null ? wallPrefab : defaultAssets.wallPrefab;
     }
 
     void OnDrawGizmos() {
@@ -112,6 +137,7 @@ public class BuildingGenerator : MonoBehaviour {
     }
 
     void DrawLines() {
+        /*
         Vector2[] points = controlPoints;
         float yOffset = 0.01f;
 
@@ -130,5 +156,15 @@ public class BuildingGenerator : MonoBehaviour {
             Gizmos.DrawLine(posA, posB);
 
         }
+        */
+    }
+
+    public void ResetControlPoints() {
+        controlPoints = new Vector2[] {
+            new Vector2(-8, 8),
+            new Vector2(8, 8),
+            new Vector2(8, -8),
+            new Vector2(-8, -8)
+        };
     }
 }

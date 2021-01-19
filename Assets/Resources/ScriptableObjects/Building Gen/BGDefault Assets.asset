@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11bdf667e595cba448ce4733bebf53cb, type: 3}
+  m_Name: BGDefault Assets
+  m_EditorClassIdentifier: 
+  wallPrefab: {fileID: 1282386302820665862, guid: ed04fd0bc83e8d94fa13d3651fae4eb3, type: 3}
+  topWallPrefab: {fileID: 6929631178115176369, guid: cec7c29b1a275a141948c1346cd01754, type: 3}
+  botWallPrefab: {fileID: 1282386302820665862, guid: b9eda4ba41ac6194980793b7542f320a, type: 3}

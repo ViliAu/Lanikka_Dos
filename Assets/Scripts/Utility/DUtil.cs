@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public static class DUtil {
 
     /// <summary>
@@ -29,5 +31,13 @@ public static class DUtil {
     /// <returns>Returns wether or not given value is between min and max</returns>
     public static bool Between(float a, float min, float max) {
         return a > min ? a < max : false;
+    }
+
+    public static Vector3 Vec2ToVec3XZ(Vector2 vec2) {
+        return new Vector3(vec2.x, 0, vec2.y);
+    }
+
+    public static Vector3 Vec3ToVec2XZ(Vector3 vec3) {
+        return new Vector2(vec3.x, vec3.z);
     }
 }
